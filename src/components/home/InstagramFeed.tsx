@@ -33,10 +33,11 @@ export function InstagramFeed() {
           Studio Journal
         </span>
         <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#283C2A] uppercase tracking-wide">
-          FOLLOW @THEPOOKIECRAFT
+          FOLLOW @{siteConfig.instagramHandle}
         </h2>
         <p className="text-xs sm:text-sm text-[#687060] font-sans font-light max-w-md mx-auto">
-          A peek behind the scenes in our studio. Daily stitches, work in progress, and lifestyle inspiration.
+          A peek behind the scenes in our studio. Daily stitches, work in
+          progress, and lifestyle inspiration.
         </p>
       </div>
 

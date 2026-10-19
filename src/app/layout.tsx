@@ -1,14 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { CartProvider } from "@/context/CartContext";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
-import { BrandCurtain } from "@/components/layout/BrandCurtain";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { CartDrawer } from "@/components/cart/CartDrawer";
-import { QuickCheckoutModal } from "@/components/cart/QuickCheckoutModal";
 import { siteConfig } from "@/config/site";
+import { getCatalog } from "@/lib/catalog";
+import { BagProvider } from "@/context/BagContext";
+import { BagDrawer, BagRouteOpener } from "@/components/bag/BagDrawer";
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
@@ -36,36 +35,36 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/images/products/sunflower_bouquet.jpg",
+        alt: "Handmade forever flowers from The Pookie Craft Co.",
+      },
+    ],
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const catalog = await getCatalog();
   return (
-    <html lang="en" className="h-full scroll-smooth">
-      <body className="min-h-full flex flex-col bg-[#FEF7ED] text-[#283C2A] selection:bg-[#283C2A] selection:text-[#FEF7ED] font-sans antialiased">
-        <CartProvider>
-          {/* First session visual reveal */}
-          <BrandCurtain />
-
-          {/* Header navigation (fixed floating transparent-to-scrolled) */}
-          <Navbar />
-
-          {/* Page contents */}
-          <main className="flex-grow">{children}</main>
-
-          {/* Global Footer */}
+    <html lang="en">
+      <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <BagProvider>
+          <Navbar categories={catalog.categories} />
+          <main id="main-content">{children}</main>
           <Footer />
-
-          {/* Interactive Slide-over Cart */}
-          <CartDrawer />
-
-          {/* Quick WhatsApp / Instagram Checkout Modal */}
-          <QuickCheckoutModal />
-        </CartProvider>
+          <BagDrawer initialProducts={catalog.products} />
+          <Suspense fallback={null}>
+            <BagRouteOpener />
+          </Suspense>
+        </BagProvider>
       </body>
     </html>
   );

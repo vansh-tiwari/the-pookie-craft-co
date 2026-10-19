@@ -39,3 +39,7 @@ yarn-error.log*
 # TypeScript cache
 *.tsbuildinfo
 next-env.d.ts
+
+# Local business content and development build outputs
+/.data/
+/.next-*/

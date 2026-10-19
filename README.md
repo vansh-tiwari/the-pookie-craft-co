@@ -1,124 +1,53 @@
-# The Pookie Craft Co. (@thepookiecraft) — D2C E-Commerce Storefront
+# The Pookie Craft Co.
 
-An end-to-end artisanal D2C e-commerce platform built for **The Pookie Craft Co.** ([@thepookiecraft](https://www.instagram.com/thepookiecraft/)). Turning pipe cleaners into petals: handcrafted forever bouquets, custom IPL sports jersey keychains, ambient Lumiflower lamps, and Cadbury sweetheart gift hampers.
+A mobile-first handmade-gift catalog with customization-aware WhatsApp enquiries, Instagram links, a server-protected owner studio, and stored custom requests. Built on the existing Next.js 15 / React 19 / Tailwind project and existing brand/product photos. Includes a persistent multi-item enquiry bag that slides in from the right over the current page, with product subtotals and one combined WhatsApp/Instagram summary. The bag icon and adding a product open the drawer; continuing to browse keeps the same page and scroll position. No online payment checkout, customer accounts, wishlists, or order tracking.
 
----
+## Run locally
 
-## 🌸 Key Highlights & Architectural Features
-
-| Feature | Details |
-| :--- | :--- |
-| **Catalog Hydration** | **Instant 0ms SSR**: All 19 routes prerendered with Next.js 15 App Router |
-| **Checkout Flow** | **Dual Phase**: 1-click WhatsApp / Instagram Concierge (Phase 1) + Ready-to-activate Razorpay (Phase 2) |
-| **Authentic Instagram Media** | Real 9-post crop assets from your `@thepookiecraft` screenshot in `public/images/instagram/` |
-| **Sharp Studio AI Imagery** | Ultra-sharp macro studio photography for hero drops in `public/images/products/` |
-| **Mobile Conversion** | **Sticky Mobile Order Bar**: Persistent WhatsApp quick order bar on scroll |
-| **Custom Commissions** | **Dedicated Bespoke Studio** (`/custom-orders`) for custom cricket jersey numbers & bouquet sizing |
-| **Lead Protection** | **Merchant Lead Vault** (`/admin`): Captures leads locally before WhatsApp opens |
-| **Editorial Brand Reveal** | **Brand Curtain**: First-session opening curtain animation with `sessionStorage` guard |
-
----
-
-## 🚀 Quick Start
-
-### 1. Install Dependencies
-```bash
+```sh
 npm install
-```
-
-### 2. Start Development Server
-```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Production Build
-```bash
+Open [the local preview](http://127.0.0.1:3000). The `127.0.0.1` origin avoids service-worker caches from unrelated projects previously served at `localhost:3000`.
+
+Copy `.env.example` into a private environment file only if you do not already have `.env.local`. Preserve existing environment settings. Confirm the actual WhatsApp number and email; blank values do not invent contact details. The old sample number `+919876543210` is explicitly disabled. WhatsApp actions fall back to the contact page until a real number is configured.
+
+## Owner access
+
+1. Set `ADMIN_EMAIL` in `.env.local`.
+2. Run `npm run admin:password` in a private terminal and store the resulting salted hash in `ADMIN_PASSWORD_HASH`. Input is visible in that terminal; plaintext passwords are never saved by the script.
+3. Generate a secret with `openssl rand -hex 32`, and set `ADMIN_SESSION_SECRET`.
+4. Restart the development server, then visit `/admin`.
+
+There is one owner, no public registration. Sessions expire after eight hours. Cookie sessions are HttpOnly and SameSite Strict, and Secure in production. Server writes check authentication and request origin. Failed logins are throttled. See [handover](docs/HANDOVER.md) for recovery and operations.
+
+## Content and storage
+
+Development uses ignored `.data/catalog.json` and `.data/requests.json`; it is intended for a single local server. Seed products use the existing catalog. Only enquiry-bag selections (product IDs, colours/options, personalization, quantities) are saved in customer localStorage. Prices and images are read from the current catalog; customer enquiries are not stored as browser-local merchant leads.
+
+Production uses an **owner-controlled Upstash-compatible Redis REST database**. Set server-only `CONTENT_REDIS_URL` and `CONTENT_REDIS_TOKEN`. Production admin login, content writes, and custom request storage are disabled until durable storage is configured. Public browsing can display the seed catalog without it. If a configured storage service fails, the application shows an error instead of silently replacing published content.
+
+Uploaded photos are embedded in catalog data for this small Phase 1 catalog. Limits: 350 KB per image, eight photos per product, 4 MB per catalog save. Existing local assets remain in `public/images/`. Catalog saves use version checks to prevent overwriting newer edits. Separate image storage and media URLs are a future scaling step; this implementation deliberately avoids a second paid service.
+
+Custom forms validate all six fields and confirm receipt only after server persistence. Core fields are idea, colours, budget, and personalized text/design; name and contact enable replies. The protected inbox holds up to 500 requests, refuses overflow, and supports permanent deletion. The form has a honeypot and a shared 30-request/hour limit. Logins have a shared ten-attempt/15-minute limit; these global limits are intentionally conservative for a single-owner business. Development counters are process-local; production counters live in Redis.
+
+## Verify
+
+```sh
+npm run lint
+npm test
 npm run build
-npm start
 ```
 
----
+`npm test` starts an isolated local server on port 3101 with random, temporary test credentials and a disposable data directory. It checks multi-item bag identity/merging, fixed versus starting-price totals, restoration, stale/deleted products, combined messages, the enquiry builder, authorization, origin checks, request storage and deletion, publish conflicts, private-review filtering, product metadata, required routes, and disabled payment endpoints. It does not contact WhatsApp, Instagram, or an external database. Permission to bind localhost may be required in a sandbox.
 
-## 🛠️ Configuration & Brand Customization
+## Costs and launch
 
-All brand information, contact numbers, and checkout toggles live in a single file:
-👉 **[`src/config/site.ts`](file:///Users/rtiwar36/Documents/PP/pookie/src/config/site.ts)**
+No new runtime package dependencies were introduced. The service adapter uses native server-side fetch and Node cryptography.
 
-```typescript
-export const siteConfig = {
-  name: "The Pookie Craft Co.",
-  tagline: "Turning pipe cleaners into petals.",
-  subline: "Handcrafted forever bouquets, custom IPL keychains & glowing Lumiflower lamps.",
-  
-  // Update your actual WhatsApp business number
-  whatsappNumber: "+919876543210", 
-  whatsappDisplay: "+91 98765 43210",
-  instagramHandle: "thepookiecraft",
-  instagramUrl: "https://www.instagram.com/thepookiecraft/",
-  
-  // Shipping thresholds
-  shipping: {
-    freeThreshold: 999, // Free delivery above ₹999
-    flatRate: 79,
-  },
+Planning estimate checked 19 October 2026: Vercel Pro lists **US$20/month**, plus applicable usage/tax; confirm the existing account and seat costs. Vercel Hobby is restricted to personal, non-commercial use, so do not assume a business catalog is eligible for free hosting. Sources: [Vercel pricing](https://vercel.com/pricing), [Hobby plan terms](https://vercel.com/docs/plans/hobby).
 
-  // Checkout Mode: 'WHATSAPP' | 'INSTAGRAM' | 'RAZORPAY'
-  checkoutMode: "WHATSAPP",
-};
-```
+Redis can start at **US$0/month within the provider's free-tier quotas**; select the owner’s plan after checking traffic, persistence, and backup needs. Domain registration and renewal are extra and depend on the chosen domain/registrar. No domain or service has been purchased. Source: [Upstash Redis pricing](https://upstash.com/pricing/redis).
 
----
-
-## 🛍️ Active Product Catalog
-
-The products from your Instagram feed and story highlights are defined in:
-👉 **[`src/data/products.ts`](file:///Users/rtiwar36/Documents/PP/pookie/src/data/products.ts)**
-
-- **CSK #7 Dhoni Helicopter Jersey Keychain** (₹199)
-- **MI #45 Rohit Bleed Blue Jersey Keychain** (₹199)
-- **RCB Virat King Jersey Keychain** (₹199)
-- **Radiant Sunburst Pookie Sunflower** (₹249 — Under ₹299 drop)
-- **The Lumiflower Fairy Blossom Lamp** (₹599)
-- **The Pookie Sweetheart Cadbury Bouquet** (₹699)
-- **Velvet Sunset Rose Stem** (₹179 — Under ₹199 drop)
-- **Lavender Whisper & Pearl Flower** (₹199)
-- **Handcrafted Floral Cup Holder Coaster** (₹249)
-
----
-
-## 📱 Phase 1: WhatsApp & Instagram Checkout Architecture
-
-1. **Bag & Quantity Selection**: Patrons add items to their bag with edition or color choices.
-2. **Delivery Details Form**: Patrons enter Name, Phone, and Delivery Address.
-3. **Structured WhatsApp URL**: An emoji-formatted WhatsApp message is generated with order reference `#POOKIE-2026-XXXX`, customer details, item breakdown, and subtotal.
-4. **Lead Protection**: Before opening WhatsApp, the order is cached in the browser's storage. Even if the customer does not hit send, the merchant can see the lead in `/admin`.
-5. **Instagram Fallback**: Patrons can click "Copy for Instagram" to copy the formatted text to clipboard and open `@thepookiecraft` in one click.
-
----
-
-## 💳 Phase 2: Activating Razorpay Payments
-
-When you are ready to accept UPI / Credit Card / NetBanking directly on your website:
-
-1. Create a `.env.local` file in the project root:
-```env
-NEXT_PUBLIC_CHECKOUT_MODE="RAZORPAY"
-NEXT_PUBLIC_RAZORPAY_KEY_ID="rzp_live_your_actual_key"
-RAZORPAY_KEY_ID="rzp_live_your_actual_key"
-RAZORPAY_KEY_SECRET="your_actual_secret"
-```
-
-2. The built-in API routes are already configured:
-- `POST /api/create-order`: Generates Razorpay order IDs with amount verification.
-- `POST /api/verify-payment`: Validates Razorpay HMAC SHA256 payment signatures.
-
----
-
-## 🛡️ Studio Merchant Portal (`/admin`)
-
-Visit **[`/admin`](http://localhost:3000/admin)** on your store:
-- **Order Pipeline**: View new inquiries, crafting in-progress, and dispatched parcels.
-- **Customer Contacts**: Names, phone numbers, delivery addresses, and custom notes.
-- **One-Click Chat**: Open a direct WhatsApp chat with any patron right from the table.
-- **CSV Export**: Download orders for courier label printing or account reconciliation.
+Production needs verified contacts/product facts, owner credentials, an approved durable storage account, backups, final policy/business details, a preview review, and owner approval. No production deployment has been performed. See [launch and handover checklist](docs/HANDOVER.md).
