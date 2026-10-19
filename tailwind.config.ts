@@ -9,6 +9,27 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        paper: "#F6F0E6",
+        ink: {
+          DEFAULT: "#252923",
+          light: "#4A5247",
+          muted: "#667062",
+        },
+        mulberry: {
+          DEFAULT: "#682B43",
+          hover: "#532135",
+          light: "#823755",
+          tint: "#F4ECF0",
+        },
+        marigold: {
+          DEFAULT: "#E6B94A",
+          hover: "#D4A536",
+          light: "#FDF4DE",
+        },
+        lilac: {
+          DEFAULT: "#C8BED8",
+          light: "#EAE5F2",
+        },
         ecru: "#FEF7ED",
         linen: "#F6EFE3",
         "craft-card": "#FFFDF9",
@@ -28,13 +49,13 @@ const config: Config = {
           dark: "#4E5548",
         },
         craft: {
-          border: "#DCD1C1",
-          hover: "#CFC3B0",
+          border: "#E4DDD2",
+          hover: "#D6CDC0",
         },
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "Playfair Display", "Cormorant Garamond", "serif"],
-        sans: ["var(--font-sans)", "Plus Jakarta Sans", "Inter", "sans-serif"],
+        serif: ["var(--font-serif)", "Fraunces", "Cormorant Garamond", "serif"],
+        sans: ["var(--font-sans)", "Manrope", "Plus Jakarta Sans", "Inter", "sans-serif"],
       },
       boxShadow: {
         organic: "0 10px 30px -5px rgba(40, 60, 42, 0.08)",

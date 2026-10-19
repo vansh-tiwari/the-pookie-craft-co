@@ -196,17 +196,16 @@ export function ProductDetailClient({
               disabled={!bag.ready}
             >
               {status === "Sold Out"
-                ? "Save for a restock enquiry"
-                : "Add to enquiry bag"}{" "}
-              ♡
+                ? "Save for Restock Request"
+                : "Add to Bag"}
             </button>
             {added && (
               <div className="bag-added" role="status">
-                Added with your chosen details.{" "}
+                Added to your bag.{" "}
                 <button type="button" onClick={bag.openBag}>
-                  View enquiry bag ↗
+                  View Bag ↗
                 </button>
-                <Link href="/shop">Add another little love ↗</Link>
+                <Link href="/shop">Continue Shopping ↗</Link>
               </div>
             )}
             {bag.storageNotice && (
@@ -221,8 +220,8 @@ export function ProductDetailClient({
               value="direct"
             >
               {status === "Sold Out"
-                ? "Ask about restocking on WhatsApp"
-                : "Enquire on WhatsApp"}{" "}
+                ? "Ask About Restock on WhatsApp"
+                : "Order on WhatsApp"}{" "}
               ↗
             </button>
             <a
@@ -231,7 +230,7 @@ export function ProductDetailClient({
               rel="noreferrer"
               className="text-link"
             >
-              Prefer Instagram? Say hello ↗
+              Prefer Instagram? Message studio ↗
             </a>
             <p className="small-note">
               {p.startingPrice && "Custom options may cost extra. "}Final price,

@@ -27,28 +27,28 @@ const studioMoments = [
 
 export function InstagramFeed() {
   return (
-    <section className="py-20 bg-[#F6EFE3] border-t border-[#DCD1C1]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 mb-10">
-        <span className="text-xs uppercase tracking-[0.2em] text-[#967F4F] font-medium block">
-          Studio Journal
+    <section className="py-16 sm:py-20 bg-[#F6F0E6] border-t border-[#E4DDD2]">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2.5 mb-10">
+        <span className="text-xs uppercase tracking-[0.2em] text-[#682B43] font-semibold block">
+          STUDIO JOURNAL
         </span>
-        <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#283C2A] uppercase tracking-wide">
-          FOLLOW @{siteConfig.instagramHandle}
+        <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#252923]">
+          Follow @{siteConfig.instagramHandle}
         </h2>
-        <p className="text-xs sm:text-sm text-[#687060] font-sans font-light max-w-md mx-auto">
-          A peek behind the scenes in our studio. Daily stitches, work in
-          progress, and lifestyle inspiration.
+        <p className="text-xs sm:text-sm text-[#667062] font-sans font-light max-w-md mx-auto">
+          Behind-the-scenes in our studio. Daily handmade flower bouquets,
+          bespoke keepsakes, and craft drops.
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {studioMoments.map((moment) => (
           <a
             key={moment.id}
             href={siteConfig.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative aspect-square overflow-hidden bg-[#FEF7ED] border border-[#DCD1C1] rounded-sm cursor-pointer shadow-xs"
+            className="group relative aspect-square overflow-hidden bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl cursor-pointer shadow-xs"
           >
             <Image
               src={moment.image}

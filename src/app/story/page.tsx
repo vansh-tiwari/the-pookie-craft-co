@@ -13,21 +13,20 @@ export default async function StoryPage() {
     <div className="section-wrap">
       <div className="story-page">
         <div>
-          <p className="eyebrow">THE HANDS BEHIND THE HAPPY</p>
+          <p className="eyebrow">CONTEMPORARY INDIAN CRAFT</p>
           <h1>
-            Made slowly.
+            Made to be kept.
             <br />
             Given with love.
           </h1>
           <p className="intro-copy">{home.story}</p>
           <p>
-            From a flower that never needs watering to a little keepsake in your
-            favourite colours, we make gifts that feel personal. Each piece is
-            shaped and assembled by hand, so small differences are part of its
-            character.
+            From velvety blossoms that never need watering to handcrafted jersey keychains
+            and glowing Lumiflower lamps, we craft pieces meant to be treasured.
+            Each creation is hand-sculpted in our India studio from tactile chenille wire.
           </p>
           <Link href="/custom-orders" className="pill-button">
-            Let’s make your little idea ↗
+            Create a Custom Gift ↗
           </Link>
         </div>
         <div className="detail-photo">

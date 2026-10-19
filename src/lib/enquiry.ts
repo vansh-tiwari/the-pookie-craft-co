@@ -31,18 +31,18 @@ export function productEnquiry(
     throw new Error("Please enter your personalized text or design.");
   const intro =
     availability(product) === "Sold Out"
-      ? "Hi! Could you confirm restocking or made-to-order options for this sold-out product?"
-      : "Hi! I'd like to enquire about this product from The Pookie Craft Co.";
+      ? "Hi! Could you confirm restocking or made-to-order options for this sold-out piece?"
+      : "Hi, I’d like to place an order with The Pookie Craft Co.";
   return [
     intro,
     `Product: ${product.name}`,
-    `Price: ${priceLabel(product)}${product.startingPrice ? " (final quote to be confirmed)" : ""}`,
-    `Color: ${choices.color || "Not applicable"}`,
+    `Price: ${priceLabel(product)}${product.startingPrice ? " (quote to be confirmed)" : ""}`,
+    `Colour: ${choices.color || "Not applicable"}`,
     `Personalized text/design: ${choices.personalization.trim() || "None requested"}`,
     ...Object.entries(choices.variants).map(([k, v]) => `${k}: ${v}`),
     `Quantity: ${choices.quantity}`,
     `Product link: ${baseUrl}/product/${product.slug}`,
-    "Please confirm availability, final price, delivery charges, delivery time, and advance payment details.",
+    "Please confirm delivery charges and the final amount.",
   ].join("\n");
 }
 export function productEnquiryUrl(

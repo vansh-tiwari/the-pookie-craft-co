@@ -13,29 +13,30 @@ export function Footer() {
             <Link href="/" className="font-serif text-3xl">
               The Pookie Craft Co.
             </Link>
-            <p className="mt-4 max-w-xs">
-              A little handmade happiness, from our hands to your heart.
+            <p className="mt-4 max-w-xs text-sm text-[#DCD1C1]">
+              Turning pipe cleaners into petals. Velvety forever flowers and
+              custom keepsakes that stay forever.
             </p>
-            <p className="mt-4 text-sm">Made in India. Gifted with love.</p>
+            <p className="mt-4 text-xs text-[#E6B94A]">Made in India · Shipped Nationwide</p>
           </div>
           <div>
-            <h2>Find your little happy</h2>
-            <Link href="/shop">Shop all products</Link>
+            <h2>Shop & Discover</h2>
+            <Link href="/shop">Shop Gifts</Link>
             <button type="button" className="footer-bag-link" onClick={openBag}>
-              Your enquiry bag
+              Your Bag
             </button>
-            <Link href="/custom-orders">Request a custom order</Link>
-            <Link href="/story">Our story</Link>
+            <Link href="/custom-orders">Custom Order Request</Link>
+            <Link href="/story">Our Story</Link>
             <Link href="/faq">FAQs</Link>
           </div>
           <div>
-            <h2>Let’s talk</h2>
+            <h2>Connect With Us</h2>
             <a
               href={whatsappLink(
-                "Hello! I'd like to enquire about a handmade gift.",
+                "Hello! I'd like to place an order with The Pookie Craft Co.",
               )}
             >
-              WhatsApp ↗
+              WhatsApp Studio ↗
             </a>
             <a href={siteConfig.instagramUrl} target="_blank" rel="noreferrer">
               Instagram ↗
@@ -65,14 +66,14 @@ export function Footer() {
       <a
         className="floating-whatsapp"
         href={whatsappLink(
-          "Hi! I'd love to know more about your handmade gifts.",
+          "Hi! I'd like to place an order with The Pookie Craft Co.",
         )}
         target={siteConfig.whatsappClean ? "_blank" : undefined}
         rel="noreferrer"
-        aria-label="Enquire on WhatsApp"
+        aria-label="Order on WhatsApp"
       >
         <MessageCircle size={24} />
-        <span>Let’s chat</span>
+        <span>Order on WhatsApp</span>
       </a>
     </>
   );

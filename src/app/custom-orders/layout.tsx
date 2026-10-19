@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "Request a custom gift",
+  title: "Custom Order Request | The Pookie Craft Co.",
   description:
-    "Share your handmade gift idea, colours, budget, and personalized design with The Pookie Craft Co.",
+    "Share your custom handmade bouquet, keychain, or lamp request with The Pookie Craft Co.",
   alternates: { canonical: "/custom-orders" },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

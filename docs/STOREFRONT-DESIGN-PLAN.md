@@ -56,7 +56,7 @@ Keep the established brand name, logo, and handmade positioning. Use approved fa
 | Display typography | Prototype Fraunces in medium/semibold weights for expressive, readable headlines. |
 | Interface typography | Prototype Manrope for navigation, product information, forms, and totals. Self-host selected font files when implementing. |
 | Shape | Rectangular compositions and 6–10 px control corners; rounded forms where they have a purpose, such as colour swatches. |
-| Layout | A 12-column desktop structure, approximately 1320–1440 px content width, and 20 px mobile gutters. |
+| Layout | A contained 12-column desktop structure, capped at approximately 1240–1280 px, centred on wider screens; 20 px mobile gutters. Editorial imagery may bleed outside the container intentionally. |
 | Type scale | Approximately 80–112 px hero display on wide screens, 42–56 px on mobile; body 16 px; controls 14–16 px. Test actual text fit. |
 | Graphic signature | A restrained chenille-wire line that curves through selected editorial compositions and resolves into a petal or loop. Create this as an original SVG/code asset. |
 | Shadows | Reserved for overlays, lifted imagery, and active layers. |
@@ -89,6 +89,16 @@ Use a clear progression from product desire to shopping, then proof of craft:
 
 Avoid consecutive product sections containing the same selections. Preserve owner management of homepage content and selections.
 
+### Layout density and proportions
+
+- Use a composed, contemporary layout with deliberate variation between editorial sections and product grids. Keep alignment and spacing consistent across those different compositions.
+- Cap ordinary content at 1240–1280 px. On large monitors, use generous outer margins instead of stretching cards, text, and forms across the entire browser.
+- Keep descriptive text to approximately 55–65 characters per line. Align text and actions in purposeful groups instead of distributing them across empty horizontal space.
+- The desktop home hero should generally fit within 480–620 px of content height, adjusted for the actual images and copy. Mobile height follows its content. Do not force the hero or ordinary sections to occupy 100vh.
+- Start with approximately 48–64 px between major desktop sections and 32–40 px on mobile, then tune by composition. Avoid large empty bands repeated after every heading.
+- Use four product columns on a suitably wide desktop, three at intermediate widths, and two on normal phone widths. Keep product images proportional and product names/prices readable.
+- Give Shop a compact title and utility area; reserve the more expressive editorial layouts for Home and collection storytelling.
+
 ## 5. Shopping flow
 
 ### Browse and choose
@@ -102,6 +112,39 @@ Avoid consecutive product sections containing the same selections. Preserve owne
 - Ready products without required selections can have direct Add to Bag. Products requiring choices use **Choose Options**, opening a quick-view dialog on desktop and a sheet on mobile.
 - Reuse the same product-option form in quick view and the full product page. The full page remains available through the product name, image, and “View full details.” Direct product URLs continue to work.
 - Restore a secondary image reveal on desktop and a clearly controlled image gallery on touch devices. Required actions must remain visible without hovering.
+
+### Compact shop and filter layout — explicit requirement
+
+The current large six-field filter block will be removed from the default shop layout. Filters will not have a separate page, occupy a full viewport, or expand a tall form above the products.
+
+Default arrangement:
+
+```text
+DESKTOP — centred, maximum 1240–1280 px content width
+Shop                         Search products        Filter (2)   Sort
+All   Flowers   Keychains   Lamps   Gifts   …
+Active filter chips / product count
+[Product]       [Product]       [Product]       [Product]
+
+MOBILE — 20 px side gutters
+Shop                                      Bag
+Search products
+All   Flowers   Keychains   Lamps   …   (horizontal category tabs)
+9 products                    Filter (2)   Sort
+[Product]                 [Product]
+```
+
+Here “Bag” represents continued easy access to the existing header control, not a second duplicate bag button.
+
+- **Desktop filters:** a roughly 320–360 px popover anchored to the Filter button, with a bounded internal height. The product grid stays visible and its position stays fixed. Changes update the results and removable filter chips.
+- **Mobile filters:** a bottom sheet initially sized to its content and capped at approximately 60–65% of the usable viewport. Use compact expandable groups, a result count, and a stable Apply Filters action. Scroll within the sheet if necessary. Closing without applying preserves the previously applied filters.
+- **Sort:** a small anchored menu or native selector; it does not open a full-screen overlay.
+- **Search:** a compact input in the toolbar on desktop and a single readable row on mobile. It does not require a separate search page for catalog filtering.
+- **Categories:** concise tabs with horizontal scrolling where necessary, not a multi-row wall of large category cards above the shop grid. All categories remain accessible.
+- **Applied filters:** removable chips and Clear All appear near the result count. Persist the applied state in the URL.
+- **First-screen target:** at 1440×900 and 390×844 CSS viewport sizes, the first product images should begin within approximately 280–300 px of the top of the viewport, including the site header. Verify with actual content and default text size. Large-text accessibility settings may increase this height.
+- **Visual density:** target a 64–72 px site header, a compact shop title, 44–48 px controls, and restrained gaps. Remove the long shop introduction from the default shopping path.
+- **Overlay hierarchy:** filters, quick view, and bag each have a clear role. Opening the bag from quick view transitions into the bag and restores focus correctly on close; it must not create a stack of competing full-screen panels.
 
 ### Product page
 
@@ -234,6 +277,9 @@ Build the product/card/drawer prototype before redesigning every supporting page
 - Fixed and variable-price products produce correct item totals and Product Total. Known selected extras affect the displayed and WhatsApp amounts identically.
 - Order on WhatsApp opens one complete, correctly encoded order message with the selected options and current product links. It does not claim the owner has already confirmed the order.
 - The shop’s first viewport includes a visible product row at representative desktop sizes and starts showing actual products without a large filter form dominating a phone screen.
+- Ordinary desktop content stays within a 1240–1280 px maximum width; wide screens do not stretch product cards or reading lines.
+- Desktop filters use an anchored popover and mobile filters use a bounded bottom sheet, not a full-screen filter page. Applying, cancelling, clearing, and restoring filter state are tested.
+- At the stated default desktop/mobile viewport sizes, first product images begin within approximately 280–300 px from the top; the home hero does not impose a full-viewport height.
 - Product actions, prices, and availability remain readable without hover. Mobile sticky controls do not obscure inputs or browser-safe areas.
 - Check at 360/390 px, tablet, and wide desktop sizes; keyboard and touch interactions, zoom, long product names, empty results, and missing/changed products are covered.
 - Drawer close, Escape, backdrop, focus restoration, preview, option editing, and animation exit lifecycle pass regression checks.

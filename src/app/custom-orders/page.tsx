@@ -43,11 +43,11 @@ export default function CustomOrdersPage() {
   const message = `Hi! I submitted custom request ${id}. Product idea: ${form.idea}\nColours: ${form.colors}\nBudget: ${form.budget}\nPersonalized text/design: ${form.personalization}. Please confirm the possibilities, price, and delivery details.`;
   return (
     <div className="section-wrap custom-page">
-      <p className="eyebrow">A LITTLE MORE YOU</p>
-      <h1>Let’s make something personal.</h1>
+      <p className="eyebrow">CUSTOM CRAFT STUDIO</p>
+      <h1>Custom Order Request</h1>
       <p className="intro-copy">
-        A favourite colour, an inside joke, a gift you can’t find anywhere else.
-        Tell us your idea. We’ll work out the little details together.
+        Custom bouquets, personalised keychains, or glowing floral lamps.
+        Share your idea below. Our artisans will review your request and confirm all details in chat.
       </p>
       <div className="steps-grid">
         {[
@@ -108,7 +108,7 @@ export default function CustomOrdersPage() {
         </div>
       ) : (
         <form onSubmit={submit} className="request-form stack-form">
-          <h2>Your little big idea</h2>
+          <h2>Share your vision with our studio</h2>
           <div className="form-grid">
             {(
               [

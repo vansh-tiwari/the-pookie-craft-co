@@ -147,6 +147,7 @@ export function bagTotals(items: BagItem[], products: Product[]) {
     fixed,
     estimated,
     subtotal: Math.round((fixed + estimated) * 100) / 100,
+    productTotal: Math.round((fixed + estimated) * 100) / 100,
     needsQuote: lines.some((l) => l.estimated),
     canEnquire: lines.length > 0 && lines.every((l) => !l.error),
   };
@@ -160,33 +161,29 @@ export function bagEnquiry(
 ) {
   const totals = bagTotals(items, products);
   if (!items.length)
-    throw new Error("Add a little something to your bag first.");
+    throw new Error("Add a product to your bag first.");
   if (!totals.canEnquire)
     throw new Error(
-      "Some bag items have changed. Remove them and choose their details again before enquiring.",
+      "Some bag items have changed. Remove them and choose their details again before placing your order.",
     );
   const parts = totals.lines.map(({ product: p, item, estimated, amount }, i) =>
     [
       `${i + 1}. ${p!.name}`,
       `Availability: ${availability(p!)}${availability(p!) === "Sold Out" ? " — please confirm restocking or made-to-order options" : ""}`,
-      `Displayed unit price: ${p!.startingPrice ? "From " : ""}${money(p!.price)}`,
+      `Unit price: ${p!.startingPrice ? "From " : ""}${money(p!.price)}`,
       `Colour: ${item.choices.color || "Not applicable"}`,
       ...Object.entries(item.choices.variants).map(([k, v]) => `${k}: ${v}`),
       `Personalized text/design: ${item.choices.personalization || "None requested"}`,
       `Quantity: ${item.choices.quantity}`,
-      `${estimated ? "Estimated line subtotal (before any extra customization charges)" : "Line subtotal"}: ${money(amount)}`,
+      `${estimated ? "Line Total (estimate pending quote)" : "Line Total"}: ${money(amount)}`,
       `Product link: ${baseUrl}/product/${p!.slug}`,
     ].join("\n"),
   );
   return [
-    "Hi! I'd like to enquire about these items from The Pookie Craft Co.",
+    "Hi, I’d like to place an order with The Pookie Craft Co.",
     ...parts,
-    `Fixed-price items subtotal: ${money(totals.fixed)}`,
-    ...(totals.needsQuote
-      ? [`Starting/customized items estimate: ${money(totals.estimated)}`]
-      : []),
-    `${totals.needsQuote ? "Estimated product subtotal" : "Product subtotal"}: ${money(totals.subtotal)}`,
-    "Shipping: to be confirmed after sharing my delivery location.",
-    "Please confirm availability (including restocking for sold-out items), customization charges, final total, preparation/delivery time, and advance payment details. This is an enquiry, not a confirmed order.",
+    `Product Total: ${totals.needsQuote ? "From " : ""}${money(totals.productTotal)}`,
+    "Delivery charges to be confirmed after sharing delivery location.",
+    "Please confirm delivery charges and the final amount.",
   ].join("\n\n");
 }

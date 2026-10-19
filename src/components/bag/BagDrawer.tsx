@@ -55,7 +55,7 @@ export function BagDrawer({ initialProducts }: { initialProducts: Product[] }) {
   return (
     <dialog
       ref={dialog}
-      id="enquiry-bag-dialog"
+      id="bag-drawer-dialog"
       className="bag-drawer-dialog"
       aria-labelledby="bag-drawer-title"
       onCancel={(event) => {
@@ -72,15 +72,15 @@ export function BagDrawer({ initialProducts }: { initialProducts: Product[] }) {
             <h2 id="bag-drawer-title">Your Bag</h2>
             <p>
               {ready && count
-                ? `${count} ${count === 1 ? "piece" : "pieces"} in your enquiry bag`
-                : "A little room for your favourites"}
+                ? `${count} ${count === 1 ? "piece" : "pieces"} in your bag`
+                : "Handcrafted pieces ready to order"}
             </p>
           </div>
           <button
             type="button"
             className="bag-drawer-close"
             onClick={closeBag}
-            aria-label="Close enquiry bag"
+            aria-label="Close bag"
             autoFocus
           >
             <X size={22} />

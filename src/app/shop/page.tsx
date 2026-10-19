@@ -2,9 +2,9 @@ import { Suspense } from "react";
 import { getCatalog } from "@/lib/catalog";
 import { ShopCatalog } from "@/components/shop/ShopCatalog";
 export const metadata = {
-  title: "Shop handmade gifts",
+  title: "Shop Gifts | The Pookie Craft Co.",
   description:
-    "Explore forever flowers, keychains, lamps, and personalised gifts. Filter by category, colour, price, and availability.",
+    "Explore forever flowers, custom keychains, ambient lamps, and handcrafted gifts. Filter by category, colour, price, and availability.",
   alternates: { canonical: "/shop" },
 };
 export default async function ShopPage() {
@@ -12,7 +12,11 @@ export default async function ShopPage() {
   c.reviews = c.reviews.filter((r) => r.published && r.permission);
   return (
     <Suspense
-      fallback={<p className="section-wrap">Opening the happy little shop…</p>}
+      fallback={
+        <div className="max-w-[1280px] mx-auto px-6 py-28 text-sm font-sans text-[#667062]">
+          Loading collection…
+        </div>
+      }
     >
       <ShopCatalog catalog={c} />
     </Suspense>

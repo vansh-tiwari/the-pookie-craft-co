@@ -91,16 +91,16 @@ export function BagContents({
     >
       <div className="section-heading">
         <div>
-          <p className="eyebrow">ALL YOUR LITTLE LOVES, TOGETHER</p>
-          <h1>Your enquiry bag.</h1>
+          <p className="eyebrow">YOUR HANDCRAFTED SELECTION</p>
+          <h1>Your Bag</h1>
         </div>
         <Link href="/shop" className="text-link">
-          Keep exploring ↗
+          Continue Shopping ↗
         </Link>
       </div>
       <p className="intro-copy">
-        Gather your favourites, make them yours, and send us one lovely list.
-        We’ll confirm the final price and all the little details together.
+        Review your handcrafted keepsakes and flowers below. When ready, order
+        directly with our studio on WhatsApp.
       </p>
       {bag.storageNotice && (
         <p className="admin-notice" role="status">
@@ -111,14 +111,14 @@ export function BagContents({
         <p role="status">Opening your bag…</p>
       ) : !bag.items.length ? (
         <div className="empty-state">
-          <span aria-hidden="true">♡</span>
-          <h2>A little room for something lovely.</h2>
+          <span aria-hidden="true">✿</span>
+          <h2>Your bag is currently empty.</h2>
           <p>
-            Add products from their detail pages. Your colours and personal
-            touches will stay with each selection.
+            Explore our handcrafted flowers, custom keychains, and ambient lamps
+            to add items to your bag.
           </p>
           <Link href="/shop" className="pill-button">
-            Find your little happy ↗
+            Shop Gifts ↗
           </Link>
         </div>
       ) : (
@@ -190,7 +190,7 @@ export function BagContents({
                         {error}{" "}
                         {p && (
                           <Link href={`/product/${p.slug}`}>
-                            Choose updated details ↗
+                            Choose Options ↗
                           </Link>
                         )}
                       </p>
@@ -253,7 +253,7 @@ export function BagContents({
             <button
               className="text-link"
               onClick={() => {
-                if (confirm("Remove every item from your enquiry bag?")) {
+                if (confirm("Remove every item from your bag?")) {
                   bag.clear();
                   setNotice("");
                 }
@@ -262,8 +262,8 @@ export function BagContents({
               Clear bag
             </button>
           </div>
-          <aside className="bag-summary" aria-label="Enquiry summary">
-            <p className="eyebrow">THE LITTLE DETAILS</p>
+          <aside className="bag-summary" aria-label="Order summary">
+            <p className="eyebrow">ORDER SUMMARY</p>
             <h2>Your bag at a glance.</h2>
             <details
               className="bag-price-breakdown"
@@ -289,41 +289,29 @@ export function BagContents({
               )}
             </details>
             <div className="bag-summary-total">
-              <span>
-                {totals.needsQuote
-                  ? "Estimated product subtotal"
-                  : "Product subtotal"}
-              </span>
+              <span>Product Total</span>
               <strong>
                 {totals.needsQuote ? "From " : ""}
                 {money(totals.subtotal)}
               </strong>
             </div>
             <p className="small-note">
-              {presentation === "drawer" ? (
-                "Shipping is confirmed by location. Customization may cost extra. Final price and availability are confirmed in chat."
-              ) : (
-                <>
-                  {totals.needsQuote &&
-                    "Starting prices and personalization may cost more once the design is agreed. "}
-                  Shipping is confirmed after you share your delivery location.
-                  Final total, availability, timing, and advance payment are
-                  confirmed by the studio.
-                </>
-              )}
+              {totals.needsQuote
+                ? "Customisation and delivery charges confirmed on WhatsApp."
+                : "Delivery charges confirmed on WhatsApp."}
             </p>
             {totals.lines.some(
               (l) => l.product && availability(l.product) === "Sold Out",
             ) && (
               <p className="bag-warning">
-                Your bag includes sold-out pieces. Your message will ask about
+                Your bag includes sold-out pieces. Your order message will ask about
                 restocking or made-to-order options.
               </p>
             )}
             {!totals.canEnquire && (
               <p className="bag-warning">
                 Some selections need attention. Remove them and add the updated
-                choices before sending.
+                choices before ordering.
               </p>
             )}
             <button
@@ -331,11 +319,11 @@ export function BagContents({
               disabled={!canEnquire || !siteConfig.whatsappClean}
               onClick={whatsapp}
             >
-              Enquire on WhatsApp ↗
+              Order on WhatsApp ↗
             </button>
             {!siteConfig.whatsappClean && (
               <p className="small-note">
-                WhatsApp details are being confirmed. Copy your summary and
+                WhatsApp details are being confirmed. Copy your order details and
                 contact us on Instagram, or{" "}
                 <Link href="/contact">see contact options</Link>.
               </p>
@@ -345,13 +333,13 @@ export function BagContents({
               disabled={!canEnquire}
               onClick={copy}
             >
-              Copy summary for Instagram
+              Copy Order Details
             </button>
             <details
               className="bag-more-options"
               open={presentation !== "drawer"}
             >
-              <summary>Instagram & enquiry details</summary>
+              <summary>Order details & Instagram option</summary>
               <div className="bag-more-content">
                 <a
                   className="text-link"
@@ -373,12 +361,10 @@ export function BagContents({
                     }
                   }}
                 >
-                  {summaryVisible ? "Hide" : "Preview"} enquiry message
+                  {summaryVisible ? "Hide" : "View"} Order Details
                 </button>
                 <p className="small-note">
-                  This is an enquiry. Nothing is charged or confirmed on this
-                  website. Your bag is kept on this browser; avoid adding
-                  sensitive information.
+                  Order details are securely prepared on your browser and hand-confirmed with our studio on WhatsApp.
                 </p>
               </div>
             </details>

@@ -85,17 +85,17 @@ export function Navbar({ categories }: { categories: Category[] }) {
           <Link href="/story">About us</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/custom-orders" className="nav-cta">
-            Make it personal ↗
+            Custom Orders ↗
           </Link>
         </nav>
         <button
           type="button"
           onClick={openBag}
           className="bag-trigger"
-          aria-label={`Enquiry bag, ${ready ? count : 0} pieces`}
+          aria-label={`Your bag, ${ready ? count : 0} pieces`}
           aria-haspopup="dialog"
           aria-expanded={isOpen}
-          aria-controls="enquiry-bag-dialog"
+          aria-controls="bag-drawer-dialog"
         >
           <ShoppingBag size={21} aria-hidden="true" />
           <span className="bag-trigger-label">Bag</span>
