@@ -1,0 +1,336 @@
+import { Product, Testimonial } from "@/types";
+
+export const INITIAL_CATEGORIES = [
+  "All",
+  "Keychains & Charms",
+  "Forever Flowers",
+  "Lumiflowers & Lamps",
+  "Accessories",
+];
+
+export const INITIAL_PRODUCTS: Product[] = [
+  {
+    id: "pook-1",
+    slug: "csk-dhoni-helicopter-jersey-keychain",
+    name: "CSK #7 Dhoni Helicopter Jersey Keychain",
+    description:
+      "Handcrafted plush jersey keychain in Chennai Yellow with iconic #7 and collar detailing. Comes with high-grade metal keyring and mini bat charm. The ultimate tribute for every Dhoni fan!",
+    price: 199,
+    originalPrice: 249,
+    category: "Keychains & Charms",
+    image_url: "/images/instagram/ig_csk_keychain.jpg",
+    images: [
+      "/images/instagram/ig_csk_keychain.jpg",
+      "/images/products/jersey_keychains.jpg",
+    ],
+    material: "High-density Plush Pipe Cleaner & Textured Knit",
+    dimensions: "7.5cm × 6cm (Keyring loop: 3cm)",
+    leadTime: "Ready to ship (1–2 days)",
+    featured: true,
+    bestseller: true,
+    in_stock: true,
+    colors: [
+      { name: "Whistle Podu Yellow", hex: "#FACC15" },
+      { name: "Custom Name/No.", hex: "#EAB308" },
+    ],
+    variants: [
+      {
+        name: "Jersey Edition",
+        options: ["MS Dhoni #7", "Custom Name & Number"],
+      },
+    ],
+    tags: ["IPL Keychains", "Under ₹199", "Dhoni Paglu", "Bestseller"],
+    created_at: "2026-04-01T10:00:00Z",
+  },
+  {
+    id: "pook-2",
+    slug: "mi-rohit-bleed-blue-jersey-keychain",
+    name: "MI #45 Rohit Bleed Blue Jersey Keychain",
+    description:
+      "Show how you bleed blue! Hand-sculpted mini jersey keychain with bold #45 Rohit Sharma typography and orange sleeve piping. Pocket-friendly and sturdy for bike keys and backpacks.",
+    price: 199,
+    originalPrice: 249,
+    category: "Keychains & Charms",
+    image_url: "/images/instagram/ig_mi_keychain.jpg",
+    images: [
+      "/images/instagram/ig_mi_keychain.jpg",
+      "/images/products/jersey_keychains.jpg",
+    ],
+    material: "Plush Chenille Wire & Cotton Trims",
+    dimensions: "7.5cm × 6cm (Keyring loop: 3cm)",
+    leadTime: "Ready to ship (1–2 days)",
+    featured: true,
+    bestseller: true,
+    in_stock: true,
+    colors: [
+      { name: "Bleed Blue & Gold", hex: "#1D4ED8" },
+    ],
+    variants: [
+      {
+        name: "Jersey Edition",
+        options: ["Rohit Sharma #45", "Custom Number"],
+      },
+    ],
+    tags: ["IPL Keychains", "Under ₹199", "Bleed Blue", "Bestseller"],
+    created_at: "2026-04-01T10:30:00Z",
+  },
+  {
+    id: "pook-3",
+    slug: "rcb-virat-king-jersey-keychain",
+    name: "RCB Virat King Jersey Keychain",
+    description:
+      "Plush textured red and royal navy jersey keychain with #18 Virat detailing. Soft to touch, eye-catching, and handcrafted loop by loop for true RCB loyalists.",
+    price: 199,
+    originalPrice: 249,
+    category: "Keychains & Charms",
+    image_url: "/images/instagram/ig_rcb_keychain.jpg",
+    images: [
+      "/images/instagram/ig_rcb_keychain.jpg",
+      "/images/products/jersey_keychains.jpg",
+    ],
+    material: "Plush Chenille Wire & Silver Metal Ring",
+    dimensions: "7.5cm × 6cm",
+    leadTime: "Ready to ship (1–2 days)",
+    featured: true,
+    bestseller: false,
+    in_stock: true,
+    colors: [
+      { name: "Royal Crimson & Navy", hex: "#DC2626" },
+    ],
+    variants: [
+      {
+        name: "Jersey Edition",
+        options: ["Virat Kohli #18", "Captain Edition"],
+      },
+    ],
+    tags: ["IPL Keychains", "Under ₹199", "Play Bold"],
+    created_at: "2026-04-01T11:00:00Z",
+  },
+  {
+    id: "pook-4",
+    slug: "radiant-sunburst-pookie-sunflower",
+    name: "Radiant Sunburst Pookie Sunflower",
+    description:
+      "Premium sunflower quality that will stay with them forever! Each petal is sculpted from dense velvet pipe cleaners around a plush dark-brown seeded core. Includes a craft wooden stem and satin ribbon.",
+    price: 249,
+    originalPrice: 299,
+    category: "Forever Flowers",
+    image_url: "/images/products/sunflower_bouquet.jpg",
+    images: [
+      "/images/products/sunflower_bouquet.jpg",
+      "/images/instagram/ig_sunflower_promo.jpg",
+    ],
+    material: "Velvety Chenille Craft Wire & Wooden Core",
+    dimensions: "30cm height (Bloom diameter: 12cm)",
+    leadTime: "Immediate dispatch",
+    featured: true,
+    bestseller: true,
+    in_stock: true,
+    colors: [
+      { name: "Golden Sunshine", hex: "#F59E0B" },
+      { name: "Warm Honey", hex: "#D97706" },
+    ],
+    variants: [
+      {
+        name: "Stems Arrangement",
+        options: ["Single Forever Stem", "Trio Sunburst Bundle (+₹399)"],
+      },
+    ],
+    tags: ["Forever Flowers", "Under ₹299", "Never Wilt", "Bestseller"],
+    created_at: "2026-04-02T09:00:00Z",
+  },
+  {
+    id: "pook-5",
+    slug: "the-lumiflower-fairy-blossom-lamp",
+    name: "The Lumiflower Fairy Blossom Lamp",
+    description:
+      "Our viral signature creation! Translucent sculpted flower petals embedded with warm micro-LED fairy lights. Battery operated with an easy toggle switch at the base, filling your room with a dreamy, peaceful amber glow.",
+    price: 599,
+    originalPrice: 749,
+    category: "Lumiflowers & Lamps",
+    image_url: "/images/products/lumiflower_lamp.jpg",
+    images: [
+      "/images/products/lumiflower_lamp.jpg",
+      "/images/instagram/ig_lumiflower_lamp.jpg",
+    ],
+    material: "Translucent Craft Petals & Micro Fairy LED Core",
+    dimensions: "22cm height × 16cm diameter base",
+    leadTime: "2–3 days hand-assembly",
+    featured: true,
+    bestseller: true,
+    in_stock: true,
+    colors: [
+      { name: "Warm Amber Glow", hex: "#FBBF24" },
+      { name: "Blossom Pink Glow", hex: "#F472B6" },
+    ],
+    variants: [
+      {
+        name: "Light Mode",
+        options: ["Warm Amber Fairy Lights", "Multi-Pastel Dream Glow"],
+      },
+    ],
+    tags: ["Lumiflower", "Lamps from Pookie", "Fairy Lights", "Nightstand Decor"],
+    created_at: "2026-04-02T11:00:00Z",
+  },
+  {
+    id: "pook-6",
+    slug: "pookie-sweetheart-cadbury-bouquet",
+    name: "The Pookie Sweetheart Cadbury Bouquet",
+    description:
+      "The ultimate heartfelt gift! An exquisite combination of handmade forever pipe-cleaner blooms (roses, sunflowers, and baby's breath) surrounded by genuine Cadbury Dairy Milk chocolate bars, wrapped in pleated Korean craft paper with silk ribbon.",
+    price: 699,
+    originalPrice: 899,
+    category: "Forever Flowers",
+    image_url: "/images/products/chocolate_bouquet.jpg",
+    images: [
+      "/images/products/chocolate_bouquet.jpg",
+      "/images/instagram/ig_cadbury_bouquet.jpg",
+    ],
+    material: "Pipe Cleaner Blooms + Cadbury Dairy Milk Chocolates + Pleated Mesh",
+    dimensions: "38cm height × 25cm width",
+    leadTime: "Freshly assembled on order (2–3 days)",
+    featured: true,
+    bestseller: true,
+    in_stock: true,
+    colors: [
+      { name: "Candy Blossom Mix", hex: "#FB7185" },
+      { name: "Sunset Gold Mix", hex: "#FBBF24" },
+    ],
+    variants: [
+      {
+        name: "Chocolates Included",
+        options: ["Standard (4× Dairy Milk)", "Deluxe (8× Dairy Milk + KitKat) (+₹250)"],
+      },
+    ],
+    tags: ["Chocolate Bouquet", "Birthday Gift", "Anniversary", "Viral Drop"],
+    created_at: "2026-04-03T14:00:00Z",
+  },
+  {
+    id: "pook-7",
+    slug: "velvet-sunset-rose-stem",
+    name: "Velvet Sunset Rose Stem",
+    description:
+      "Turning pipe cleaners into petals! Layer upon layer of dense chenille wire sculpted into an everlasting velvet rose. Soft to the touch, non-wilting, and available in fiery sunset orange or classic crimson.",
+    price: 179,
+    originalPrice: 229,
+    category: "Forever Flowers",
+    image_url: "/images/products/pipe_cleaner_roses.jpg",
+    images: [
+      "/images/products/pipe_cleaner_roses.jpg",
+      "/images/instagram/ig_orange_flower.jpg",
+    ],
+    material: "Velvety Chenille Craft Stems & Green Leaves",
+    dimensions: "28cm length",
+    leadTime: "Ready to ship (1–2 days)",
+    featured: false,
+    bestseller: false,
+    in_stock: true,
+    colors: [
+      { name: "Fiery Sunset Orange", hex: "#EA580C" },
+      { name: "Ruby Velvet Red", hex: "#BE123C" },
+      { name: "Pastel Blossom Pink", hex: "#F472B6" },
+    ],
+    variants: [
+      {
+        name: "Rose Color",
+        options: ["Sunset Orange", "Ruby Red", "Blossom Pink"],
+      },
+    ],
+    tags: ["Roses", "Under ₹199", "Forever Flowers"],
+    created_at: "2026-04-03T15:00:00Z",
+  },
+  {
+    id: "pook-8",
+    slug: "lavender-whisper-pearl-flower",
+    name: "Lavender Whisper & Pearl Flower",
+    description:
+      "Delicate pastel lilac pipe-cleaner petals centered with a lustrous faux pearl. Subtle, elegant desk aesthetic that pairs beautifully with small ceramic bud vases.",
+    price: 199,
+    originalPrice: 249,
+    category: "Forever Flowers",
+    image_url: "/images/instagram/ig_lavender_pearl.jpg",
+    images: [
+      "/images/instagram/ig_lavender_pearl.jpg",
+      "/images/products/sunflower_bouquet.jpg",
+    ],
+    material: "Pastel Lilac Chenille & Faux Pearl",
+    dimensions: "25cm height",
+    leadTime: "Ready to ship",
+    featured: false,
+    bestseller: false,
+    in_stock: true,
+    colors: [
+      { name: "Pastel Lilac", hex: "#C084FC" },
+    ],
+    variants: [
+      {
+        name: "Stem Style",
+        options: ["Single Stem with Pearl", "Bundle of 3 (+₹290)"],
+      },
+    ],
+    tags: ["Lavender", "Under ₹199", "Aesthetic"],
+    created_at: "2026-04-03T16:00:00Z",
+  },
+  {
+    id: "pook-9",
+    slug: "handcrafted-car-cup-holder-insert",
+    name: "Handcrafted Floral Cup Holder Coaster",
+    description:
+      "Keep your car console or study desk cozy and drip-free! Plush crocheted & pipe-sculpted floral coaster with petal border that sits securely at the bottom of standard vehicle cup holders.",
+    price: 249,
+    originalPrice: 299,
+    category: "Accessories",
+    image_url: "/images/instagram/ig_blue_flower.jpg",
+    images: [
+      "/images/instagram/ig_blue_flower.jpg",
+    ],
+    material: "Organic Cotton Yarn & Flexible Chenille Petals",
+    dimensions: "7cm circular base (Universal car cup fit)",
+    leadTime: "Ready to ship (1–2 days)",
+    featured: false,
+    bestseller: false,
+    in_stock: true,
+    colors: [
+      { name: "Sky Blossom Blue", hex: "#38BDF8" },
+      { name: "Pastel Mint", hex: "#34D399" },
+    ],
+    variants: [
+      {
+        name: "Set Size",
+        options: ["Single Coaster", "Pair for Driver & Passenger (+₹180)"],
+      },
+    ],
+    tags: ["Cup Holder", "Car Accessories", "Under ₹299"],
+    created_at: "2026-04-04T10:00:00Z",
+  },
+];
+
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    id: "test-1",
+    quote:
+      "Ordered the CSK Dhoni jersey keychain for my boyfriend and he was screaming! The helicopter bat detail and the soft knit feel is so clean. Received it within 4 days. 10/10 pookie craft!",
+    author: "Riya Kapoor",
+    location: "Chennai",
+    productName: "CSK #7 Dhoni Keychain",
+    rating: 5,
+  },
+  {
+    id: "test-2",
+    quote:
+      "The Cadbury chocolate bouquet made my bestie cry on her birthday. Real flowers die in 2 days, but these pipe cleaner sunflowers still look gorgeous on her work desk after 3 months!",
+    author: "Sneha Nair",
+    location: "Bengaluru",
+    productName: "Sweetheart Cadbury Bouquet",
+    rating: 5,
+  },
+  {
+    id: "test-3",
+    quote:
+      "The Lumiflower lamp is pure magic at night. The fairy lights inside the petals give off such a gentle amber warm light for reading before bed. Can't wait for your crochet drops too!",
+    author: "Tanvi Deshmukh",
+    location: "Mumbai",
+    productName: "The Lumiflower Lamp",
+    rating: 5,
+  },
+];

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: #FEF7ED;
+  color: #283C2A;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Subtle luxury thread underline effect */
+.thread-underline {
+  position: relative;
+  display: inline-block;
+}
+.thread-underline::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #967F4F;
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.thread-underline:hover::after {
+  width: 100%;
+}
+
+/* Custom Artisan Buttons */
+.btn-primary {
+  @apply inline-flex items-center justify-center px-8 py-3.5 bg-[#283C2A] text-[#FEF7ED] text-[12px] font-sans font-semibold tracking-[0.16em] uppercase rounded-sm hover:bg-[#967F4F] transition-all duration-300 shadow-sm active:scale-[0.98];
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center px-8 py-3.5 border border-[#283C2A] text-[#283C2A] text-[12px] font-sans font-semibold tracking-[0.16em] uppercase rounded-sm hover:bg-[#283C2A] hover:text-[#FEF7ED] transition-all duration-300 active:scale-[0.98];
+}
+
+.btn-whatsapp {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#25D366] text-white text-[12px] font-sans font-semibold tracking-[0.14em] uppercase rounded-sm hover:bg-[#20ba59] transition-all duration-300 shadow-sm active:scale-[0.98];
+}
+
+/* Custom scrollbar for clean luxury feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FEF7ED;
+}
+::-webkit-scrollbar-thumb {
+  background: #DCD1C1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #967F4F;
+}
