@@ -1,78 +1,177 @@
 "use client";
+
 import Link from "next/link";
 import { useBag } from "@/context/BagContext";
 import { MessageCircle } from "lucide-react";
 import { siteConfig, whatsappLink } from "@/config/site";
+
 export function Footer() {
   const { openBag } = useBag();
+  const currentYear = new Date().getFullYear();
+
   return (
     <>
-      <footer className="site-footer">
-        <div className="footer-grid">
-          <div>
-            <Link href="/" className="font-serif text-3xl">
-              The Pookie Craft Co.
-            </Link>
-            <p className="mt-4 max-w-xs text-sm text-[#DCD1C1]">
-              Turning pipe cleaners into petals. Velvety forever flowers and
-              custom keepsakes that stay forever.
-            </p>
-            <p className="mt-4 text-xs text-[#E6B94A]">Made in India · Shipped Nationwide</p>
+      <footer className="bg-[#141D16] text-[#FAF7F2] pt-16 pb-12 border-t border-[#967F4F]/30">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/10">
+            {/* Brand Column */}
+            <div className="lg:col-span-5 space-y-4">
+              <Link href="/" className="font-serif text-3xl text-[#FAF7F2] tracking-tight block">
+                The Pookie Craft Co.
+              </Link>
+              <p className="max-w-sm text-xs font-sans text-[#D4CDC2] leading-relaxed">
+                Turning plush pipe cleaners into everlasting petals. Handcrafted forever bouquets,
+                bespoke sport jersey keychains, and ambient Lumiflower lamps. Made with care in India.
+              </p>
+              <div className="pt-2">
+                <span className="inline-block text-[10px] font-sans uppercase tracking-[0.2em] text-[#C29F58] border border-[#C29F58]/40 px-2.5 py-1 rounded-[2px]">
+                  Handmade in India · Nationwide Dispatch
+                </span>
+              </div>
+            </div>
+
+            {/* Shop & Discover */}
+            <div className="lg:col-span-2 space-y-3">
+              <h3 className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C29F58]">
+                Discover
+              </h3>
+              <ul className="space-y-2 text-xs font-sans text-[#D4CDC2]">
+                <li>
+                  <Link href="/shop" className="hover:text-white transition-colors">
+                    Shop Gifts
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={openBag}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Your Bag
+                  </button>
+                </li>
+                <li>
+                  <Link href="/custom-orders" className="hover:text-white transition-colors">
+                    Custom Creation
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/story" className="hover:text-white transition-colors">
+                    Our Story
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/faq" className="hover:text-white transition-colors">
+                    FAQs
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Connect */}
+            <div className="lg:col-span-3 space-y-3">
+              <h3 className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C29F58]">
+                Connect
+              </h3>
+              <ul className="space-y-2 text-xs font-sans text-[#D4CDC2]">
+                <li>
+                  <a
+                    href={whatsappLink("Hello! I'd like to place an order with The Pookie Craft Co.")}
+                    className="hover:text-white transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>WhatsApp Studio</span>
+                    <span>↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={siteConfig.instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-white transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>Instagram (@thepookiecraft)</span>
+                    <span>↗</span>
+                  </a>
+                </li>
+                {siteConfig.email && (
+                  <li>
+                    <a
+                      href={`mailto:${siteConfig.email}`}
+                      className="hover:text-white transition-colors"
+                    >
+                      {siteConfig.email}
+                    </a>
+                  </li>
+                )}
+                <li>
+                  <Link href="/contact" className="hover:text-white transition-colors">
+                    Studio Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Policies */}
+            <div className="lg:col-span-2 space-y-3">
+              <h3 className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C29F58]">
+                Atelier Notes
+              </h3>
+              <ul className="space-y-2 text-xs font-sans text-[#D4CDC2]">
+                <li>
+                  <Link href="/shipping" className="hover:text-white transition-colors">
+                    Dispatch & Shipping
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/returns" className="hover:text-white transition-colors">
+                    Returns & Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy" className="hover:text-white transition-colors">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="hover:text-white transition-colors">
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/admin" className="text-[#859383] hover:text-white transition-colors">
+                    Owner Portal
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h2>Shop & Discover</h2>
-            <Link href="/shop">Shop Gifts</Link>
-            <button type="button" className="footer-bag-link" onClick={openBag}>
-              Your Bag
-            </button>
-            <Link href="/custom-orders">Custom Order Request</Link>
-            <Link href="/story">Our Story</Link>
-            <Link href="/faq">FAQs</Link>
-          </div>
-          <div>
-            <h2>Connect With Us</h2>
+
+          {/* Bottom Copyright */}
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-sans text-[#859383]">
+            <span>© {currentYear} The Pookie Craft Co. All rights reserved.</span>
+            <span>Crafted by hand, made to stay forever.</span>
             <a
-              href={whatsappLink(
-                "Hello! I'd like to place an order with The Pookie Craft Co.",
-              )}
+              href={siteConfig.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#C29F58] hover:underline"
             >
-              WhatsApp Studio ↗
+              Follow our crafts on IG ↗
             </a>
-            <a href={siteConfig.instagramUrl} target="_blank" rel="noreferrer">
-              Instagram ↗
-            </a>
-            {siteConfig.email && (
-              <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-            )}
-            <Link href="/contact">Contact details</Link>
           </div>
-          <div>
-            <h2>The helpful details</h2>
-            <Link href="/shipping">Shipping & delivery</Link>
-            <Link href="/returns">Returns & replacements</Link>
-            <Link href="/privacy">Privacy policy</Link>
-            <Link href="/terms">Terms & conditions</Link>
-            <Link href="/admin">Owner sign in</Link>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} The Pookie Craft Co.</span>
-          <span>Good things take a little crafting.</span>
-          <a href={siteConfig.instagramUrl} aria-label="Visit Instagram">
-            <span>IG ↗</span>
-          </a>
         </div>
       </footer>
+
+      {/* Floating Quiet Luxury WhatsApp Contact Button */}
       <a
-        className="floating-whatsapp"
-        href={whatsappLink(
-          "Hi! I'd like to place an order with The Pookie Craft Co.",
-        )}
+        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 px-4 py-3 bg-[#1C281F] text-[#FAF7F2] border border-[#967F4F]/50 rounded-full shadow-atelier-lg hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all duration-300 text-xs font-sans font-semibold uppercase tracking-[0.12em]"
+        href={whatsappLink("Hi! I'd like to place an order with The Pookie Craft Co.")}
         target={siteConfig.whatsappClean ? "_blank" : undefined}
         rel="noreferrer"
         aria-label="Order on WhatsApp"
       >
-        <MessageCircle size={24} />
+        <MessageCircle size={18} />
         <span>Order on WhatsApp</span>
       </a>
     </>

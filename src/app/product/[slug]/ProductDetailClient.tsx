@@ -1,13 +1,17 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { Check, MessageCircle, ArrowRight } from "lucide-react";
 import type { Product } from "@/types";
 import { availability, priceLabel } from "@/lib/catalog-types";
 import { productEnquiryUrl } from "@/lib/enquiry";
 import { siteConfig } from "@/config/site";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { useBag } from "@/context/BagContext";
+
 export function ProductDetailClient({
   product: p,
   relatedProducts,
@@ -24,6 +28,7 @@ export function ProductDetailClient({
   const [added, setAdded] = useState(false);
   const bag = useBag();
   const status = availability(p);
+
   function enquire(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
@@ -46,205 +51,318 @@ export function ProductDetailClient({
       setError("");
       window.open(url, "_blank", "noopener,noreferrer");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Check your choices.");
+      setError(e instanceof Error ? e.message : "Please check your choices.");
     }
   }
+
   return (
-    <div className="section-wrap">
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-20 text-[#1C281F]">
+      {/* Breadcrumb Navigation */}
       <nav className="breadcrumb" aria-label="Breadcrumb">
-        <Link href="/">Home</Link> / <Link href="/shop">Shop</Link> /{" "}
-        <span>{p.name}</span>
+        <Link href="/">Home</Link>
+        <span>/</span>
+        <Link href="/shop">Shop</Link>
+        <span>/</span>
+        <span className="text-[#1C281F] font-medium">{p.name}</span>
       </nav>
-      <div className="product-detail">
-        <div>
-          <div className="detail-photo">
+
+      {/* Main Product Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        {/* Left: Imagery Column */}
+        <div className="lg:col-span-6 space-y-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="relative aspect-[4/5] min-h-[340px] sm:min-h-[460px] w-full rounded-[4px] overflow-hidden bg-[#F2EDE4] border border-[#E8E2D8] shadow-atelier"
+          >
             <Image
               src={image}
               alt={p.name}
               fill
               priority
-              sizes="(max-width:760px) 100vw, 50vw"
-              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 600px"
+              className="object-cover transition-all duration-300"
             />
-          </div>
-          <div className="thumbnails">
-            {p.images.map((src, i) => (
-              <button
-                key={`${src}-${i}`}
-                aria-label={`View ${p.name}, image ${i + 1}`}
-                aria-pressed={image === src}
-                onClick={() => setImage(src)}
-              >
-                <Image
-                  src={src}
-                  alt=""
-                  width={80}
-                  height={90}
-                  className="object-cover"
-                />
-              </button>
-            ))}
-          </div>
+            {p.bestseller && (
+              <span className="absolute top-4 left-4 px-2.5 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#1C281F] text-[#FAF7F2] rounded-[2px] shadow-xs">
+                Bestseller
+              </span>
+            )}
+          </motion.div>
+
+          {/* Thumbnail Strip */}
+          {p.images && p.images.length > 1 && (
+            <div className="flex gap-2.5 overflow-x-auto pb-1">
+              {p.images.map((src, i) => (
+                <button
+                  key={`${src}-${i}`}
+                  type="button"
+                  aria-label={`View ${p.name}, image ${i + 1}`}
+                  aria-pressed={image === src}
+                  onClick={() => setImage(src)}
+                  className={`relative w-16 h-20 rounded-[2px] overflow-hidden border flex-shrink-0 transition-all ${
+                    image === src
+                      ? "border-[#967F4F] ring-1 ring-[#967F4F]"
+                      : "border-[#E8E2D8] opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  <Image src={src} alt="" fill className="object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-        <div className="detail-copy">
-          <p className="eyebrow">{p.category}</p>
-          <h1>{p.name}</h1>
-          <p className="detail-price">{priceLabel(p)}</p>
-          <span className="status-label">{status}</span>
-          <p>{p.description}</p>
-          <dl>
-            <dt>Size</dt>
-            <dd>
-              {p.dimensions || "Confirm your preferred size with the studio."}
-            </dd>
-            <dt>Materials</dt>
-            <dd>
-              {p.material || "Handcrafted materials; ask us for details."}
-            </dd>
-            <dt>Preparation</dt>
-            <dd>
-              Confirmed with you before ordering.
-              {status === "Made to Order" &&
-                " This piece is crafted after the details are agreed."}
-            </dd>
-          </dl>
+
+        {/* Right: Product Details & Options */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="lg:col-span-6 space-y-6"
+        >
+          <div>
+            <span className="eyebrow">{p.category}</span>
+            <h1 className="font-serif text-3xl sm:text-4xl text-[#1C281F] font-normal leading-tight">
+              {p.name}
+            </h1>
+            <div className="flex items-center gap-3 mt-3">
+              <span className="text-2xl font-sans font-semibold text-[#1C281F]">
+                {priceLabel(p)}
+              </span>
+              <span
+                className={`text-[11px] px-2.5 py-0.5 rounded-[2px] font-sans uppercase tracking-[0.1em] ${
+                  status === "Available"
+                    ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                    : status === "Made to Order"
+                      ? "bg-amber-50 text-amber-800 border border-amber-200"
+                      : "bg-stone-100 text-stone-600 border border-stone-200"
+                }`}
+              >
+                {status}
+              </span>
+            </div>
+            <p className="mt-4 text-sm font-sans text-[#5D685B] leading-relaxed font-light">
+              {p.description}
+            </p>
+          </div>
+
+          {/* Specifications */}
+          <div className="p-4 rounded-[4px] bg-[#FCFBF9] border border-[#E8E2D8] text-xs font-sans space-y-2">
+            <div className="flex justify-between py-1 border-b border-[#E8E2D8]/60">
+              <span className="text-[#667264]">Size & Dimensions</span>
+              <span className="text-[#1C281F] font-medium">
+                {p.dimensions || "Confirmed with studio on enquiry"}
+              </span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#E8E2D8]/60">
+              <span className="text-[#667264]">Craft Materials</span>
+              <span className="text-[#1C281F] font-medium">
+                {p.material || "Dense Chenille Craft Wire & Metal Findings"}
+              </span>
+            </div>
+            <div className="flex justify-between py-1">
+              <span className="text-[#667264]">Dispatch & Handcrafting</span>
+              <span className="text-[#1C281F] font-medium">
+                {p.leadTime || "Ships across India"}
+              </span>
+            </div>
+          </div>
+
+          {/* Form */}
           <form
             onSubmit={enquire}
             onChangeCapture={() => setAdded(false)}
-            className="stack-form"
+            className="space-y-4 pt-2"
           >
+            {/* Variants */}
             {p.variants?.map((v) => (
-              <label key={v.name}>
-                {v.name} *
+              <div key={v.name} className="space-y-1.5">
+                <label className="text-xs font-sans font-medium text-[#1C281F] block">
+                  {v.name} *
+                </label>
                 <select
                   required
                   value={variants[v.name] || ""}
                   onChange={(e) =>
                     setVariants({ ...variants, [v.name]: e.target.value })
                   }
+                  className="w-full px-3.5 py-2.5 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F]"
                 >
-                  <option value="">Choose an option</option>
+                  <option value="">Select an option</option>
                   {v.options.map((o) => (
-                    <option key={o}>{o}</option>
+                    <option key={o} value={o}>
+                      {o}
+                    </option>
                   ))}
                 </select>
-              </label>
+              </div>
             ))}
+
+            {/* Colors */}
             {!!p.colors?.length && (
-              <fieldset>
-                <legend>Choose your colour *</legend>
-                <div className="color-choices">
+              <div className="space-y-1.5">
+                <span className="text-xs font-sans font-medium text-[#1C281F] block">
+                  Select Colour * {color && <span className="font-normal text-[#667264]">({color})</span>}
+                </span>
+                <div className="flex flex-wrap gap-2">
                   {p.colors.map((c) => (
-                    <label
-                      className={
-                        color === c.name
-                          ? "color-choice chosen"
-                          : "color-choice"
-                      }
+                    <button
                       key={c.name}
+                      type="button"
+                      onClick={() => setColor(c.name)}
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-[2px] border text-xs font-sans transition-all ${
+                        color === c.name
+                          ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2]"
+                          : "border-[#E8E2D8] bg-[#FFFFFF] text-[#5D685B] hover:border-[#967F4F]"
+                      }`}
                     >
-                      <input
-                        type="radio"
-                        name="colour"
-                        value={c.name}
-                        required
-                        checked={color === c.name}
-                        onChange={() => setColor(c.name)}
+                      <span
+                        className="w-3.5 h-3.5 rounded-full border border-black/15 inline-block flex-shrink-0"
+                        style={{ backgroundColor: c.hex }}
                       />
-                      <span style={{ background: c.hex }} />
-                      {c.name}
-                    </label>
+                      <span>{c.name}</span>
+                    </button>
                   ))}
                 </div>
-              </fieldset>
+              </div>
             )}
-            <label>
-              Personalized text / design{" "}
-              {p.personalizationRequired ? "*" : "(optional)"}
+
+            {/* Personalization */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-sans font-medium text-[#1C281F] flex justify-between">
+                <span>Personalised Text or Notes</span>
+                <span className="text-[#667264] font-normal">
+                  {p.personalizationRequired ? "Required *" : "(Optional)"}
+                </span>
+              </label>
               <textarea
                 maxLength={1000}
-                rows={3}
+                rows={2}
                 value={personalization}
                 required={p.personalizationRequired}
                 onChange={(e) => setPersonalization(e.target.value)}
-                placeholder="A name, a little message, a special idea…"
+                placeholder="Names, dates, jerseys, or color preferences…"
+                className="w-full px-3.5 py-2.5 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F]"
               />
-            </label>
-            <label>
-              Quantity
-              <input
-                className="quantity-input"
-                type="number"
-                required
-                min={1}
-                max={99}
-                step={1}
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.valueAsNumber)}
-              />
-            </label>
+            </div>
+
+            {/* Quantity */}
+            <div className="flex items-center gap-3">
+              <label className="text-xs font-sans font-medium text-[#1C281F]">
+                Quantity:
+              </label>
+              <div className="flex items-center border border-[#E8E2D8] rounded-[2px] overflow-hidden bg-white">
+                <button
+                  type="button"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="px-3 py-1 text-sm text-[#1C281F] hover:bg-[#FAF7F2]"
+                >
+                  -
+                </button>
+                <span className="px-3 py-1 text-xs font-sans text-center min-w-[32px]">
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setQuantity(Math.min(99, quantity + 1))}
+                  className="px-3 py-1 text-sm text-[#1C281F] hover:bg-[#FAF7F2]"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
             {error && (
-              <p role="alert" className="form-error">
+              <p role="alert" className="text-xs text-rose-700 bg-rose-50 p-2.5 rounded-[2px]">
                 {error}
               </p>
             )}
-            <button
-              className="pill-button"
-              type="submit"
-              name="action"
-              value="bag"
-              disabled={!bag.ready}
-            >
-              {status === "Sold Out"
-                ? "Save for Restock Request"
-                : "Add to Bag"}
-            </button>
+
+            {/* Action Buttons */}
+            <div className="space-y-2.5 pt-2">
+              <button
+                type="submit"
+                name="action"
+                value="bag"
+                disabled={!bag.ready || status === "Sold Out"}
+                className={`w-full py-3.5 px-6 rounded-[2px] text-xs font-sans font-semibold tracking-[0.16em] uppercase transition-all duration-200 flex items-center justify-center gap-2 ${
+                  status === "Sold Out"
+                    ? "bg-[#E8E2D8] text-[#667264] cursor-not-allowed"
+                    : added
+                      ? "bg-emerald-800 text-white"
+                      : "bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] shadow-sm"
+                }`}
+              >
+                {added ? (
+                  <>
+                    <Check size={16} /> Added to Bag
+                  </>
+                ) : status === "Sold Out" ? (
+                  "Sold Out"
+                ) : (
+                  "Add to Bag"
+                )}
+              </button>
+
+              <button
+                type="submit"
+                name="action"
+                value="direct"
+                className="w-full py-3.5 px-6 rounded-[2px] bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-sans font-semibold tracking-[0.16em] uppercase shadow-sm transition-all duration-200 flex items-center justify-center gap-2"
+              >
+                <MessageCircle size={17} />
+                <span>
+                  {status === "Sold Out"
+                    ? "Ask About Restock on WhatsApp"
+                    : "Order on WhatsApp"}
+                </span>
+                <span>↗</span>
+              </button>
+            </div>
+
             {added && (
-              <div className="bag-added" role="status">
-                Added to your bag.{" "}
-                <button type="button" onClick={bag.openBag}>
-                  View Bag ↗
-                </button>
-                <Link href="/shop">Continue Shopping ↗</Link>
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-[2px] text-xs font-sans text-emerald-900 flex items-center justify-between">
+                <span>Added to your bag.</span>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={bag.openBag}
+                    className="font-semibold underline"
+                  >
+                    View Bag ↗
+                  </button>
+                  <Link href="/shop" className="underline">
+                    Continue Shopping
+                  </Link>
+                </div>
               </div>
             )}
-            {bag.storageNotice && (
-              <p className="small-note" role="status">
-                {bag.storageNotice}
-              </p>
-            )}
-            <button
-              className="bag-secondary-button"
-              type="submit"
-              name="action"
-              value="direct"
-            >
-              {status === "Sold Out"
-                ? "Ask About Restock on WhatsApp"
-                : "Order on WhatsApp"}{" "}
-              ↗
-            </button>
-            <a
-              href={siteConfig.instagramUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-link"
-            >
-              Prefer Instagram? Message studio ↗
-            </a>
-            <p className="small-note">
-              {p.startingPrice && "Custom options may cost extra. "}Final price,
-              availability, shipping, preparation time, and advance payment are
-              confirmed in conversation. Opening WhatsApp does not confirm an
-              order.
-            </p>
+
+            <div className="pt-2 text-center">
+              <a
+                href={siteConfig.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-sans text-[#667264] hover:text-[#1C281F] inline-flex items-center gap-1 transition-colors"
+              >
+                <span>Prefer Instagram? Message studio (@thepookiecraft) ↗</span>
+              </a>
+            </div>
           </form>
-        </div>
+        </motion.div>
       </div>
+
+      {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="related-section">
-          <h2>A few more little loves.</h2>
-          <div className="catalog-grid">
+        <section className="mt-24 pt-14 border-t border-[#E8E2D8]">
+          <div className="mb-8">
+            <span className="eyebrow">Studio Atelier</span>
+            <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal">
+              More Handcrafted Keepsakes
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {relatedProducts.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}

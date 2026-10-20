@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { Search, SlidersHorizontal, X, ChevronDown, Check } from "lucide-react";
 import type { Catalog } from "@/lib/catalog-types";
 import { availability } from "@/lib/catalog-types";
@@ -101,36 +102,73 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
     return () => window.removeEventListener("keydown", handleEscape);
   }, []);
 
+  // Compute available colors across all products
   const allColors = Array.from(
     new Set(
-      catalog.products.flatMap((p) => p.colors?.map((c) => c.name) || [])
-    )
-  ).sort();
+      catalog.products.flatMap((p) => (p.colors || []).map((c) => c.name)),
+    ),
+  ).filter(Boolean);
 
-  // Active filter count for badge (excluding default category All)
-  const activeFilterCount =
-    (color ? 1 : 0) + (status ? 1 : 0) + (maxPrice ? 1 : 0);
-
-  // Filtered and sorted product set
+  // Filter products
   const filteredProducts = catalog.products
-    .filter(
-      (p) =>
-        (category === "All" ||
-          p.category === category ||
-          p.categories?.includes(category)) &&
-        p.name.toLowerCase().includes(query.toLowerCase().trim()) &&
-        (!color || p.colors?.some((c) => c.name === color)) &&
-        (!status || availability(p) === status) &&
-        (!maxPrice || p.price <= Number(maxPrice))
-    )
-    .sort((a, b) =>
-      sort === "low"
-        ? a.price - b.price
-        : sort === "high"
-          ? b.price - a.price
-          : Number(!!b.bestseller) - Number(!!a.bestseller) ||
-            Number(!!b.featured) - Number(!!a.featured)
-    );
+    .filter((p) => {
+      // Category filter
+      if (category !== "All" && p.category !== category) return false;
+
+      // Search query (name, description, tags, materials)
+      if (query.trim()) {
+        const q = query.toLowerCase();
+        const matchesName = p.name.toLowerCase().includes(q);
+        const matchesDesc = p.description.toLowerCase().includes(q);
+        const matchesTags = (p.tags || []).some((t) =>
+          t.toLowerCase().includes(q),
+        );
+        const matchesMat = p.material?.toLowerCase().includes(q);
+        if (!matchesName && !matchesDesc && !matchesTags && !matchesMat)
+          return false;
+      }
+
+      // Color filter
+      if (color) {
+        const hasColor = (p.colors || []).some(
+          (c) => c.name.toLowerCase() === color.toLowerCase(),
+        );
+        if (!hasColor) return false;
+      }
+
+      // Status filter
+      if (status) {
+        const pStatus = availability(p);
+        if (pStatus !== status) return false;
+      }
+
+      // Max price filter
+      if (maxPrice) {
+        const num = Number(maxPrice);
+        if (num > 0 && p.price > num) return false;
+      }
+
+      return true;
+    })
+    .sort((a, b) => {
+      if (sort === "low") return a.price - b.price;
+      if (sort === "high") return b.price - a.price;
+      // Default: featured first, then bestsellers
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      if (a.bestseller && !b.bestseller) return -1;
+      if (!a.bestseller && b.bestseller) return 1;
+      return 0;
+    });
+
+  const activeFilterCount = [
+    category !== "All",
+    !!query,
+    !!color,
+    !!status,
+    !!maxPrice,
+    sort !== "featured",
+  ].filter(Boolean).length;
 
   const clearAllFilters = () => {
     setCategory("All");
@@ -139,24 +177,18 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
     setStatus("");
     setMaxPrice("");
     setSort("featured");
-    updateUrl({
-      category: null,
-      q: null,
-      color: null,
-      status: null,
-      max: null,
-      sort: null,
-    });
+    router.replace(pathname, { scroll: false });
   };
 
   return (
-    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-[#252923]">
-      {/* Compact Shop Header & Toolbar (Target first images within 280-300px) */}
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-[#1C281F]">
+      {/* Compact Shop Header & Toolbar */}
       <div className="space-y-4 mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E4DDD2]/80 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8E2D8] pb-4">
           <div>
-            <h1 className="font-serif text-3xl sm:text-4xl text-[#252923] font-normal tracking-tight">
-              Shop Gifts
+            <span className="eyebrow">Studio Atelier Collection</span>
+            <h1 className="font-serif text-3xl sm:text-4xl text-[#1C281F] font-normal tracking-tight">
+              All Creations
             </h1>
           </div>
 
@@ -165,18 +197,18 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
             {/* Search */}
             <div className="relative flex-1 sm:w-64">
               <Search
-                size={15}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#667062]"
+                size={14}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#667264]"
               />
               <input
                 type="search"
-                placeholder="Search products…"
+                placeholder="Search collection…"
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value);
                   updateUrl({ q: e.target.value });
                 }}
-                className="w-full pl-9 pr-3 py-2 text-xs font-sans rounded-md border border-[#E4DDD2] bg-[#FFFDF9] text-[#252923] focus:outline-none focus:ring-1 focus:ring-[#682B43]"
+                className="w-full pl-9 pr-3 py-2 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F]"
               />
             </div>
 
@@ -186,46 +218,46 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 ref={filterButtonRef}
                 type="button"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
-                className={`flex items-center gap-2 px-3.5 py-2 text-xs font-sans font-medium rounded-md border transition-colors ${
+                className={`flex items-center gap-2 px-3.5 py-2 text-xs font-sans font-medium rounded-[2px] border transition-colors ${
                   activeFilterCount > 0 || isFilterOpen
-                    ? "border-[#682B43] bg-[#682B43]/5 text-[#682B43]"
-                    : "border-[#E4DDD2] bg-[#FFFDF9] text-[#252923] hover:border-[#682B43]"
+                    ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2]"
+                    : "border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] hover:border-[#967F4F]"
                 }`}
                 aria-expanded={isFilterOpen}
                 aria-haspopup="dialog"
               >
-                <SlidersHorizontal size={14} />
+                <SlidersHorizontal size={13} />
                 <span>Filter</span>
                 {activeFilterCount > 0 && (
-                  <span className="w-4 h-4 rounded-full bg-[#682B43] text-white text-[10px] flex items-center justify-center font-bold">
+                  <span className="w-4 h-4 rounded-full bg-[#967F4F] text-white text-[9px] flex items-center justify-center font-bold">
                     {activeFilterCount}
                   </span>
                 )}
               </button>
 
-              {/* Desktop Anchored Filter Popover (~340px width) */}
+              {/* Desktop Anchored Filter Popover */}
               {isFilterOpen && (
                 <div
                   ref={filterPopoverRef}
-                  className="hidden sm:block absolute right-0 top-full mt-2 w-80 bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl shadow-xl z-40 p-5 space-y-4 animate-in fade-in zoom-in-95 duration-150"
+                  className="hidden sm:block absolute right-0 top-full mt-2 w-80 bg-[#FCFBF9] border border-[#E8E2D8] rounded-[4px] shadow-atelier z-40 p-5 space-y-4"
                   role="dialog"
                   aria-label="Filter options"
                 >
-                  <div className="flex justify-between items-center border-b border-[#E4DDD2]/60 pb-2">
-                    <span className="font-serif text-lg font-medium">
+                  <div className="flex justify-between items-center border-b border-[#E8E2D8] pb-2">
+                    <span className="font-serif text-lg font-medium text-[#1C281F]">
                       Filter Collection
                     </span>
                     <button
                       onClick={() => setIsFilterOpen(false)}
-                      className="text-[#667062] hover:text-[#252923]"
+                      className="text-[#667264] hover:text-[#1C281F]"
                     >
-                      <X size={16} />
+                      <X size={15} />
                     </button>
                   </div>
 
                   {/* Availability */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-sans font-medium text-[#252923] block">
+                    <label className="text-xs font-sans font-medium text-[#1C281F] block">
                       Availability
                     </label>
                     <div className="grid grid-cols-2 gap-1.5 text-xs font-sans">
@@ -238,10 +270,10 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                             setStatus(next);
                             updateUrl({ status: next });
                           }}
-                          className={`px-2.5 py-1.5 rounded-md border text-left transition-all ${
+                          className={`px-2.5 py-1.5 rounded-[2px] border text-left transition-all ${
                             status === st
-                              ? "border-[#682B43] bg-[#682B43]/10 text-[#682B43] font-medium"
-                              : "border-[#E4DDD2] text-[#667062] hover:bg-[#F6F0E6]"
+                              ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2] font-medium"
+                              : "border-[#E8E2D8] text-[#667264] hover:bg-[#FAF7F2]"
                           }`}
                         >
                           {st}
@@ -252,7 +284,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
                   {/* Colour Selection */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-sans font-medium text-[#252923] block">
+                    <label className="text-xs font-sans font-medium text-[#1C281F] block">
                       Colour
                     </label>
                     <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pr-1">
@@ -265,10 +297,10 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                             setColor(next);
                             updateUrl({ color: next });
                           }}
-                          className={`px-2.5 py-1 rounded-full text-[11px] font-sans border transition-all ${
+                          className={`px-2.5 py-1 rounded-[2px] text-[11px] font-sans border transition-all ${
                             color === col
-                              ? "border-[#682B43] bg-[#682B43] text-white"
-                              : "border-[#E4DDD2] text-[#667062] hover:border-[#682B43]"
+                              ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2]"
+                              : "border-[#E8E2D8] text-[#667264] hover:border-[#967F4F]"
                           }`}
                         >
                           {col}
@@ -279,9 +311,9 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
                   {/* Max Price */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-sans font-medium text-[#252923] flex justify-between">
+                    <label className="text-xs font-sans font-medium text-[#1C281F] flex justify-between">
                       <span>Maximum Price</span>
-                      <span className="font-semibold">
+                      <span className="font-semibold text-[#1C281F]">
                         {maxPrice ? `₹${Number(maxPrice).toLocaleString("en-IN")}` : "Any"}
                       </span>
                     </label>
@@ -295,12 +327,12 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                         setMaxPrice(e.target.value);
                         updateUrl({ max: e.target.value });
                       }}
-                      className="w-full accent-[#682B43]"
+                      className="w-full accent-[#967F4F]"
                     />
                   </div>
 
                   {/* Popover Actions */}
-                  <div className="pt-2 border-t border-[#E4DDD2] flex justify-between items-center text-xs">
+                  <div className="pt-2 border-t border-[#E8E2D8] flex justify-between items-center text-xs">
                     <button
                       type="button"
                       onClick={() => {
@@ -309,14 +341,14 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                         setMaxPrice("");
                         updateUrl({ color: null, status: null, max: null });
                       }}
-                      className="text-[#667062] hover:underline"
+                      className="text-[#667264] hover:underline"
                     >
                       Reset filters
                     </button>
                     <button
                       type="button"
                       onClick={() => setIsFilterOpen(false)}
-                      className="px-3.5 py-1.5 bg-[#682B43] text-[#F6F0E6] rounded-md font-sans font-medium hover:bg-[#532135]"
+                      className="px-3.5 py-1.5 bg-[#1C281F] text-[#FAF7F2] rounded-[2px] font-sans font-medium hover:bg-[#967F4F] transition-colors"
                     >
                       Apply ({filteredProducts.length})
                     </button>
@@ -333,15 +365,15 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                   setSort(e.target.value);
                   updateUrl({ sort: e.target.value });
                 }}
-                className="px-3 py-2 text-xs font-sans rounded-md border border-[#E4DDD2] bg-[#FFFDF9] text-[#252923] focus:outline-none focus:ring-1 focus:ring-[#682B43] appearance-none pr-8 cursor-pointer"
+                className="px-3 py-2 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F] appearance-none pr-8 cursor-pointer"
               >
                 <option value="featured">Featured first</option>
                 <option value="low">Price: low to high</option>
                 <option value="high">Price: high to low</option>
               </select>
               <ChevronDown
-                size={14}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#667062] pointer-events-none"
+                size={13}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#667264] pointer-events-none"
               />
             </div>
           </div>
@@ -355,13 +387,13 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
               setCategory("All");
               updateUrl({ category: null });
             }}
-            className={`px-3.5 py-1.5 text-xs font-sans rounded-full whitespace-nowrap transition-all ${
+            className={`px-3.5 py-1.5 text-xs font-sans rounded-[2px] whitespace-nowrap transition-all ${
               category === "All"
-                ? "bg-[#682B43] text-[#F6F0E6] font-medium shadow-xs"
-                : "bg-[#F6F0E6] text-[#667062] hover:text-[#252923] hover:bg-[#E4DDD2]"
+                ? "bg-[#1C281F] text-[#FAF7F2] font-semibold shadow-xs"
+                : "bg-[#FFFFFF] text-[#667264] border border-[#E8E2D8] hover:text-[#1C281F] hover:border-[#967F4F]"
             }`}
           >
-            All Products
+            All Creations
           </button>
           {catalog.categories.map((cat) => (
             <button
@@ -371,10 +403,10 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 setCategory(cat.name);
                 updateUrl({ category: cat.name });
               }}
-              className={`px-3.5 py-1.5 text-xs font-sans rounded-full whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 text-xs font-sans rounded-[2px] whitespace-nowrap transition-all ${
                 category === cat.name
-                  ? "bg-[#682B43] text-[#F6F0E6] font-medium shadow-xs"
-                  : "bg-[#F6F0E6] text-[#667062] hover:text-[#252923] hover:bg-[#E4DDD2]"
+                  ? "bg-[#1C281F] text-[#FAF7F2] font-semibold shadow-xs"
+                  : "bg-[#FFFFFF] text-[#667264] border border-[#E8E2D8] hover:text-[#1C281F] hover:border-[#967F4F]"
               }`}
             >
               {cat.name}
@@ -384,9 +416,9 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
         {/* Active Filter Chips & Result Count */}
         <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-sans pt-1">
-          <span className="text-[#667062]">
-            Showing <strong className="text-[#252923]">{filteredProducts.length}</strong>{" "}
-            {filteredProducts.length === 1 ? "product" : "products"}
+          <span className="text-[#667264]">
+            Showing <strong className="text-[#1C281F]">{filteredProducts.length}</strong>{" "}
+            {filteredProducts.length === 1 ? "creation" : "creations"}
           </span>
 
           {(category !== "All" ||
@@ -397,7 +429,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
             sort !== "featured") && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {category !== "All" && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E4DDD2]/60 text-[#252923] text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[#1C281F] text-[11px]">
                   {category}
                   <button
                     onClick={() => {
@@ -410,7 +442,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 </span>
               )}
               {color && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E4DDD2]/60 text-[#252923] text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[#1C281F] text-[11px]">
                   Colour: {color}
                   <button
                     onClick={() => {
@@ -423,7 +455,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 </span>
               )}
               {status && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E4DDD2]/60 text-[#252923] text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[#1C281F] text-[11px]">
                   {status}
                   <button
                     onClick={() => {
@@ -436,7 +468,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 </span>
               )}
               {maxPrice && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E4DDD2]/60 text-[#252923] text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[#1C281F] text-[11px]">
                   ≤ ₹{maxPrice}
                   <button
                     onClick={() => {
@@ -451,7 +483,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="text-[#682B43] hover:underline font-medium ml-1"
+                className="text-[#967F4F] hover:underline font-medium ml-1"
               >
                 Clear all
               </button>
@@ -460,23 +492,23 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
         </div>
       </div>
 
-      {/* Mobile Bottom Sheet Filters (~60-65% height) */}
+      {/* Mobile Bottom Sheet Filters */}
       {isFilterOpen && (
-        <div className="sm:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex flex-col justify-end">
-          <div className="bg-[#FFFDF9] rounded-t-2xl p-5 max-h-[65vh] overflow-y-auto space-y-4 border-t border-[#E4DDD2] shadow-2xl animate-in slide-in-from-bottom duration-200">
-            <div className="flex justify-between items-center border-b border-[#E4DDD2] pb-3">
-              <h3 className="font-serif text-lg font-medium">Filter Options</h3>
+        <div className="sm:hidden fixed inset-0 z-50 bg-black/45 backdrop-blur-xs flex flex-col justify-end">
+          <div className="bg-[#FCFBF9] rounded-t-xl p-5 max-h-[65vh] overflow-y-auto space-y-4 border-t border-[#E8E2D8] shadow-2xl">
+            <div className="flex justify-between items-center border-b border-[#E8E2D8] pb-3">
+              <h3 className="font-serif text-lg font-medium text-[#1C281F]">Filter Collection</h3>
               <button
                 onClick={() => setIsFilterOpen(false)}
-                className="p-1 rounded-full bg-[#F6F0E6]"
+                className="p-1 rounded-full bg-[#FAF7F2]"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
             {/* Mobile Availability */}
             <div className="space-y-1.5">
-              <label className="text-xs font-sans font-semibold text-[#252923] block">
+              <label className="text-xs font-sans font-semibold text-[#1C281F] block">
                 Availability
               </label>
               <div className="grid grid-cols-3 gap-1.5 text-xs">
@@ -489,10 +521,10 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                       setStatus(next);
                       updateUrl({ status: next });
                     }}
-                    className={`py-2 px-1 text-center rounded-md border text-xs font-sans ${
+                    className={`py-2 px-1 text-center rounded-[2px] border text-xs font-sans ${
                       status === st
-                        ? "border-[#682B43] bg-[#682B43]/10 text-[#682B43] font-medium"
-                        : "border-[#E4DDD2] text-[#667062]"
+                        ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2] font-medium"
+                        : "border-[#E8E2D8] text-[#667264]"
                     }`}
                   >
                     {st}
@@ -503,7 +535,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
             {/* Mobile Colours */}
             <div className="space-y-1.5">
-              <label className="text-xs font-sans font-semibold text-[#252923] block">
+              <label className="text-xs font-sans font-semibold text-[#1C281F] block">
                 Colour
               </label>
               <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">
@@ -516,10 +548,10 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                       setColor(next);
                       updateUrl({ color: next });
                     }}
-                    className={`px-3 py-1 rounded-full text-xs font-sans border ${
+                    className={`px-3 py-1 rounded-[2px] text-xs font-sans border ${
                       color === col
-                        ? "border-[#682B43] bg-[#682B43] text-white"
-                        : "border-[#E4DDD2] text-[#667062]"
+                        ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2]"
+                        : "border-[#E8E2D8] text-[#667264]"
                     }`}
                   >
                     {col}
@@ -528,43 +560,19 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
               </div>
             </div>
 
-            {/* Mobile Max Price */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-sans font-semibold text-[#252923] flex justify-between">
-                <span>Maximum Price</span>
-                <span>{maxPrice ? `₹${maxPrice}` : "Any"}</span>
-              </label>
-              <input
-                type="range"
-                min={100}
-                max={2500}
-                step={50}
-                value={maxPrice || 2500}
-                onChange={(e) => {
-                  setMaxPrice(e.target.value);
-                  updateUrl({ max: e.target.value });
-                }}
-                className="w-full accent-[#682B43]"
-              />
-            </div>
-
-            <div className="pt-3 border-t border-[#E4DDD2] flex gap-2">
+            {/* Mobile Actions */}
+            <div className="pt-2 border-t border-[#E8E2D8] flex gap-2">
               <button
                 type="button"
-                onClick={() => {
-                  setColor("");
-                  setStatus("");
-                  setMaxPrice("");
-                  updateUrl({ color: null, status: null, max: null });
-                }}
-                className="flex-1 py-2.5 rounded-md border border-[#E4DDD2] text-xs font-sans font-medium"
+                onClick={clearAllFilters}
+                className="flex-1 py-2.5 rounded-[2px] border border-[#E8E2D8] text-xs font-sans font-medium text-[#1C281F]"
               >
                 Reset
               </button>
               <button
                 type="button"
                 onClick={() => setIsFilterOpen(false)}
-                className="flex-1 py-2.5 rounded-md bg-[#682B43] text-[#F6F0E6] text-xs font-sans font-medium"
+                className="flex-1 py-2.5 rounded-[2px] bg-[#1C281F] text-[#FAF7F2] text-xs font-sans font-medium"
               >
                 Apply ({filteredProducts.length})
               </button>
@@ -573,38 +581,42 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
         </div>
       )}
 
-      {/* Product Grid (4 col desktop, 3 col tablet, 2 col mobile) */}
+      {/* Product Grid with Framer Motion Layout Transitions */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <motion.div
+          layout
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
           {filteredProducts.map((p, idx) => (
             <ProductCard
               key={p.id}
               product={p}
               priority={idx < 4}
+              onQuickView={setQuickViewProduct}
             />
           ))}
-        </div>
+        </motion.div>
       ) : (
-        <div className="text-center py-16 px-4 bg-[#FFFDF9] rounded-xl border border-[#E4DDD2]">
-          <span className="text-3xl font-serif text-[#682B43] block mb-2">✿</span>
-          <h2 className="font-serif text-2xl font-normal text-[#252923] mb-2">
+        <div className="text-center py-16 px-4 bg-[#FCFBF9] rounded-[4px] border border-[#E8E2D8]">
+          <span className="text-3xl font-serif text-[#967F4F] block mb-2">✿</span>
+          <h2 className="font-serif text-2xl font-normal text-[#1C281F] mb-2">
             No gifts found matching your filters
           </h2>
-          <p className="text-xs text-[#667062] font-sans max-w-md mx-auto mb-6">
-            Try adjusting your colour, price, or search term, or dream up a bespoke order with our artisans.
+          <p className="text-xs text-[#667264] font-sans max-w-md mx-auto mb-6">
+            Try adjusting your colour, price, or search term, or commission a bespoke creation with our artisans.
           </p>
           <div className="flex items-center justify-center gap-3">
             <button
               onClick={clearAllFilters}
-              className="px-5 py-2.5 bg-[#682B43] text-[#F6F0E6] text-xs font-sans font-medium rounded-md hover:bg-[#532135]"
+              className="px-5 py-2.5 bg-[#1C281F] text-[#FAF7F2] text-xs font-sans font-medium rounded-[2px] hover:bg-[#967F4F] transition-colors"
             >
               Clear all filters
             </button>
             <a
               href="/custom-orders"
-              className="px-5 py-2.5 border border-[#682B43] text-[#682B43] text-xs font-sans font-medium rounded-md hover:bg-[#682B43]/5"
+              className="px-5 py-2.5 border border-[#1C281F] text-[#1C281F] text-xs font-sans font-medium rounded-[2px] hover:bg-[#1C281F] hover:text-[#FAF7F2] transition-colors"
             >
-              Request a Custom Gift ↗
+              Commission a Custom Creation ↗
             </a>
           </div>
         </div>

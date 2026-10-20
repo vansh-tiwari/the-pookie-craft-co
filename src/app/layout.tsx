@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { getCatalog } from "@/lib/catalog";
 import { BagProvider } from "@/context/BagContext";
 import { BagDrawer, BagRouteOpener } from "@/components/bag/BagDrawer";
+import { LuxuryScrollProgress } from "@/components/motion/ScrollMotion";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
+        <LuxuryScrollProgress />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>

@@ -27,17 +27,15 @@ const studioMoments = [
 
 export function InstagramFeed() {
   return (
-    <section className="py-16 sm:py-20 bg-[#F6F0E6] border-t border-[#E4DDD2]">
+    <section className="py-16 sm:py-24 bg-[#FAF7F2] border-t border-[#E8E2D8]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2.5 mb-10">
-        <span className="text-xs uppercase tracking-[0.2em] text-[#682B43] font-semibold block">
-          STUDIO JOURNAL
-        </span>
-        <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#252923]">
+        <span className="eyebrow !justify-center">Studio Journal</span>
+        <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#1C281F]">
           Follow @{siteConfig.instagramHandle}
         </h2>
-        <p className="text-xs sm:text-sm text-[#667062] font-sans font-light max-w-md mx-auto">
-          Behind-the-scenes in our studio. Daily handmade flower bouquets,
-          bespoke keepsakes, and craft drops.
+        <p className="text-xs sm:text-sm text-[#5D685B] font-sans font-light max-w-md mx-auto">
+          Behind the scenes in our craft atelier. Daily handmade flower bouquets,
+          bespoke keepsakes, and studio dispatches.
         </p>
       </div>
 
@@ -48,7 +46,7 @@ export function InstagramFeed() {
             href={siteConfig.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative aspect-square overflow-hidden bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl cursor-pointer shadow-xs"
+            className="group relative aspect-square overflow-hidden bg-[#FCFBF9] border border-[#E8E2D8] rounded-[4px] cursor-pointer shadow-xs hover:border-[#967F4F]/50 transition-all"
           >
             <Image
               src={moment.image}
@@ -57,9 +55,9 @@ export function InstagramFeed() {
               sizes="(max-width: 640px) 50vw, 25vw"
               className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-[#283C2A]/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[#FEF7ED]">
+            <div className="absolute inset-0 bg-[#1C281F]/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[#FAF7F2]">
               <svg
-                className="w-8 h-8"
+                className="w-7 h-7"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
