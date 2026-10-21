@@ -107,20 +107,32 @@ export function HomeHero({ heroImage }: HomeHeroProps) {
                 sizes="(max-width: 1024px) 100vw, 600px"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-[10px] font-sans uppercase tracking-[0.22em] text-[#D8A657] font-semibold block mb-1">
+
+              {/* 1. Artisan Spotlight Luxury Glass Pill Badge at Top-Left */}
+              <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#180812]/85 backdrop-blur-md border border-[#D8A657]/40 shadow-sm pointer-events-none">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D8A657] animate-pulse" />
+                <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#D8A657] font-semibold">
                   Artisan Spotlight
                 </span>
-                <p className="font-serif text-xl sm:text-2xl font-light">
+              </div>
+
+              {/* 2. Deep Nocturne Contrast Gradient at Bottom */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#180812]/92 via-[#180812]/45 to-transparent pointer-events-none" />
+
+              {/* 3. Title & Craft Info at Bottom-Left with Constrained Width (Zero Collision) */}
+              <div className="absolute bottom-5 left-5 right-5 z-10 max-w-sm sm:max-w-[62%] text-white pointer-events-none">
+                <p className="font-serif text-xl sm:text-2xl font-light text-white leading-tight">
                   Velvety Sunflower &amp; Lavender Forever Bouquet
                 </p>
+                <span className="text-[11px] font-sans text-[#E5D2DE] font-light mt-1 block">
+                  Hand-sculpted in plush chenille wire · Never wilts
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Tactile Material Detail Inset */}
-          <div className="hidden sm:flex absolute -bottom-6 -left-6 bg-[#FFFFFF] p-3 rounded-[4px] shadow-atelier border border-[#F0E5EC] max-w-xs items-center gap-3">
+          {/* Tactile Material Detail Inset Re-anchored to Bottom-Right */}
+          <div className="hidden sm:flex absolute -bottom-6 -right-4 sm:-right-6 z-20 bg-[#FFFFFF] p-3 rounded-[4px] shadow-atelier border border-[#F0E5EC] max-w-[270px] items-center gap-3">
             <div className="relative w-14 h-14 rounded-[2px] overflow-hidden flex-shrink-0 bg-[#FCF8FA] border border-[#F0E5EC]">
               <Image
                 src="/images/products/pipe_cleaner_roses.jpg"
