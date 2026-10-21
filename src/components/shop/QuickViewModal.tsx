@@ -8,6 +8,7 @@ import { X, Check } from "lucide-react";
 import type { Product } from "@/types";
 import { availability, priceLabel } from "@/lib/catalog-types";
 import { useBag } from "@/context/BagContext";
+import { CardPetalBloom } from "@/components/motion/CardPetalBloom";
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -22,6 +23,7 @@ export function QuickViewModal({
 }: QuickViewModalProps) {
   const bag = useBag();
   const [selectedImage, setSelectedImage] = useState("");
+  const [isModalImageHovered, setIsModalImageHovered] = useState(false);
   const [color, setColor] = useState("");
   const [variants, setVariants] = useState<Record<string, string>>({});
   const [personalization, setPersonalization] = useState("");
@@ -105,19 +107,26 @@ export function QuickViewModal({
 
           {/* Product Imagery */}
           <div className="md:w-1/2 p-5 bg-[#FCF8FA] flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#F0E5EC]">
-            <div className="relative aspect-[4/5] min-h-[240px] w-full rounded-[2px] overflow-hidden bg-[#FFFFFF] shadow-xs border border-[#F0E5EC]">
-              <Image
-                src={selectedImage || product.image_url}
-                alt={product.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 320px"
-                className="object-cover"
-              />
-              {product.bestseller && (
-                <span className="absolute top-3 left-3 px-2 py-0.5 text-[9.5px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#200E19] text-[#FCF8FA] rounded-[2px]">
-                  Bestseller
-                </span>
-              )}
+            <div
+              className="relative aspect-[4/5] min-h-[240px] w-full rounded-[2px] overflow-visible bg-[#FFFFFF] shadow-xs border border-[#F0E5EC]"
+              onMouseEnter={() => setIsModalImageHovered(true)}
+              onMouseLeave={() => setIsModalImageHovered(false)}
+            >
+              <CardPetalBloom isHovered={isModalImageHovered} product={product} />
+              <div className="relative w-full h-full overflow-hidden rounded-[2px]">
+                <Image
+                  src={selectedImage || product.image_url}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 320px"
+                  className="object-cover transition-transform duration-700 ease-out hover:scale-105"
+                />
+                {product.bestseller && (
+                  <span className="absolute top-3 left-3 px-2 py-0.5 text-[9.5px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#200E19] text-[#FCF8FA] rounded-[2px]">
+                    Bestseller
+                  </span>
+                )}
+              </div>
             </div>
 
             {product.images && product.images.length > 1 && (

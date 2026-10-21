@@ -11,6 +11,7 @@ import { productEnquiryUrl } from "@/lib/enquiry";
 import { siteConfig } from "@/config/site";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { useBag } from "@/context/BagContext";
+import { CardPetalBloom } from "@/components/motion/CardPetalBloom";
 
 export function ProductDetailClient({
   product: p,
@@ -20,6 +21,7 @@ export function ProductDetailClient({
   relatedProducts: Product[];
 }) {
   const [image, setImage] = useState(p.image_url);
+  const [isImageHovered, setIsImageHovered] = useState(false);
   const [color, setColor] = useState("");
   const [variants, setVariants] = useState<Record<string, string>>({});
   const [personalization, setPersonalization] = useState("");
@@ -70,26 +72,33 @@ export function ProductDetailClient({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
         {/* Left: Imagery Column */}
         <div className="lg:col-span-6 space-y-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative aspect-[4/5] min-h-[340px] sm:min-h-[460px] w-full rounded-[4px] overflow-hidden bg-[#FCF8FA] border border-[#F0E5EC] shadow-atelier"
+          <div
+            className="relative overflow-visible"
+            onMouseEnter={() => setIsImageHovered(true)}
+            onMouseLeave={() => setIsImageHovered(false)}
           >
-            <Image
-              src={image}
-              alt={p.name}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 600px"
-              className="object-cover transition-all duration-300"
-            />
-            {p.bestseller && (
-              <span className="absolute top-4 left-4 px-2.5 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#200E19] text-[#FCF8FA] rounded-[2px] shadow-xs">
-                Bestseller
-              </span>
-            )}
-          </motion.div>
+            <CardPetalBloom isHovered={isImageHovered} product={p} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="relative aspect-[4/5] min-h-[340px] sm:min-h-[460px] w-full rounded-[4px] overflow-hidden bg-[#FCF8FA] border border-[#F0E5EC] shadow-atelier"
+            >
+              <Image
+                src={image}
+                alt={p.name}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 600px"
+                className="object-cover transition-transform duration-700 ease-out hover:scale-105"
+              />
+              {p.bestseller && (
+                <span className="absolute top-4 left-4 px-2.5 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#200E19] text-[#FCF8FA] rounded-[2px] shadow-xs">
+                  Bestseller
+                </span>
+              )}
+            </motion.div>
+          </div>
 
           {/* Thumbnail Strip */}
           {p.images && p.images.length > 1 && (

@@ -1,15 +1,18 @@
 "use client";
 
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChenilleWireMotif } from "@/components/common/ChenilleWireMotif";
+import { CardPetalBloom } from "@/components/motion/CardPetalBloom";
 
 interface HomeHeroProps {
   heroImage: string;
 }
 
 export function HomeHero({ heroImage }: HomeHeroProps) {
+  const [isHeroHovered, setIsHeroHovered] = useState(false);
   return (
     <section className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-16 sm:pb-24 overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -76,23 +79,43 @@ export function HomeHero({ heroImage }: HomeHeroProps) {
           transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-6 relative"
         >
-          <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-[6px] overflow-hidden shadow-atelier-lg border border-[#F0E5EC] bg-[#FFFFFF]">
-            <Image
-              src={heroImage || "/images/products/sunflower_bouquet.jpg"}
-              alt="Handcrafted forever sunflower bouquet by The Pookie Craft Co."
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 600px"
-              className="object-cover"
+          <div
+            className="relative overflow-visible"
+            onMouseEnter={() => setIsHeroHovered(true)}
+            onMouseLeave={() => setIsHeroHovered(false)}
+          >
+            <CardPetalBloom
+              isHovered={isHeroHovered}
+              product={{
+                id: "hero-spotlight",
+                slug: "sunflower-bouquet",
+                name: "Forever Sunflower Bouquet",
+                description: "",
+                price: 249,
+                category: "Flowers & Bouquets",
+                images: [],
+                image_url: heroImage,
+                created_at: "",
+              }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-5 left-5 right-5 text-white">
-              <span className="text-[10px] font-sans uppercase tracking-[0.22em] text-[#D8A657] font-semibold block mb-1">
-                Artisan Spotlight
-              </span>
-              <p className="font-serif text-xl sm:text-2xl font-light">
-                Velvety Sunflower & Lavender Forever Bouquet
-              </p>
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-[6px] overflow-hidden shadow-atelier-lg border border-[#F0E5EC] bg-[#FFFFFF] transition-transform duration-500 hover:scale-[1.01]">
+              <Image
+                src={heroImage || "/images/products/sunflower_bouquet.jpg"}
+                alt="Handcrafted forever sunflower bouquet by The Pookie Craft Co."
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 600px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-5 left-5 right-5 text-white">
+                <span className="text-[10px] font-sans uppercase tracking-[0.22em] text-[#D8A657] font-semibold block mb-1">
+                  Artisan Spotlight
+                </span>
+                <p className="font-serif text-xl sm:text-2xl font-light">
+                  Velvety Sunflower &amp; Lavender Forever Bouquet
+                </p>
+              </div>
             </div>
           </div>
 
