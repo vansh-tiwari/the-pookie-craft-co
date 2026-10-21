@@ -13,7 +13,7 @@ export function LuxuryScrollProgress() {
   return (
     <motion.div
       style={{ scaleX }}
-      className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#967F4F] via-[#C29F58] to-[#967F4F] origin-left z-50 pointer-events-none"
+      className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#9B1B54] via-[#C8256E] to-[#D8A657] origin-left z-50 pointer-events-none"
     />
   );
 }

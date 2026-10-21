@@ -96,19 +96,19 @@ export function BagDrawer({ initialProducts }: { initialProducts: Product[] }) {
                 onDragEnd={(_e, { offset, velocity }) => {
                   if (offset.x > 80 || velocity.x > 400) closeBag();
                 }}
-                className="w-screen max-w-md bg-[#FCFBF9] border-l border-[#E8E2D8] shadow-2xl flex flex-col justify-between h-full overflow-hidden"
+                className="w-screen max-w-md bg-[#FCF8FA] border-l border-[#F0E5EC] shadow-2xl flex flex-col justify-between h-full overflow-hidden"
               >
                 {/* Header (Fixed Top) */}
-                <div className="p-4 sm:p-5 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF7F2] flex-shrink-0">
+                <div className="p-4 sm:p-5 border-b border-[#F0E5EC] flex items-center justify-between bg-[#FFFFFF] flex-shrink-0">
                   <div>
                     <span className="eyebrow !mb-0 text-[9.5px]">Studio Atelier</span>
                     <h2
                       id="bag-drawer-title"
-                      className="font-serif text-2xl font-normal text-[#1C281F]"
+                      className="font-serif text-2xl font-normal text-[#200E19]"
                     >
                       Your Bag
                     </h2>
-                    <p className="text-[11px] text-[#667264] font-sans">
+                    <p className="text-[11px] text-[#7E6875] font-sans">
                       {ready && count
                         ? `${count} ${count === 1 ? "piece" : "pieces"} selected`
                         : "Handcrafted pieces ready to order"}
@@ -117,7 +117,7 @@ export function BagDrawer({ initialProducts }: { initialProducts: Product[] }) {
                   <button
                     type="button"
                     onClick={closeBag}
-                    className="w-8 h-8 rounded-full bg-[#FFFFFF] border border-[#E8E2D8] text-[#1C281F] hover:bg-[#FAF7F2] flex items-center justify-center transition-colors shadow-xs"
+                    className="w-8 h-8 rounded-full bg-[#FCF8FA] border border-[#F0E5EC] text-[#200E19] hover:bg-[#F0E5EC] flex items-center justify-center transition-colors shadow-xs"
                     aria-label="Close bag"
                   >
                     <X size={16} />
@@ -135,13 +135,13 @@ export function BagDrawer({ initialProducts }: { initialProducts: Product[] }) {
                       <button
                         type="button"
                         onClick={() => setAttempt((n) => n + 1)}
-                        className="underline font-semibold ml-1"
+                        className="underline font-semibold ml-1 text-[#9B1B54]"
                       >
                         Try again
                       </button>
                     </p>
                   ) : !catalogReady ? (
-                    <p className="text-[10.5px] text-[#667264] font-sans">
+                    <p className="text-[10.5px] text-[#7E6875] font-sans">
                       Confirming studio availability…
                     </p>
                   ) : null}

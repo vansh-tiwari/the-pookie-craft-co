@@ -37,15 +37,15 @@ export function OwnerLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col justify-center items-center px-4 sm:px-6 py-16 relative overflow-hidden">
+    <div className="min-h-screen bg-[#FCF8FA] flex flex-col justify-center items-center px-4 sm:px-6 py-16 relative overflow-hidden text-[#200E19]">
       {/* Decorative Atelier Background Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#967F4F]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#9B1B54]/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Return to storefront link */}
       <div className="absolute top-6 left-6 sm:top-8 sm:left-8">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-sans font-medium text-[#667264] hover:text-[#1C281F] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-sans font-medium text-[#7E6875] hover:text-[#200E19] transition-colors"
         >
           <ArrowLeft size={14} />
           <span>Back to Storefront</span>
@@ -60,7 +60,7 @@ export function OwnerLogin() {
       >
         {/* Brand Crest */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#967F4F]/30 bg-[#F2EDE4] mb-4 shadow-sm">
+          <div className="inline-flex items-center justify-center relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#9B1B54]/30 bg-[#FFFFFF] mb-4 shadow-sm">
             <Image
               src="/images/instagram/logo.jpg"
               alt="The Pookie Craft Co."
@@ -72,26 +72,26 @@ export function OwnerLogin() {
           <span className="eyebrow !justify-center !mb-1.5">
             Owner Studio Portal
           </span>
-          <h1 className="font-serif text-3xl sm:text-[34px] text-[#1C281F] font-normal tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-[34px] text-[#200E19] font-normal tracking-tight">
             Hello, maker.
           </h1>
-          <p className="text-xs sm:text-[13px] font-sans text-[#667264] mt-1.5 max-w-xs mx-auto leading-relaxed">
+          <p className="text-xs sm:text-[13px] font-sans text-[#7E6875] mt-1.5 max-w-xs mx-auto leading-relaxed">
             Sign in to look after your little studio, update catalog items, and view custom requests.
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] shadow-atelier-lg p-7 sm:p-9">
+        <div className="bg-[#FFFFFF] border border-[#F0E5EC] rounded-[6px] shadow-atelier-lg p-7 sm:p-9">
           <form className="space-y-5" onSubmit={submit}>
             <div>
               <label
                 htmlFor="admin-email"
-                className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5"
+                className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5"
               >
                 Owner Email
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#967F4F]">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#9B1B54]">
                   <Mail size={15} />
                 </div>
                 <input
@@ -101,7 +101,7 @@ export function OwnerLogin() {
                   name="email"
                   autoComplete="username"
                   placeholder="owner@thepookiecraft.com"
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-2 focus:ring-[#967F4F]/10 rounded-[3px] text-sm text-[#1C281F] placeholder:text-[#9EA89C] transition-all outline-none"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-2 focus:ring-[#9B1B54]/10 rounded-[3px] text-sm text-[#200E19] placeholder:text-[#9E8393] transition-all outline-none"
                 />
               </div>
             </div>
@@ -109,12 +109,12 @@ export function OwnerLogin() {
             <div>
               <label
                 htmlFor="admin-password"
-                className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5"
+                className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5"
               >
                 Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#967F4F]">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#9B1B54]">
                   <Lock size={15} />
                 </div>
                 <input
@@ -124,7 +124,7 @@ export function OwnerLogin() {
                   name="password"
                   autoComplete="current-password"
                   placeholder="••••••••••••"
-                  className="w-full pl-10 pr-4 py-3 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-2 focus:ring-[#967F4F]/10 rounded-[3px] text-sm text-[#1C281F] placeholder:text-[#9EA89C] transition-all outline-none"
+                  className="w-full pl-10 pr-4 py-3 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-2 focus:ring-[#9B1B54]/10 rounded-[3px] text-sm text-[#200E19] placeholder:text-[#9E8393] transition-all outline-none"
                 />
               </div>
             </div>
@@ -144,7 +144,7 @@ export function OwnerLogin() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full py-3.5 px-6 bg-[#1C281F] hover:bg-[#967F4F] disabled:bg-[#1C281F]/60 text-[#FAF7F2] font-sans text-xs font-semibold tracking-[0.16em] uppercase rounded-[3px] shadow-sm transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+              className="w-full py-3.5 px-6 bg-[#9B1B54] hover:bg-[#7D1342] disabled:bg-[#9B1B54]/60 text-[#FFFFFF] font-sans text-xs font-semibold tracking-[0.16em] uppercase rounded-[3px] shadow-sm transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
             >
               {busy ? (
                 <span>Entering Studio…</span>
@@ -158,8 +158,8 @@ export function OwnerLogin() {
           </form>
 
           {/* Security note */}
-          <div className="mt-6 pt-5 border-t border-[#E8E2D8] text-[11px] text-[#667264] flex items-start gap-2 leading-relaxed">
-            <ShieldCheck size={14} className="text-[#967F4F] flex-shrink-0 mt-0.5" />
+          <div className="mt-6 pt-5 border-t border-[#F0E5EC] text-[11px] text-[#7E6875] flex items-start gap-2 leading-relaxed">
+            <ShieldCheck size={14} className="text-[#9B1B54] flex-shrink-0 mt-0.5" />
             <p>
               Protected by server-side salted scrypt hashing &amp; HttpOnly SameSite encryption. Plaintext passwords are never saved.
             </p>
@@ -167,7 +167,7 @@ export function OwnerLogin() {
         </div>
 
         {/* Studio Info Footnote */}
-        <p className="text-center text-[11px] text-[#8C988A] mt-6">
+        <p className="text-center text-[11px] text-[#7E6875] mt-6">
           The Pookie Craft Co. · Private Maker Studio
         </p>
       </motion.div>

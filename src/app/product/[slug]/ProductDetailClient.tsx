@@ -56,14 +56,14 @@ export function ProductDetailClient({
   }
 
   return (
-    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-20 text-[#1C281F]">
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-20 text-[#200E19]">
       {/* Breadcrumb Navigation */}
       <nav className="breadcrumb" aria-label="Breadcrumb">
         <Link href="/">Home</Link>
         <span>/</span>
         <Link href="/shop">Shop</Link>
         <span>/</span>
-        <span className="text-[#1C281F] font-medium">{p.name}</span>
+        <span className="text-[#200E19] font-medium">{p.name}</span>
       </nav>
 
       {/* Main Product Layout */}
@@ -74,7 +74,7 @@ export function ProductDetailClient({
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative aspect-[4/5] min-h-[340px] sm:min-h-[460px] w-full rounded-[4px] overflow-hidden bg-[#F2EDE4] border border-[#E8E2D8] shadow-atelier"
+            className="relative aspect-[4/5] min-h-[340px] sm:min-h-[460px] w-full rounded-[4px] overflow-hidden bg-[#FCF8FA] border border-[#F0E5EC] shadow-atelier"
           >
             <Image
               src={image}
@@ -85,7 +85,7 @@ export function ProductDetailClient({
               className="object-cover transition-all duration-300"
             />
             {p.bestseller && (
-              <span className="absolute top-4 left-4 px-2.5 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#1C281F] text-[#FAF7F2] rounded-[2px] shadow-xs">
+              <span className="absolute top-4 left-4 px-2.5 py-1 text-[10px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#200E19] text-[#FCF8FA] rounded-[2px] shadow-xs">
                 Bestseller
               </span>
             )}
@@ -103,8 +103,8 @@ export function ProductDetailClient({
                   onClick={() => setImage(src)}
                   className={`relative w-16 h-20 rounded-[2px] overflow-hidden border flex-shrink-0 transition-all ${
                     image === src
-                      ? "border-[#967F4F] ring-1 ring-[#967F4F]"
-                      : "border-[#E8E2D8] opacity-70 hover:opacity-100"
+                      ? "border-[#9B1B54] ring-1 ring-[#9B1B54]"
+                      : "border-[#F0E5EC] opacity-70 hover:opacity-100"
                   }`}
                 >
                   <Image src={src} alt="" fill className="object-cover" />
@@ -123,11 +123,11 @@ export function ProductDetailClient({
         >
           <div>
             <span className="eyebrow">{p.category}</span>
-            <h1 className="font-serif text-3xl sm:text-4xl text-[#1C281F] font-normal leading-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl text-[#200E19] font-normal leading-tight">
               {p.name}
             </h1>
             <div className="flex items-center gap-3 mt-3">
-              <span className="text-2xl font-sans font-semibold text-[#1C281F]">
+              <span className="text-2xl font-sans font-semibold text-[#200E19]">
                 {priceLabel(p)}
               </span>
               <span
@@ -135,35 +135,35 @@ export function ProductDetailClient({
                   status === "Available"
                     ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                     : status === "Made to Order"
-                      ? "bg-amber-50 text-amber-800 border border-amber-200"
+                      ? "bg-[#FDF2F7] text-[#9B1B54] border border-[#F0E5EC]"
                       : "bg-stone-100 text-stone-600 border border-stone-200"
                 }`}
               >
                 {status}
               </span>
             </div>
-            <p className="mt-4 text-sm font-sans text-[#5D685B] leading-relaxed font-light">
+            <p className="mt-4 text-sm font-sans text-[#4A303F] leading-relaxed font-light">
               {p.description}
             </p>
           </div>
 
           {/* Specifications */}
-          <div className="p-4 rounded-[4px] bg-[#FCFBF9] border border-[#E8E2D8] text-xs font-sans space-y-2">
-            <div className="flex justify-between py-1 border-b border-[#E8E2D8]/60">
-              <span className="text-[#667264]">Size & Dimensions</span>
-              <span className="text-[#1C281F] font-medium">
+          <div className="p-4 rounded-[4px] bg-[#FFFFFF] border border-[#F0E5EC] text-xs font-sans space-y-2">
+            <div className="flex justify-between py-1 border-b border-[#F0E5EC]/80">
+              <span className="text-[#7E6875]">Size & Dimensions</span>
+              <span className="text-[#200E19] font-medium">
                 {p.dimensions || "Confirmed with studio on enquiry"}
               </span>
             </div>
-            <div className="flex justify-between py-1 border-b border-[#E8E2D8]/60">
-              <span className="text-[#667264]">Craft Materials</span>
-              <span className="text-[#1C281F] font-medium">
+            <div className="flex justify-between py-1 border-b border-[#F0E5EC]/80">
+              <span className="text-[#7E6875]">Craft Materials</span>
+              <span className="text-[#200E19] font-medium">
                 {p.material || "Dense Chenille Craft Wire & Metal Findings"}
               </span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="text-[#667264]">Dispatch & Handcrafting</span>
-              <span className="text-[#1C281F] font-medium">
+              <span className="text-[#7E6875]">Dispatch & Handcrafting</span>
+              <span className="text-[#200E19] font-medium">
                 {p.leadTime || "Ships across India"}
               </span>
             </div>
@@ -178,7 +178,7 @@ export function ProductDetailClient({
             {/* Variants */}
             {p.variants?.map((v) => (
               <div key={v.name} className="space-y-1.5">
-                <label className="text-xs font-sans font-medium text-[#1C281F] block">
+                <label className="text-xs font-sans font-medium text-[#200E19] block">
                   {v.name} *
                 </label>
                 <select
@@ -187,7 +187,7 @@ export function ProductDetailClient({
                   onChange={(e) =>
                     setVariants({ ...variants, [v.name]: e.target.value })
                   }
-                  className="w-full px-3.5 py-2.5 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F]"
+                  className="w-full px-3.5 py-2.5 text-xs font-sans rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] focus:outline-none focus:ring-1 focus:ring-[#9B1B54]"
                 >
                   <option value="">Select an option</option>
                   {v.options.map((o) => (
@@ -202,8 +202,8 @@ export function ProductDetailClient({
             {/* Colors */}
             {!!p.colors?.length && (
               <div className="space-y-1.5">
-                <span className="text-xs font-sans font-medium text-[#1C281F] block">
-                  Select Colour * {color && <span className="font-normal text-[#667264]">({color})</span>}
+                <span className="text-xs font-sans font-medium text-[#200E19] block">
+                  Select Colour * {color && <span className="font-normal text-[#7E6875]">({color})</span>}
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {p.colors.map((c) => (
@@ -213,8 +213,8 @@ export function ProductDetailClient({
                       onClick={() => setColor(c.name)}
                       className={`flex items-center gap-2 px-3 py-1.5 rounded-[2px] border text-xs font-sans transition-all ${
                         color === c.name
-                          ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2]"
-                          : "border-[#E8E2D8] bg-[#FFFFFF] text-[#5D685B] hover:border-[#967F4F]"
+                          ? "border-[#9B1B54] bg-[#9B1B54] text-[#FFFFFF]"
+                          : "border-[#F0E5EC] bg-[#FFFFFF] text-[#4A303F] hover:border-[#9B1B54]"
                       }`}
                     >
                       <span
@@ -230,9 +230,9 @@ export function ProductDetailClient({
 
             {/* Personalization */}
             <div className="space-y-1.5">
-              <label className="text-xs font-sans font-medium text-[#1C281F] flex justify-between">
+              <label className="text-xs font-sans font-medium text-[#200E19] flex justify-between">
                 <span>Personalised Text or Notes</span>
-                <span className="text-[#667264] font-normal">
+                <span className="text-[#7E6875] font-normal">
                   {p.personalizationRequired ? "Required *" : "(Optional)"}
                 </span>
               </label>
@@ -243,30 +243,30 @@ export function ProductDetailClient({
                 required={p.personalizationRequired}
                 onChange={(e) => setPersonalization(e.target.value)}
                 placeholder="Names, dates, jerseys, or color preferences…"
-                className="w-full px-3.5 py-2.5 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F]"
+                className="w-full px-3.5 py-2.5 text-xs font-sans rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] focus:outline-none focus:ring-1 focus:ring-[#9B1B54]"
               />
             </div>
 
             {/* Quantity */}
             <div className="flex items-center gap-3">
-              <label className="text-xs font-sans font-medium text-[#1C281F]">
+              <label className="text-xs font-sans font-medium text-[#200E19]">
                 Quantity:
               </label>
-              <div className="flex items-center border border-[#E8E2D8] rounded-[2px] overflow-hidden bg-white">
+              <div className="flex items-center border border-[#F0E5EC] rounded-[2px] overflow-hidden bg-white">
                 <button
                   type="button"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="px-3 py-1 text-sm text-[#1C281F] hover:bg-[#FAF7F2]"
+                  className="px-3 py-1 text-sm text-[#200E19] hover:bg-[#FCF8FA]"
                 >
                   -
                 </button>
-                <span className="px-3 py-1 text-xs font-sans text-center min-w-[32px]">
+                <span className="px-3 py-1 text-xs font-sans text-center min-w-[32px] text-[#200E19]">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   onClick={() => setQuantity(Math.min(99, quantity + 1))}
-                  className="px-3 py-1 text-sm text-[#1C281F] hover:bg-[#FAF7F2]"
+                  className="px-3 py-1 text-sm text-[#200E19] hover:bg-[#FCF8FA]"
                 >
                   +
                 </button>
@@ -288,10 +288,10 @@ export function ProductDetailClient({
                 disabled={!bag.ready || status === "Sold Out"}
                 className={`w-full py-3.5 px-6 rounded-[2px] text-xs font-sans font-semibold tracking-[0.16em] uppercase transition-all duration-200 flex items-center justify-center gap-2 ${
                   status === "Sold Out"
-                    ? "bg-[#E8E2D8] text-[#667264] cursor-not-allowed"
+                    ? "bg-[#F0E5EC] text-[#7E6875] cursor-not-allowed"
                     : added
-                      ? "bg-emerald-800 text-white"
-                      : "bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] shadow-sm"
+                      ? "bg-[#3D6B52] text-white"
+                      : "bg-[#9B1B54] hover:bg-[#7D1342] text-[#FFFFFF] shadow-sm"
                 }`}
               >
                 {added ? (
@@ -328,7 +328,7 @@ export function ProductDetailClient({
                   <button
                     type="button"
                     onClick={bag.openBag}
-                    className="font-semibold underline"
+                    className="font-semibold underline text-[#9B1B54]"
                   >
                     View Bag ↗
                   </button>
@@ -344,7 +344,7 @@ export function ProductDetailClient({
                 href={siteConfig.instagramUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs font-sans text-[#667264] hover:text-[#1C281F] inline-flex items-center gap-1 transition-colors"
+                className="text-xs font-sans text-[#7E6875] hover:text-[#9B1B54] inline-flex items-center gap-1 transition-colors"
               >
                 <span>Prefer Instagram? Message studio (@thepookiecraft) ↗</span>
               </a>
@@ -355,10 +355,10 @@ export function ProductDetailClient({
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="mt-24 pt-14 border-t border-[#E8E2D8]">
+        <section className="mt-24 pt-14 border-t border-[#F0E5EC]">
           <div className="mb-8">
             <span className="eyebrow">Studio Atelier</span>
-            <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal">
+            <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal">
               More Handcrafted Keepsakes
             </h2>
           </div>

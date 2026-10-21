@@ -27,13 +27,13 @@ const studioMoments = [
 
 export function InstagramFeed() {
   return (
-    <section className="py-16 sm:py-24 bg-[#FAF7F2] border-t border-[#E8E2D8]">
+    <section className="py-16 sm:py-24 bg-[#FCF8FA] border-t border-[#F0E5EC]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2.5 mb-10">
         <span className="eyebrow !justify-center">Studio Journal</span>
-        <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#1C281F]">
+        <h2 className="font-serif text-3xl sm:text-4xl font-normal text-[#200E19]">
           Follow @{siteConfig.instagramHandle}
         </h2>
-        <p className="text-xs sm:text-sm text-[#5D685B] font-sans font-light max-w-md mx-auto">
+        <p className="text-xs sm:text-sm text-[#4A303F] font-sans font-light max-w-md mx-auto">
           Behind the scenes in our craft atelier. Daily handmade flower bouquets,
           bespoke keepsakes, and studio dispatches.
         </p>
@@ -46,7 +46,7 @@ export function InstagramFeed() {
             href={siteConfig.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative aspect-square overflow-hidden bg-[#FCFBF9] border border-[#E8E2D8] rounded-[4px] cursor-pointer shadow-xs hover:border-[#967F4F]/50 transition-all"
+            className="group relative aspect-square overflow-hidden bg-[#FFFFFF] border border-[#F0E5EC] rounded-[4px] cursor-pointer shadow-xs hover:border-[#9B1B54]/60 transition-all"
           >
             <Image
               src={moment.image}
@@ -55,7 +55,7 @@ export function InstagramFeed() {
               sizes="(max-width: 640px) 50vw, 25vw"
               className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-[#1C281F]/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[#FAF7F2]">
+            <div className="absolute inset-0 bg-[#180812]/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[#FCF8FA]">
               <svg
                 className="w-7 h-7"
                 viewBox="0 0 24 24"

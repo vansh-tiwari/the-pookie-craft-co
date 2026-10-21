@@ -76,22 +76,22 @@ export default function CustomOrdersPage() {
   const whatsappMessage = `Hi! I submitted custom request ${id} on The Pookie Craft Co. website.\n\nProduct Idea: ${form.idea}\nColours: ${form.colors || "Artist Choice"}\nBudget: ${form.budget}\nPersonalization: ${form.personalization || "None"}\n\nPlease confirm availability, timeframe, and payment details!`;
 
   return (
-    <div className="bg-[#FAF7F2] text-[#1C281F] min-h-screen pt-28 sm:pt-36 pb-24">
+    <div className="bg-[#FCF8FA] text-[#200E19] min-h-screen pt-28 sm:pt-36 pb-24">
       <div className="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="breadcrumb !mb-6" aria-label="Breadcrumb">
           <Link href="/">Home</Link>
           <span>/</span>
-          <span className="text-[#1C281F] font-medium">Bespoke Custom Orders</span>
+          <span className="text-[#200E19] font-medium">Bespoke Custom Orders</span>
         </nav>
 
         {/* Header */}
-        <div className="mb-12 border-b border-[#E8E2D8] pb-10">
+        <div className="mb-12 border-b border-[#F0E5EC] pb-10">
           <span className="eyebrow">Studio Atelier Commissions</span>
-          <h1 className="font-serif text-3xl sm:text-5xl text-[#1C281F] font-normal tracking-tight mt-1 mb-4">
+          <h1 className="font-serif text-3xl sm:text-5xl text-[#200E19] font-normal tracking-tight mt-1 mb-4">
             Bespoke Custom Creations
           </h1>
-          <p className="text-base sm:text-lg font-sans text-[#5D685B] font-light leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-lg font-sans text-[#4A303F] font-light leading-relaxed max-w-2xl">
             Have a cherished vision in mind? Tell us what you’d like crafted. Our artisans will review your concept, confirm possibilities, and prepare a personalized quote.
           </p>
         </div>
@@ -122,17 +122,17 @@ export default function CustomOrdersPage() {
             return (
               <div
                 key={step.num}
-                className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-5 shadow-xs"
+                className="bg-[#FFFFFF] border border-[#F0E5EC] rounded-[6px] p-5 shadow-xs"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[11px] font-sans font-semibold text-[#967F4F] uppercase tracking-wider">
+                  <span className="text-[11px] font-sans font-semibold text-[#9B1B54] uppercase tracking-wider">
                     {step.num} ·
                   </span>
-                  <span className="font-serif text-base text-[#1C281F] font-medium">
+                  <span className="font-serif text-base text-[#200E19] font-medium">
                     {step.title}
                   </span>
                 </div>
-                <p className="text-xs font-sans text-[#5D685B] leading-relaxed">
+                <p className="text-xs font-sans text-[#4A303F] leading-relaxed">
                   {step.desc}
                 </p>
               </div>
@@ -148,7 +148,7 @@ export default function CustomOrdersPage() {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              className="bg-[#FCFBF9] border border-[#967F4F]/40 rounded-[6px] p-8 sm:p-12 text-center shadow-atelier"
+              className="bg-[#FFFFFF] border border-[#9B1B54]/40 rounded-[6px] p-8 sm:p-12 text-center shadow-atelier"
             >
               <div className="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center mx-auto mb-4">
                 <CheckCircle2 size={28} />
@@ -157,16 +157,16 @@ export default function CustomOrdersPage() {
               <span className="eyebrow !justify-center !mb-1">
                 Inquiry Received
               </span>
-              <h2 className="font-serif text-2xl sm:text-4xl text-[#1C281F] font-normal mb-2">
+              <h2 className="font-serif text-2xl sm:text-4xl text-[#200E19] font-normal mb-2">
                 Your idea is in our studio inbox!
               </h2>
 
-              <p className="text-xs font-sans text-[#967F4F] font-semibold tracking-wider uppercase mb-4">
+              <p className="text-xs font-sans text-[#9B1B54] font-semibold tracking-wider uppercase mb-4">
                 Reference ID: {id}
               </p>
 
-              <p className="text-xs sm:text-sm font-sans text-[#5D685B] max-w-lg mx-auto leading-relaxed mb-8">
-                Our maker will review your request and contact you at <strong className="text-[#1C281F]">{form.contact}</strong>. For instant confirmation, you can tap below to continue the chat on WhatsApp with your reference.
+              <p className="text-xs sm:text-sm font-sans text-[#4A303F] max-w-lg mx-auto leading-relaxed mb-8">
+                Our maker will review your request and contact you at <strong className="text-[#200E19]">{form.contact}</strong>. For instant confirmation, you can tap below to continue the chat on WhatsApp with your reference.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -174,7 +174,7 @@ export default function CustomOrdersPage() {
                   href={whatsappLink(whatsappMessage)}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full sm:w-auto px-7 py-3.5 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] text-xs font-sans font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all inline-flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-7 py-3.5 bg-[#9B1B54] hover:bg-[#7D1342] text-[#FFFFFF] text-xs font-sans font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all inline-flex items-center justify-center gap-2"
                 >
                   <MessageCircle size={15} />
                   <span>Continue on WhatsApp ↗</span>
@@ -186,7 +186,7 @@ export default function CustomOrdersPage() {
                     setId("");
                     setForm(initial);
                   }}
-                  className="w-full sm:w-auto px-5 py-3.5 border border-[#E8E2D8] hover:border-[#1C281F] text-[#1C281F] text-xs font-sans font-semibold tracking-[0.14em] uppercase rounded-[3px] transition-colors inline-flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-5 py-3.5 border border-[#F0E5EC] hover:border-[#9B1B54] text-[#200E19] hover:text-[#9B1B54] text-xs font-sans font-semibold tracking-[0.14em] uppercase rounded-[3px] transition-colors inline-flex items-center justify-center gap-2"
                 >
                   <RotateCcw size={13} />
                   <span>Submit Another Idea</span>
@@ -199,11 +199,11 @@ export default function CustomOrdersPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               onSubmit={submit}
-              className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-6 sm:p-10 shadow-atelier space-y-7"
+              className="bg-[#FFFFFF] border border-[#F0E5EC] rounded-[6px] p-6 sm:p-10 shadow-atelier space-y-7"
             >
               {/* Popular Idea Inspiration Chips */}
               <div>
-                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-2">
+                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-2">
                   Popular Creations for Inspiration
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -221,8 +221,8 @@ export default function CustomOrdersPage() {
                         }
                         className={`px-3 py-1.5 rounded-[3px] text-xs font-sans transition-all border ${
                           selected
-                            ? "bg-[#1C281F] text-white border-[#1C281F]"
-                            : "bg-white text-[#5D685B] border-[#E8E2D8] hover:border-[#967F4F]"
+                            ? "bg-[#9B1B54] text-white border-[#9B1B54]"
+                            : "bg-white text-[#4A303F] border-[#F0E5EC] hover:border-[#9B1B54]"
                         }`}
                       >
                         {idea}
@@ -236,7 +236,7 @@ export default function CustomOrdersPage() {
               <div>
                 <label
                   htmlFor="custom-idea"
-                  className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5"
+                  className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5"
                 >
                   Describe Your Creation <span className="text-rose-600">*</span>
                 </label>
@@ -249,7 +249,7 @@ export default function CustomOrdersPage() {
                   onChange={(e) =>
                     setForm((prev) => ({ ...prev, idea: e.target.value }))
                   }
-                  className="w-full px-3.5 py-3 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none leading-relaxed"
+                  className="w-full px-3.5 py-3 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none leading-relaxed"
                 />
               </div>
 
@@ -258,7 +258,7 @@ export default function CustomOrdersPage() {
                 <div>
                   <label
                     htmlFor="custom-name"
-                    className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5"
+                    className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5"
                   >
                     Your Name <span className="text-rose-600">*</span>
                   </label>
@@ -271,14 +271,14 @@ export default function CustomOrdersPage() {
                     onChange={(e) =>
                       setForm((prev) => ({ ...prev, name: e.target.value }))
                     }
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="custom-contact"
-                    className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5"
+                    className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5"
                   >
                     WhatsApp Number or Email <span className="text-rose-600">*</span>
                   </label>
@@ -291,7 +291,7 @@ export default function CustomOrdersPage() {
                     onChange={(e) =>
                       setForm((prev) => ({ ...prev, contact: e.target.value }))
                     }
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                   />
                 </div>
               </div>
@@ -301,7 +301,7 @@ export default function CustomOrdersPage() {
                 <div>
                   <label
                     htmlFor="custom-colors"
-                    className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5"
+                    className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5"
                   >
                     Preferred Colour Palette
                   </label>
@@ -313,14 +313,14 @@ export default function CustomOrdersPage() {
                     onChange={(e) =>
                       setForm((prev) => ({ ...prev, colors: e.target.value }))
                     }
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="custom-budget"
-                    className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5"
+                    className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5"
                   >
                     Target Budget (₹) <span className="text-rose-600">*</span>
                   </label>
@@ -333,7 +333,7 @@ export default function CustomOrdersPage() {
                     onChange={(e) =>
                       setForm((prev) => ({ ...prev, budget: e.target.value }))
                     }
-                    className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                    className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                   />
                   <div className="flex flex-wrap gap-1.5 mt-2">
                     {budgetPresets.map((b) => (
@@ -341,7 +341,7 @@ export default function CustomOrdersPage() {
                         key={b}
                         type="button"
                         onClick={() => setForm((prev) => ({ ...prev, budget: b }))}
-                        className="text-[10.5px] font-sans px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] hover:border-[#967F4F] text-[#5D685B] transition-colors"
+                        className="text-[10.5px] font-sans px-2 py-0.5 rounded-[2px] bg-[#FCF8FA] border border-[#F0E5EC] hover:border-[#9B1B54] text-[#4A303F] transition-colors"
                       >
                         {b}
                       </button>
@@ -354,7 +354,7 @@ export default function CustomOrdersPage() {
               <div>
                 <label
                   htmlFor="custom-personalization"
-                  className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5"
+                  className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5"
                 >
                   Personalization Details (Optional)
                 </label>
@@ -369,7 +369,7 @@ export default function CustomOrdersPage() {
                       personalization: e.target.value,
                     }))
                   }
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                 />
               </div>
 
@@ -400,7 +400,7 @@ export default function CustomOrdersPage() {
               <button
                 type="submit"
                 disabled={busy}
-                className="w-full py-3.5 px-6 bg-[#1C281F] hover:bg-[#967F4F] disabled:bg-[#1C281F]/60 text-[#FAF7F2] font-sans text-xs font-semibold tracking-[0.16em] uppercase rounded-[3px] shadow-sm transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+                className="w-full py-3.5 px-6 bg-[#9B1B54] hover:bg-[#7D1342] disabled:bg-[#9B1B54]/60 text-[#FFFFFF] font-sans text-xs font-semibold tracking-[0.16em] uppercase rounded-[3px] shadow-sm transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
               >
                 {busy ? (
                   <span>Sending to Studio Inbox…</span>
@@ -412,7 +412,7 @@ export default function CustomOrdersPage() {
                 )}
               </button>
 
-              <p className="text-center text-[11px] font-sans text-[#8C988A] leading-relaxed">
+              <p className="text-center text-[11px] font-sans text-[#7E6875] leading-relaxed">
                 No automatic charges. We discuss all design choices, timing, and confirm advance payment directly in chat before making starts.
               </p>
             </motion.form>

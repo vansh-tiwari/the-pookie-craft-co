@@ -85,13 +85,13 @@ export function BagContents({
           <div className="flex justify-between items-baseline mb-6">
             <div>
               <span className="eyebrow">Studio Atelier</span>
-              <h1 className="font-serif text-3xl sm:text-4xl text-[#1C281F]">
+              <h1 className="font-serif text-3xl sm:text-4xl text-[#200E19]">
                 Your Bag
               </h1>
             </div>
             <Link
               href="/shop"
-              className="text-xs font-sans font-semibold uppercase tracking-[0.14em] text-[#1C281F] hover:text-[#967F4F]"
+              className="text-xs font-sans font-semibold uppercase tracking-[0.14em] text-[#200E19] hover:text-[#9B1B54]"
             >
               Continue Shopping ↗
             </Link>
@@ -105,27 +105,27 @@ export function BagContents({
 
       {/* Storage notice if any */}
       {bag.storageNotice && (
-        <p className="text-xs text-[#667264] bg-[#FAF7F2] p-2.5 rounded-[2px] border border-[#E8E2D8] mb-3">
+        <p className="text-xs text-[#7E6875] bg-[#FCF8FA] p-2.5 rounded-[2px] border border-[#F0E5EC] mb-3">
           {bag.storageNotice}
         </p>
       )}
 
       {/* Loading State */}
       {!bag.ready ? (
-        <div className="py-12 text-center text-xs font-sans text-[#667264]">
+        <div className="py-12 text-center text-xs font-sans text-[#7E6875]">
           Opening your bag…
         </div>
       ) : isEmpty ? (
         /* Quiet Luxury Empty State with 1-Tap Category Discovery */
         <div className="py-12 px-2 text-center space-y-4 my-auto">
-          <div className="w-14 h-14 rounded-full bg-[#FAF7F2] border border-[#E8E2D8] flex items-center justify-center mx-auto text-[#967F4F] shadow-xs">
+          <div className="w-14 h-14 rounded-full bg-[#FCF8FA] border border-[#F0E5EC] flex items-center justify-center mx-auto text-[#9B1B54] shadow-xs">
             <Sparkles size={20} />
           </div>
           <div className="space-y-1">
-            <h3 className="font-serif text-xl sm:text-2xl text-[#1C281F] font-normal">
+            <h3 className="font-serif text-xl sm:text-2xl text-[#200E19] font-normal">
               Your bag is empty
             </h3>
-            <p className="text-xs font-sans text-[#667264] max-w-xs mx-auto leading-relaxed font-light">
+            <p className="text-xs font-sans text-[#7E6875] max-w-xs mx-auto leading-relaxed font-light">
               Everlasting florals, custom keychains, and ambient lamps are waiting for you.
             </p>
           </div>
@@ -135,30 +135,30 @@ export function BagContents({
             <Link
               href="/shop?category=Flowers%20%26%20Bouquets"
               onClick={() => presentation === "drawer" && bag.closeBag()}
-              className="px-3.5 py-2.5 bg-[#FCFBF9] hover:bg-[#FAF7F2] border border-[#E8E2D8] hover:border-[#967F4F]/50 text-xs font-sans text-[#1C281F] rounded-[2px] transition-all flex items-center justify-between group"
+              className="px-3.5 py-2.5 bg-[#FFFFFF] hover:bg-[#FCF8FA] border border-[#F0E5EC] hover:border-[#9B1B54]/50 text-xs font-sans text-[#200E19] rounded-[2px] transition-all flex items-center justify-between group"
             >
               <span>✿ Flowers & Bouquets</span>
-              <span className="text-[#967F4F] group-hover:translate-x-0.5 transition-transform">
+              <span className="text-[#9B1B54] group-hover:translate-x-0.5 transition-transform">
                 →
               </span>
             </Link>
             <Link
               href="/shop?category=Keychains"
               onClick={() => presentation === "drawer" && bag.closeBag()}
-              className="px-3.5 py-2.5 bg-[#FCFBF9] hover:bg-[#FAF7F2] border border-[#E8E2D8] hover:border-[#967F4F]/50 text-xs font-sans text-[#1C281F] rounded-[2px] transition-all flex items-center justify-between group"
+              className="px-3.5 py-2.5 bg-[#FFFFFF] hover:bg-[#FCF8FA] border border-[#F0E5EC] hover:border-[#9B1B54]/50 text-xs font-sans text-[#200E19] rounded-[2px] transition-all flex items-center justify-between group"
             >
               <span>★ Custom Jersey Keychains</span>
-              <span className="text-[#967F4F] group-hover:translate-x-0.5 transition-transform">
+              <span className="text-[#9B1B54] group-hover:translate-x-0.5 transition-transform">
                 →
               </span>
             </Link>
             <Link
               href="/shop?category=Lamps%20%26%20Decor"
               onClick={() => presentation === "drawer" && bag.closeBag()}
-              className="px-3.5 py-2.5 bg-[#FCFBF9] hover:bg-[#FAF7F2] border border-[#E8E2D8] hover:border-[#967F4F]/50 text-xs font-sans text-[#1C281F] rounded-[2px] transition-all flex items-center justify-between group"
+              className="px-3.5 py-2.5 bg-[#FFFFFF] hover:bg-[#FCF8FA] border border-[#F0E5EC] hover:border-[#9B1B54]/50 text-xs font-sans text-[#200E19] rounded-[2px] transition-all flex items-center justify-between group"
             >
               <span>✦ Lumiflower Lamps</span>
-              <span className="text-[#967F4F] group-hover:translate-x-0.5 transition-transform">
+              <span className="text-[#9B1B54] group-hover:translate-x-0.5 transition-transform">
                 →
               </span>
             </Link>
@@ -168,7 +168,7 @@ export function BagContents({
             <Link
               href="/shop"
               onClick={() => presentation === "drawer" && bag.closeBag()}
-              className="inline-flex px-6 py-2.5 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] text-xs font-sans font-semibold tracking-[0.14em] uppercase rounded-[2px] transition-all"
+              className="inline-flex px-6 py-2.5 bg-[#9B1B54] hover:bg-[#7D1342] text-[#FFFFFF] text-xs font-sans font-semibold tracking-[0.14em] uppercase rounded-[2px] transition-all shadow-sm"
             >
               Explore Collection ↗
             </Link>
@@ -203,10 +203,10 @@ export function BagContents({
                       overflow: "hidden",
                       transition: { duration: 0.28, ease: [0.16, 1, 0.3, 1] },
                     }}
-                    className="p-3.5 bg-[#FFFFFF] border border-[#E8E2D8] rounded-[2px] flex gap-3.5 items-start shadow-2xs hover:border-[#967F4F]/40 transition-colors"
+                    className="p-3.5 bg-[#FFFFFF] border border-[#F0E5EC] rounded-[2px] flex gap-3.5 items-start shadow-2xs hover:border-[#9B1B54]/40 transition-colors"
                   >
                     {/* 4:5 Aspect Image */}
-                    <div className="relative aspect-[4/5] w-16 min-w-[64px] rounded-[2px] overflow-hidden bg-[#F2EDE4] border border-[#E8E2D8] flex-shrink-0">
+                    <div className="relative aspect-[4/5] w-16 min-w-[64px] rounded-[2px] overflow-hidden bg-[#FCF8FA] border border-[#F0E5EC] flex-shrink-0">
                       {p ? (
                         <Link
                           href={`/product/${p.slug}`}
@@ -222,7 +222,7 @@ export function BagContents({
                           />
                         </Link>
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-xl text-[#967F4F]">
+                        <div className="w-full h-full flex items-center justify-center text-xl text-[#9B1B54]">
                           ✿
                         </div>
                       )}
@@ -232,14 +232,14 @@ export function BagContents({
                     <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch">
                       <div>
                         <div className="flex justify-between items-start gap-1">
-                          <h4 className="font-serif text-[15px] text-[#1C281F] font-normal leading-snug line-clamp-1">
+                          <h4 className="font-serif text-[15px] text-[#200E19] font-normal leading-snug line-clamp-1">
                             {p ? (
                               <Link
                                 href={`/product/${p.slug}`}
                                 onClick={() =>
                                   presentation === "drawer" && bag.closeBag()
                                 }
-                                className="hover:text-[#967F4F] transition-colors"
+                                className="hover:text-[#9B1B54] transition-colors"
                               >
                                 {p.name}
                               </Link>
@@ -254,7 +254,7 @@ export function BagContents({
                               bag.remove(item.key);
                               setNotice("Piece removed from your bag.");
                             }}
-                            className="text-[#859383] hover:text-rose-700 p-0.5 transition-colors"
+                            className="text-[#7E6875] hover:text-rose-700 p-0.5 transition-colors"
                             aria-label={`Remove ${p?.name || "unlisted product"} from bag`}
                             title="Remove piece"
                           >
@@ -263,7 +263,7 @@ export function BagContents({
                         </div>
 
                         {p && (
-                          <span className="text-[9.5px] font-sans uppercase tracking-[0.1em] text-[#667264] block mt-0.5">
+                          <span className="text-[9.5px] font-sans uppercase tracking-[0.1em] text-[#7E6875] block mt-0.5">
                             {availability(p)}{" "}
                             {availability(p) === "Sold Out"
                               ? "· Restock enquiry only"
@@ -274,14 +274,14 @@ export function BagContents({
                         {/* Selected Options Badges */}
                         <div className="flex flex-wrap gap-1 mt-1.5">
                           {item.choices.color && (
-                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[10px] font-sans text-[#1C281F]">
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-[2px] bg-[#FCF8FA] border border-[#F0E5EC] text-[10px] font-sans text-[#200E19]">
                               <span
                                 className="w-2 h-2 rounded-full inline-block border border-black/15"
                                 style={{
                                   backgroundColor:
                                     p?.colors?.find(
                                       (c) => c.name === item.choices.color,
-                                    )?.hex || "#967F4F",
+                                    )?.hex || "#9B1B54",
                                 }}
                               />
                               <span>{item.choices.color}</span>
@@ -291,14 +291,14 @@ export function BagContents({
                             ([k, v]) => (
                               <span
                                 key={k}
-                                className="px-1.5 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[10px] font-sans text-[#5D685B]"
+                                className="px-1.5 py-0.5 rounded-[2px] bg-[#FCF8FA] border border-[#F0E5EC] text-[10px] font-sans text-[#4A303F]"
                               >
                                 {v}
                               </span>
                             ),
                           )}
                           {item.choices.personalization && (
-                            <span className="px-1.5 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[10px] font-sans text-[#5D685B] italic truncate max-w-[190px] block">
+                            <span className="px-1.5 py-0.5 rounded-[2px] bg-[#FCF8FA] border border-[#F0E5EC] text-[10px] font-sans text-[#4A303F] italic truncate max-w-[190px] block">
                               "{item.choices.personalization}"
                             </span>
                           )}
@@ -313,7 +313,7 @@ export function BagContents({
                                 onClick={() =>
                                   presentation === "drawer" && bag.closeBag()
                                 }
-                                className="underline font-semibold"
+                                className="underline font-semibold text-[#9B1B54]"
                               >
                                 Choose Options ↗
                               </Link>
@@ -323,9 +323,9 @@ export function BagContents({
                       </div>
 
                       {/* Line Footer: Stepper & Price */}
-                      <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-[#E8E2D8]/50">
+                      <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-[#F0E5EC]/80">
                         {/* Tactile - / + Stepper */}
-                        <div className="inline-flex items-center border border-[#E8E2D8] rounded-[2px] bg-[#FFFFFF]">
+                        <div className="inline-flex items-center border border-[#F0E5EC] rounded-[2px] bg-[#FFFFFF]">
                           <button
                             type="button"
                             onClick={() =>
@@ -335,12 +335,12 @@ export function BagContents({
                               )
                             }
                             disabled={item.choices.quantity <= 1}
-                            className="w-5 h-5 flex items-center justify-center text-[#1C281F] hover:bg-[#FAF7F2] disabled:opacity-25 transition-colors"
+                            className="w-5 h-5 flex items-center justify-center text-[#200E19] hover:bg-[#FCF8FA] disabled:opacity-25 transition-colors"
                             aria-label="Decrease quantity"
                           >
                             <Minus size={10} />
                           </button>
-                          <span className="w-6 text-center text-xs font-sans font-semibold text-[#1C281F]">
+                          <span className="w-6 text-center text-xs font-sans font-semibold text-[#200E19]">
                             {item.choices.quantity}
                           </span>
                           <button
@@ -352,7 +352,7 @@ export function BagContents({
                               )
                             }
                             disabled={item.choices.quantity >= 99}
-                            className="w-5 h-5 flex items-center justify-center text-[#1C281F] hover:bg-[#FAF7F2] disabled:opacity-25 transition-colors"
+                            className="w-5 h-5 flex items-center justify-center text-[#200E19] hover:bg-[#FCF8FA] disabled:opacity-25 transition-colors"
                             aria-label="Increase quantity"
                           >
                             <Plus size={10} />
@@ -362,11 +362,11 @@ export function BagContents({
                         {/* Price */}
                         {p && (
                           <div className="text-right">
-                            <span className="font-sans text-[13px] font-semibold text-[#1C281F] block leading-tight">
+                            <span className="font-sans text-[13px] font-semibold text-[#200E19] block leading-tight">
                               {estimated ? "From " : ""}
                               {money(amount)}
                             </span>
-                            <span className="text-[10px] font-sans text-[#667264] block leading-tight">
+                            <span className="text-[10px] font-sans text-[#7E6875] block leading-tight">
                               {item.choices.quantity} × {money(p.price)}
                             </span>
                           </div>
@@ -383,12 +383,12 @@ export function BagContents({
           <div
             className={`bag-summary-dock ${
               presentation === "drawer"
-                ? "border-t border-[#E8E2D8] bg-[#FAF7F2] p-5 space-y-3 mt-auto shadow-atelier"
+                ? "border-t border-[#F0E5EC] bg-[#FCF8FA] p-5 space-y-3 mt-auto shadow-atelier"
                 : "bag-summary mt-8"
             }`}
           >
             {/* Atelier Dispatch Promise */}
-            <div className="flex items-center justify-between text-[10px] font-sans text-[#667264] pb-2 border-b border-[#E8E2D8]/60">
+            <div className="flex items-center justify-between text-[10px] font-sans text-[#7E6875] pb-2 border-b border-[#F0E5EC]/80">
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
                 <span>Handmade in Studio · India</span>
@@ -399,15 +399,15 @@ export function BagContents({
             {/* Product Total Row */}
             <div className="flex justify-between items-baseline pt-1">
               <div>
-                <span className="text-[11.5px] font-sans font-semibold uppercase tracking-[0.14em] text-[#1C281F] block">
+                <span className="text-[11.5px] font-sans font-semibold uppercase tracking-[0.14em] text-[#200E19] block">
                   Product Total
                 </span>
-                <span className="text-[10.5px] font-sans text-[#667264]">
+                <span className="text-[10.5px] font-sans text-[#7E6875]">
                   Shipping confirmed on WhatsApp
                 </span>
               </div>
               <div className="text-right">
-                <span className="font-serif text-2xl font-normal text-[#1C281F]">
+                <span className="font-serif text-2xl font-normal text-[#200E19]">
                   {totals.needsQuote ? "From " : ""}
                   {money(totals.subtotal)}
                 </span>
@@ -439,10 +439,10 @@ export function BagContents({
               type="button"
               onClick={handleCopy}
               disabled={!canEnquire}
-              className={`w-full py-2.5 px-3 rounded-[2px] border border-[#E8E2D8] bg-[#FCFBF9] text-xs font-sans font-medium tracking-[0.08em] uppercase transition-all duration-200 flex items-center justify-center gap-1.5 ${
+              className={`w-full py-2.5 px-3 rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] text-xs font-sans font-medium tracking-[0.08em] uppercase transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 copied
                   ? "border-emerald-600 bg-emerald-50 text-emerald-800 font-semibold"
-                  : "text-[#1C281F] hover:bg-[#FAF7F2]"
+                  : "text-[#200E19] hover:bg-[#FCF8FA]"
               }`}
             >
               {copied ? (
@@ -452,14 +452,14 @@ export function BagContents({
                 </>
               ) : (
                 <>
-                  <Copy size={13} className="text-[#667264]" />
+                  <Copy size={13} className="text-[#7E6875]" />
                   <span>Copy Order Details</span>
                 </>
               )}
             </button>
 
             {/* Footer Bottom Utility Row */}
-            <div className="flex justify-between items-center text-[10.5px] font-sans text-[#667264] pt-1">
+            <div className="flex justify-between items-center text-[10.5px] font-sans text-[#7E6875] pt-1">
               <button
                 type="button"
                 onClick={() => {
@@ -476,7 +476,7 @@ export function BagContents({
                 href={siteConfig.instagramUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-[#1C281F] transition-colors"
+                className="hover:text-[#200E19] transition-colors"
               >
                 Prefer Instagram? DM studio ↗
               </a>
@@ -489,7 +489,7 @@ export function BagContents({
       {notice && (
         <div
           role="status"
-          className="text-xs text-[#1C281F] bg-[#FAF7F2] p-2 rounded-[2px] border border-[#E8E2D8] mt-2 text-center"
+          className="text-xs text-[#200E19] bg-[#FCF8FA] p-2 rounded-[2px] border border-[#F0E5EC] mt-2 text-center"
         >
           {notice}
         </div>
@@ -497,8 +497,8 @@ export function BagContents({
 
       {/* Fallback Textarea Message Preview if automatic clipboard fails */}
       {summaryVisible && bag.items.length > 0 && (
-        <section className="p-4 bg-[#FFFFFF] border border-[#E8E2D8] rounded-[2px] mt-3">
-          <label className="text-xs font-sans text-[#1C281F] font-semibold block mb-2">
+        <section className="p-4 bg-[#FFFFFF] border border-[#F0E5EC] rounded-[2px] mt-3">
+          <label className="text-xs font-sans text-[#200E19] font-semibold block mb-2">
             Order message — tap to select & copy:
           </label>
           <textarea
@@ -506,7 +506,7 @@ export function BagContents({
             rows={8}
             value={summary}
             onFocus={(e) => e.currentTarget.select()}
-            className="w-full text-xs font-mono p-2 border border-[#E8E2D8] bg-[#FAF7F2] rounded-[2px]"
+            className="w-full text-xs font-mono p-2 border border-[#F0E5EC] bg-[#FCF8FA] rounded-[2px]"
           />
         </section>
       )}

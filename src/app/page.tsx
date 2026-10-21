@@ -21,23 +21,23 @@ export default async function HomePage() {
   const reviews = catalog.reviews.filter((r) => r.published && r.permission);
 
   return (
-    <div className="bg-[#FAF7F2] text-[#1C281F]">
+    <div className="bg-[#FCF8FA] text-[#200E19]">
       {/* 1. Product-Led Luxury Hero */}
       <HomeHero heroImage={catalog.home.image || "/images/products/sunflower_bouquet.jpg"} />
 
       {/* 3. Categories Navigation */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-[#E8E2D8]">
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-[#F0E5EC]">
         <MotionFadeIn>
           <div className="flex flex-col sm:flex-row justify-between items-baseline mb-8 gap-2">
             <div>
               <span className="eyebrow">Studio Atelier</span>
-              <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal mt-0.5">
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal mt-0.5">
                 Categories to Gift & Keep
               </h2>
             </div>
             <Link
               href="/shop"
-              className="text-xs font-sans font-semibold text-[#1C281F] hover:text-[#967F4F] inline-flex items-center gap-1.5 transition-colors uppercase tracking-[0.12em]"
+              className="text-xs font-sans font-semibold text-[#200E19] hover:text-[#9B1B54] inline-flex items-center gap-1.5 transition-colors uppercase tracking-[0.12em]"
             >
               <span>Explore Entire Catalog</span>
               <ArrowRight size={13} />
@@ -49,9 +49,9 @@ export default async function HomePage() {
               <Link
                 key={cat.id}
                 href={`/shop?category=${encodeURIComponent(cat.name)}`}
-                className="group bg-[#FCFBF9] p-3 rounded-[4px] border border-[#E8E2D8] hover:border-[#967F4F]/50 hover:shadow-atelier transition-all text-center flex flex-col items-center"
+                className="group bg-[#FFFFFF] p-3 rounded-[4px] border border-[#F0E5EC] hover:border-[#9B1B54]/60 hover:shadow-atelier transition-all text-center flex flex-col items-center"
               >
-                <div className="relative w-full aspect-square rounded-[2px] overflow-hidden bg-[#F2EDE4] mb-2.5">
+                <div className="relative w-full aspect-square rounded-[2px] overflow-hidden bg-[#FCF8FA] mb-2.5">
                   <Image
                     src={cat.image}
                     alt={cat.name}
@@ -60,7 +60,7 @@ export default async function HomePage() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <span className="font-serif text-[13.5px] text-[#1C281F] group-hover:text-[#967F4F] transition-colors leading-tight line-clamp-1">
+                <span className="font-serif text-[13.5px] text-[#200E19] group-hover:text-[#9B1B54] transition-colors leading-tight line-clamp-1">
                   {cat.name}
                 </span>
               </Link>
@@ -70,18 +70,18 @@ export default async function HomePage() {
       </section>
 
       {/* 4. Curated Featured Products */}
-      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[#E8E2D8]">
+      <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[#F0E5EC]">
         <MotionFadeIn>
           <div className="flex flex-col sm:flex-row justify-between items-baseline mb-8 gap-2">
             <div>
               <span className="eyebrow">Handmade in Studio</span>
-              <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal mt-0.5">
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal mt-0.5">
                 Featured Studio Drops
               </h2>
             </div>
             <Link
               href="/shop"
-              className="text-xs font-sans font-semibold text-[#1C281F] hover:text-[#967F4F] inline-flex items-center gap-1.5 transition-colors uppercase tracking-[0.12em]"
+              className="text-xs font-sans font-semibold text-[#200E19] hover:text-[#9B1B54] inline-flex items-center gap-1.5 transition-colors uppercase tracking-[0.12em]"
             >
               <span>View all {catalog.products.length} creations</span>
               <ArrowRight size={13} />
@@ -97,36 +97,36 @@ export default async function HomePage() {
       </section>
 
       {/* 5. Signature Studio & Craft Process Section */}
-      <section className="bg-[#1C281F] text-[#FAF7F2] my-10 py-16 sm:py-24 border-y border-[#967F4F]/30">
+      <section className="bg-[#180812] text-[#FCF8FA] my-10 py-16 sm:py-24 border-y border-[#9B1B54]/30">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <MotionFadeIn className="lg:col-span-5 space-y-6">
-              <span className="text-[10.5px] font-sans uppercase tracking-[0.22em] text-[#C29F58] font-semibold block">
+              <span className="text-[10.5px] font-sans uppercase tracking-[0.22em] text-[#D8A657] font-semibold block">
                 The Artisan Process
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal leading-tight">
                 Turning plush pipe cleaners into everlasting petals.
               </h2>
-              <p className="font-sans text-sm sm:text-base text-[#D4CDC2] font-light leading-relaxed">
+              <p className="font-sans text-sm sm:text-base text-[#D5C2CD] font-light leading-relaxed">
                 Every petal begins as a flexible wire wrapped in velvety chenille.
                 Our craftswomen shape, wrap, and knot each bloom by hand in our
                 India studio. No water needed, zero wilting, 100% forever.
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-2">
-                <div className="border-l border-[#967F4F] pl-4">
-                  <span className="font-serif text-2xl text-[#C29F58] block">
+                <div className="border-l border-[#9B1B54] pl-4">
+                  <span className="font-serif text-2xl text-[#D8A657] block">
                     01. Wire
                   </span>
-                  <span className="text-xs text-[#D4CDC2] font-light">
+                  <span className="text-xs text-[#D5C2CD] font-light">
                     Plush velvety pipe cleaners shaped into organic botanical contours.
                   </span>
                 </div>
-                <div className="border-l border-[#967F4F] pl-4">
-                  <span className="font-serif text-2xl text-[#C29F58] block">
+                <div className="border-l border-[#9B1B54] pl-4">
+                  <span className="font-serif text-2xl text-[#D8A657] block">
                     02. Bloom
                   </span>
-                  <span className="text-xs text-[#D4CDC2] font-light">
+                  <span className="text-xs text-[#D5C2CD] font-light">
                     Hand-assembled bouquets & keychains crafted to last a lifetime.
                   </span>
                 </div>
@@ -135,7 +135,7 @@ export default async function HomePage() {
               <div className="pt-2">
                 <Link
                   href="/story"
-                  className="inline-flex items-center gap-2 text-xs font-sans font-semibold tracking-[0.16em] uppercase text-[#C29F58] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-sans font-semibold tracking-[0.16em] uppercase text-[#D8A657] hover:text-white transition-colors"
                 >
                   <span>Read our craft story</span>
                   <ArrowRight size={13} />
@@ -174,13 +174,13 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row justify-between items-baseline mb-8 gap-2">
               <div>
                 <span className="eyebrow">Patron Favourites</span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal mt-0.5">
+                <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal mt-0.5">
                   Bestselling Keepsakes & Blooms
                 </h2>
               </div>
               <Link
                 href="/shop"
-                className="text-xs font-sans font-semibold text-[#1C281F] hover:text-[#967F4F] inline-flex items-center gap-1.5 transition-colors uppercase tracking-[0.12em]"
+                className="text-xs font-sans font-semibold text-[#200E19] hover:text-[#9B1B54] inline-flex items-center gap-1.5 transition-colors uppercase tracking-[0.12em]"
               >
                 <span>Explore all gifts</span>
                 <ArrowRight size={13} />
@@ -198,11 +198,11 @@ export default async function HomePage() {
 
       {/* 7. Approved Reviews */}
       {reviews.length > 0 && (
-        <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[#E8E2D8]">
+        <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[#F0E5EC]">
           <MotionFadeIn>
             <div className="text-center max-w-xl mx-auto mb-10">
               <span className="eyebrow !justify-center">Community Feedback</span>
-              <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal mt-1">
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal mt-1">
                 Treasured by patrons across India
               </h2>
             </div>
@@ -211,20 +211,20 @@ export default async function HomePage() {
               {reviews.slice(0, 3).map((r) => (
                 <div
                   key={r.id}
-                  className="bg-[#FCFBF9] p-6 rounded-[4px] border border-[#E8E2D8] flex flex-col justify-between shadow-xs"
+                  className="bg-[#FFFFFF] p-6 rounded-[4px] border border-[#F0E5EC] flex flex-col justify-between shadow-xs"
                 >
                   <div className="space-y-3">
-                    <div className="flex gap-1 text-[#967F4F]">
+                    <div className="flex gap-1 text-[#D8A657]">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <span key={i} className="text-xs">★</span>
                       ))}
                     </div>
-                    <p className="font-serif text-base text-[#1C281F] italic leading-relaxed font-light">
+                    <p className="font-serif text-base text-[#200E19] italic leading-relaxed font-light">
                       “{r.quote}”
                     </p>
                   </div>
-                  <div className="mt-5 pt-4 border-t border-[#E8E2D8] text-xs font-sans text-[#667264]">
-                    <strong className="text-[#1C281F] font-medium block">
+                  <div className="mt-5 pt-4 border-t border-[#F0E5EC] text-xs font-sans text-[#7E6875]">
+                    <strong className="text-[#200E19] font-medium block">
                       {r.author}
                     </strong>
                     <span>Verified Patron</span>
@@ -242,13 +242,13 @@ export default async function HomePage() {
       {/* 9. Bespoke Custom Gift Banner */}
       <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 mb-8">
         <MotionFadeIn>
-          <div className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[4px] p-8 sm:p-14 text-center relative overflow-hidden shadow-atelier">
+          <div className="bg-[#FFFFFF] border border-[#F0E5EC] rounded-[4px] p-8 sm:p-14 text-center relative overflow-hidden shadow-atelier">
             <div className="max-w-2xl mx-auto space-y-5 relative z-10">
               <span className="eyebrow !justify-center">Bespoke Studio Commissions</span>
-              <h2 className="font-serif text-3xl sm:text-4xl text-[#1C281F] font-normal tracking-tight">
+              <h2 className="font-serif text-3xl sm:text-4xl text-[#200E19] font-normal tracking-tight">
                 Have a special creation in mind?
               </h2>
-              <p className="text-sm sm:text-base font-sans text-[#5D685B] font-light max-w-lg mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base font-sans text-[#4A303F] font-light max-w-lg mx-auto leading-relaxed">
                 Custom anniversary bouquets, personalized jersey keychains, or
                 bespoke flower lamps. Tell us your concept and our artisans will
                 bring it to life.
@@ -256,7 +256,7 @@ export default async function HomePage() {
               <div className="pt-2">
                 <Link
                   href="/custom-orders"
-                  className="inline-flex px-8 py-3.5 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] text-xs font-sans font-semibold tracking-[0.16em] uppercase rounded-[2px] shadow-sm transition-all duration-300"
+                  className="inline-flex px-8 py-3.5 bg-[#9B1B54] hover:bg-[#7D1342] text-[#FFFFFF] text-xs font-sans font-semibold tracking-[0.16em] uppercase rounded-[2px] shadow-sm transition-all duration-300"
                 >
                   Create a Custom Gift ↗
                 </Link>

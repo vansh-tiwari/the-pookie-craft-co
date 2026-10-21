@@ -181,13 +181,13 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
   };
 
   return (
-    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-[#1C281F]">
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-[#200E19]">
       {/* Compact Shop Header & Toolbar */}
       <div className="space-y-4 mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E8E2D8] pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#F0E5EC] pb-4">
           <div>
             <span className="eyebrow">Studio Atelier Collection</span>
-            <h1 className="font-serif text-3xl sm:text-4xl text-[#1C281F] font-normal tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl text-[#200E19] font-normal tracking-tight">
               All Creations
             </h1>
           </div>
@@ -198,7 +198,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
             <div className="relative flex-1 sm:w-64">
               <Search
                 size={14}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#667264]"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7E6875]"
               />
               <input
                 type="search"
@@ -208,7 +208,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                   setQuery(e.target.value);
                   updateUrl({ q: e.target.value });
                 }}
-                className="w-full pl-9 pr-3 py-2 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F]"
+                className="w-full pl-9 pr-3 py-2 text-xs font-sans rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] focus:outline-none focus:ring-1 focus:ring-[#9B1B54]"
               />
             </div>
 
@@ -220,8 +220,8 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 className={`flex items-center gap-2 px-3.5 py-2 text-xs font-sans font-medium rounded-[2px] border transition-colors ${
                   activeFilterCount > 0 || isFilterOpen
-                    ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2]"
-                    : "border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] hover:border-[#967F4F]"
+                    ? "border-[#9B1B54] bg-[#9B1B54] text-[#FFFFFF]"
+                    : "border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] hover:border-[#9B1B54]"
                 }`}
                 aria-expanded={isFilterOpen}
                 aria-haspopup="dialog"
@@ -229,7 +229,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 <SlidersHorizontal size={13} />
                 <span>Filter</span>
                 {activeFilterCount > 0 && (
-                  <span className="w-4 h-4 rounded-full bg-[#967F4F] text-white text-[9px] flex items-center justify-center font-bold">
+                  <span className="w-4 h-4 rounded-full bg-[#FFFFFF] text-[#9B1B54] text-[9px] flex items-center justify-center font-bold">
                     {activeFilterCount}
                   </span>
                 )}
@@ -239,17 +239,17 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
               {isFilterOpen && (
                 <div
                   ref={filterPopoverRef}
-                  className="hidden sm:block absolute right-0 top-full mt-2 w-80 bg-[#FCFBF9] border border-[#E8E2D8] rounded-[4px] shadow-atelier z-40 p-5 space-y-4"
+                  className="hidden sm:block absolute right-0 top-full mt-2 w-80 bg-[#FFFFFF] border border-[#F0E5EC] rounded-[4px] shadow-atelier z-40 p-5 space-y-4"
                   role="dialog"
                   aria-label="Filter options"
                 >
-                  <div className="flex justify-between items-center border-b border-[#E8E2D8] pb-2">
-                    <span className="font-serif text-lg font-medium text-[#1C281F]">
+                  <div className="flex justify-between items-center border-b border-[#F0E5EC] pb-2">
+                    <span className="font-serif text-lg font-medium text-[#200E19]">
                       Filter Collection
                     </span>
                     <button
                       onClick={() => setIsFilterOpen(false)}
-                      className="text-[#667264] hover:text-[#1C281F]"
+                      className="text-[#7E6875] hover:text-[#200E19]"
                     >
                       <X size={15} />
                     </button>
@@ -257,7 +257,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
                   {/* Availability */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-sans font-medium text-[#1C281F] block">
+                    <label className="text-xs font-sans font-medium text-[#200E19] block">
                       Availability
                     </label>
                     <div className="grid grid-cols-2 gap-1.5 text-xs font-sans">
@@ -272,8 +272,8 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                           }}
                           className={`px-2.5 py-1.5 rounded-[2px] border text-left transition-all ${
                             status === st
-                              ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2] font-medium"
-                              : "border-[#E8E2D8] text-[#667264] hover:bg-[#FAF7F2]"
+                              ? "border-[#9B1B54] bg-[#9B1B54] text-[#FFFFFF] font-medium"
+                              : "border-[#F0E5EC] text-[#7E6875] hover:bg-[#FCF8FA] hover:border-[#9B1B54]"
                           }`}
                         >
                           {st}
@@ -284,7 +284,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
                   {/* Colour Selection */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-sans font-medium text-[#1C281F] block">
+                    <label className="text-xs font-sans font-medium text-[#200E19] block">
                       Colour
                     </label>
                     <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pr-1">
@@ -299,8 +299,8 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                           }}
                           className={`px-2.5 py-1 rounded-[2px] text-[11px] font-sans border transition-all ${
                             color === col
-                              ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2]"
-                              : "border-[#E8E2D8] text-[#667264] hover:border-[#967F4F]"
+                              ? "border-[#9B1B54] bg-[#9B1B54] text-[#FFFFFF]"
+                              : "border-[#F0E5EC] text-[#7E6875] hover:border-[#9B1B54]"
                           }`}
                         >
                           {col}
@@ -311,9 +311,9 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
                   {/* Max Price */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-sans font-medium text-[#1C281F] flex justify-between">
+                    <label className="text-xs font-sans font-medium text-[#200E19] flex justify-between">
                       <span>Maximum Price</span>
-                      <span className="font-semibold text-[#1C281F]">
+                      <span className="font-semibold text-[#200E19]">
                         {maxPrice ? `₹${Number(maxPrice).toLocaleString("en-IN")}` : "Any"}
                       </span>
                     </label>
@@ -327,12 +327,12 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                         setMaxPrice(e.target.value);
                         updateUrl({ max: e.target.value });
                       }}
-                      className="w-full accent-[#967F4F]"
+                      className="w-full accent-[#9B1B54]"
                     />
                   </div>
 
                   {/* Popover Actions */}
-                  <div className="pt-2 border-t border-[#E8E2D8] flex justify-between items-center text-xs">
+                  <div className="pt-2 border-t border-[#F0E5EC] flex justify-between items-center text-xs">
                     <button
                       type="button"
                       onClick={() => {
@@ -341,14 +341,14 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                         setMaxPrice("");
                         updateUrl({ color: null, status: null, max: null });
                       }}
-                      className="text-[#667264] hover:underline"
+                      className="text-[#7E6875] hover:underline"
                     >
                       Reset filters
                     </button>
                     <button
                       type="button"
                       onClick={() => setIsFilterOpen(false)}
-                      className="px-3.5 py-1.5 bg-[#1C281F] text-[#FAF7F2] rounded-[2px] font-sans font-medium hover:bg-[#967F4F] transition-colors"
+                      className="px-3.5 py-1.5 bg-[#9B1B54] text-[#FFFFFF] rounded-[2px] font-sans font-medium hover:bg-[#7D1342] transition-colors"
                     >
                       Apply ({filteredProducts.length})
                     </button>
@@ -365,7 +365,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                   setSort(e.target.value);
                   updateUrl({ sort: e.target.value });
                 }}
-                className="px-3 py-2 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F] appearance-none pr-8 cursor-pointer"
+                className="px-3 py-2 text-xs font-sans rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] focus:outline-none focus:ring-1 focus:ring-[#9B1B54] appearance-none pr-8 cursor-pointer"
               >
                 <option value="featured">Featured first</option>
                 <option value="low">Price: low to high</option>
@@ -373,7 +373,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
               </select>
               <ChevronDown
                 size={13}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#667264] pointer-events-none"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#7E6875] pointer-events-none"
               />
             </div>
           </div>
@@ -389,8 +389,8 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
             }}
             className={`px-3.5 py-1.5 text-xs font-sans rounded-[2px] whitespace-nowrap transition-all ${
               category === "All"
-                ? "bg-[#1C281F] text-[#FAF7F2] font-semibold shadow-xs"
-                : "bg-[#FFFFFF] text-[#667264] border border-[#E8E2D8] hover:text-[#1C281F] hover:border-[#967F4F]"
+                ? "bg-[#9B1B54] text-[#FFFFFF] font-semibold shadow-xs"
+                : "bg-[#FFFFFF] text-[#7E6875] border border-[#F0E5EC] hover:text-[#200E19] hover:border-[#9B1B54]"
             }`}
           >
             All Creations
@@ -405,8 +405,8 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
               }}
               className={`px-3.5 py-1.5 text-xs font-sans rounded-[2px] whitespace-nowrap transition-all ${
                 category === cat.name
-                  ? "bg-[#1C281F] text-[#FAF7F2] font-semibold shadow-xs"
-                  : "bg-[#FFFFFF] text-[#667264] border border-[#E8E2D8] hover:text-[#1C281F] hover:border-[#967F4F]"
+                  ? "bg-[#9B1B54] text-[#FFFFFF] font-semibold shadow-xs"
+                  : "bg-[#FFFFFF] text-[#7E6875] border border-[#F0E5EC] hover:text-[#200E19] hover:border-[#9B1B54]"
               }`}
             >
               {cat.name}
@@ -416,8 +416,8 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
         {/* Active Filter Chips & Result Count */}
         <div className="flex items-center justify-between gap-2 flex-wrap text-xs font-sans pt-1">
-          <span className="text-[#667264]">
-            Showing <strong className="text-[#1C281F]">{filteredProducts.length}</strong>{" "}
+          <span className="text-[#7E6875]">
+            Showing <strong className="text-[#200E19]">{filteredProducts.length}</strong>{" "}
             {filteredProducts.length === 1 ? "creation" : "creations"}
           </span>
 
@@ -429,7 +429,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
             sort !== "featured") && (
             <div className="flex items-center gap-1.5 flex-wrap">
               {category !== "All" && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[#1C281F] text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FCF8FA] border border-[#F0E5EC] text-[#200E19] text-[11px]">
                   {category}
                   <button
                     onClick={() => {
@@ -442,7 +442,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 </span>
               )}
               {color && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[#1C281F] text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FCF8FA] border border-[#F0E5EC] text-[#200E19] text-[11px]">
                   Colour: {color}
                   <button
                     onClick={() => {
@@ -455,7 +455,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 </span>
               )}
               {status && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[#1C281F] text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FCF8FA] border border-[#F0E5EC] text-[#200E19] text-[11px]">
                   {status}
                   <button
                     onClick={() => {
@@ -468,7 +468,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                 </span>
               )}
               {maxPrice && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[#1C281F] text-[11px]">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[2px] bg-[#FCF8FA] border border-[#F0E5EC] text-[#200E19] text-[11px]">
                   ≤ ₹{maxPrice}
                   <button
                     onClick={() => {
@@ -483,7 +483,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="text-[#967F4F] hover:underline font-medium ml-1"
+                className="text-[#9B1B54] hover:underline font-medium ml-1"
               >
                 Clear all
               </button>
@@ -495,12 +495,12 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
       {/* Mobile Bottom Sheet Filters */}
       {isFilterOpen && (
         <div className="sm:hidden fixed inset-0 z-50 bg-black/45 backdrop-blur-xs flex flex-col justify-end">
-          <div className="bg-[#FCFBF9] rounded-t-xl p-5 max-h-[65vh] overflow-y-auto space-y-4 border-t border-[#E8E2D8] shadow-2xl">
-            <div className="flex justify-between items-center border-b border-[#E8E2D8] pb-3">
-              <h3 className="font-serif text-lg font-medium text-[#1C281F]">Filter Collection</h3>
+          <div className="bg-[#FFFFFF] rounded-t-xl p-5 max-h-[65vh] overflow-y-auto space-y-4 border-t border-[#F0E5EC] shadow-2xl">
+            <div className="flex justify-between items-center border-b border-[#F0E5EC] pb-3">
+              <h3 className="font-serif text-lg font-medium text-[#200E19]">Filter Collection</h3>
               <button
                 onClick={() => setIsFilterOpen(false)}
-                className="p-1 rounded-full bg-[#FAF7F2]"
+                className="p-1 rounded-full bg-[#FCF8FA] text-[#200E19]"
               >
                 <X size={16} />
               </button>
@@ -508,7 +508,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
             {/* Mobile Availability */}
             <div className="space-y-1.5">
-              <label className="text-xs font-sans font-semibold text-[#1C281F] block">
+              <label className="text-xs font-sans font-semibold text-[#200E19] block">
                 Availability
               </label>
               <div className="grid grid-cols-3 gap-1.5 text-xs">
@@ -523,8 +523,8 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                     }}
                     className={`py-2 px-1 text-center rounded-[2px] border text-xs font-sans ${
                       status === st
-                        ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2] font-medium"
-                        : "border-[#E8E2D8] text-[#667264]"
+                        ? "border-[#9B1B54] bg-[#9B1B54] text-[#FFFFFF] font-medium"
+                        : "border-[#F0E5EC] text-[#7E6875]"
                     }`}
                   >
                     {st}
@@ -535,7 +535,7 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
 
             {/* Mobile Colours */}
             <div className="space-y-1.5">
-              <label className="text-xs font-sans font-semibold text-[#1C281F] block">
+              <label className="text-xs font-sans font-semibold text-[#200E19] block">
                 Colour
               </label>
               <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">
@@ -550,8 +550,8 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
                     }}
                     className={`px-3 py-1 rounded-[2px] text-xs font-sans border ${
                       color === col
-                        ? "border-[#1C281F] bg-[#1C281F] text-[#FAF7F2]"
-                        : "border-[#E8E2D8] text-[#667264]"
+                        ? "border-[#9B1B54] bg-[#9B1B54] text-[#FFFFFF]"
+                        : "border-[#F0E5EC] text-[#7E6875]"
                     }`}
                   >
                     {col}
@@ -561,18 +561,18 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
             </div>
 
             {/* Mobile Actions */}
-            <div className="pt-2 border-t border-[#E8E2D8] flex gap-2">
+            <div className="pt-2 border-t border-[#F0E5EC] flex gap-2">
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="flex-1 py-2.5 rounded-[2px] border border-[#E8E2D8] text-xs font-sans font-medium text-[#1C281F]"
+                className="flex-1 py-2.5 rounded-[2px] border border-[#F0E5EC] text-xs font-sans font-medium text-[#200E19]"
               >
                 Reset
               </button>
               <button
                 type="button"
                 onClick={() => setIsFilterOpen(false)}
-                className="flex-1 py-2.5 rounded-[2px] bg-[#1C281F] text-[#FAF7F2] text-xs font-sans font-medium"
+                className="flex-1 py-2.5 rounded-[2px] bg-[#9B1B54] text-[#FFFFFF] text-xs font-sans font-medium hover:bg-[#7D1342]"
               >
                 Apply ({filteredProducts.length})
               </button>
@@ -597,24 +597,24 @@ export function ShopCatalog({ catalog }: { catalog: Catalog }) {
           ))}
         </motion.div>
       ) : (
-        <div className="text-center py-16 px-4 bg-[#FCFBF9] rounded-[4px] border border-[#E8E2D8]">
-          <span className="text-3xl font-serif text-[#967F4F] block mb-2">✿</span>
-          <h2 className="font-serif text-2xl font-normal text-[#1C281F] mb-2">
+        <div className="text-center py-16 px-4 bg-[#FFFFFF] rounded-[4px] border border-[#F0E5EC]">
+          <span className="text-3xl font-serif text-[#9B1B54] block mb-2">✿</span>
+          <h2 className="font-serif text-2xl font-normal text-[#200E19] mb-2">
             No gifts found matching your filters
           </h2>
-          <p className="text-xs text-[#667264] font-sans max-w-md mx-auto mb-6">
+          <p className="text-xs text-[#7E6875] font-sans max-w-md mx-auto mb-6">
             Try adjusting your colour, price, or search term, or commission a bespoke creation with our artisans.
           </p>
           <div className="flex items-center justify-center gap-3">
             <button
               onClick={clearAllFilters}
-              className="px-5 py-2.5 bg-[#1C281F] text-[#FAF7F2] text-xs font-sans font-medium rounded-[2px] hover:bg-[#967F4F] transition-colors"
+              className="px-5 py-2.5 bg-[#9B1B54] text-[#FFFFFF] text-xs font-sans font-medium rounded-[2px] hover:bg-[#7D1342] transition-colors"
             >
               Clear all filters
             </button>
             <a
               href="/custom-orders"
-              className="px-5 py-2.5 border border-[#1C281F] text-[#1C281F] text-xs font-sans font-medium rounded-[2px] hover:bg-[#1C281F] hover:text-[#FAF7F2] transition-colors"
+              className="px-5 py-2.5 border border-[#9B1B54] text-[#9B1B54] text-xs font-sans font-medium rounded-[2px] hover:bg-[#9B1B54] hover:text-[#FFFFFF] transition-colors"
             >
               Commission a Custom Creation ↗
             </a>

@@ -37,19 +37,19 @@ export function Navbar({ categories }: { categories: Category[] }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
       {/* Studio Announcement Ribbon */}
-      <div className="bg-[#141D16] text-[#FAF7F2] text-[10.5px] font-sans tracking-[0.16em] uppercase py-2 px-4 text-center font-medium border-b border-[#967F4F]/20 flex items-center justify-center gap-2">
+      <div className="bg-[#180812] text-[#FCF8FA] text-[10.5px] font-sans tracking-[0.16em] uppercase py-2 px-4 text-center font-medium border-b border-[#9B1B54]/25 flex items-center justify-center gap-2">
         <span>Handcrafted in India</span>
-        <span className="text-[#C29F58]">·</span>
+        <span className="text-[#D8A657]">·</span>
         <span>Velvety blooms that stay forever</span>
-        <span className="text-[#C29F58]">·</span>
+        <span className="text-[#D8A657]">·</span>
         <span>Nationwide Dispatch</span>
       </div>
 
-      <div className="bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8E2D8]">
+      <div className="bg-[#FCF8FA]/95 backdrop-blur-md border-b border-[#F0E5EC]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         {/* Brand Lockup */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#E8E2D8] bg-[#F2EDE4] flex-shrink-0 group-hover:border-[#967F4F] transition-colors">
+          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#F0E5EC] bg-[#FFFFFF] flex-shrink-0 group-hover:border-[#9B1B54] transition-colors shadow-2xs">
             <Image
               src="/images/instagram/logo.jpg"
               alt="The Pookie Craft Co."
@@ -58,21 +58,21 @@ export function Navbar({ categories }: { categories: Category[] }) {
             />
           </div>
           <div>
-            <span className="block font-serif text-[19px] sm:text-[21px] text-[#1C281F] font-medium tracking-tight group-hover:text-[#967F4F] transition-colors leading-tight">
+            <span className="block font-serif text-[19px] sm:text-[21px] text-[#200E19] font-medium tracking-tight group-hover:text-[#9B1B54] transition-colors leading-tight">
               The Pookie Craft Co.
             </span>
-            <span className="block text-[8.5px] font-sans uppercase tracking-[0.22em] text-[#967F4F] font-semibold">
+            <span className="block text-[8.5px] font-sans uppercase tracking-[0.22em] text-[#9B1B54] font-semibold">
               Studio & Atelier · India
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-7 text-[12px] font-sans font-medium uppercase tracking-[0.16em] text-[#1C281F]">
+        <nav className="hidden md:flex items-center gap-7 text-[12px] font-sans font-medium uppercase tracking-[0.16em] text-[#200E19]">
           <Link
             href="/"
             className={`thread-underline transition-colors ${
-              path === "/" ? "text-[#967F4F] font-semibold" : "hover:text-[#967F4F]"
+              path === "/" ? "text-[#9B1B54] font-semibold" : "hover:text-[#9B1B54]"
             }`}
           >
             Home
@@ -85,8 +85,8 @@ export function Navbar({ categories }: { categories: Category[] }) {
               onClick={() => setShopDropdownOpen(!shopDropdownOpen)}
               className={`flex items-center gap-1 uppercase tracking-[0.16em] transition-colors ${
                 path.startsWith("/shop")
-                  ? "text-[#967F4F] font-semibold"
-                  : "hover:text-[#967F4F]"
+                  ? "text-[#9B1B54] font-semibold"
+                  : "hover:text-[#9B1B54]"
               }`}
             >
               <span>Shop</span>
@@ -105,12 +105,12 @@ export function Navbar({ categories }: { categories: Category[] }) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.98 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute left-0 top-full mt-2 w-56 bg-[#FCFBF9] border border-[#E8E2D8] rounded-[2px] shadow-atelier p-2 z-50 text-left normal-case"
+                  className="absolute left-0 top-full mt-2 w-56 bg-[#FFFFFF] border border-[#F0E5EC] rounded-[2px] shadow-atelier p-2 z-50 text-left normal-case"
                 >
                   <Link
                     href="/shop"
                     onClick={() => setShopDropdownOpen(false)}
-                    className="block px-3 py-2 text-xs font-sans text-[#1C281F] hover:bg-[#FAF7F2] hover:text-[#967F4F] rounded-[2px] font-semibold border-b border-[#E8E2D8]/50"
+                    className="block px-3 py-2 text-xs font-sans text-[#200E19] hover:bg-[#FCF8FA] hover:text-[#9B1B54] rounded-[2px] font-semibold border-b border-[#F0E5EC]/60"
                   >
                     All Creations
                   </Link>
@@ -119,7 +119,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
                       key={c.id}
                       href={`/shop?category=${encodeURIComponent(c.name)}`}
                       onClick={() => setShopDropdownOpen(false)}
-                      className="block px-3 py-1.5 text-xs font-sans text-[#5D685B] hover:bg-[#FAF7F2] hover:text-[#1C281F] rounded-[2px] transition-colors"
+                      className="block px-3 py-1.5 text-xs font-sans text-[#4A303F] hover:bg-[#FCF8FA] hover:text-[#9B1B54] rounded-[2px] transition-colors"
                     >
                       {c.name}
                     </Link>
@@ -132,7 +132,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
           <Link
             href="/story"
             className={`thread-underline transition-colors ${
-              path === "/story" ? "text-[#967F4F] font-semibold" : "hover:text-[#967F4F]"
+              path === "/story" ? "text-[#9B1B54] font-semibold" : "hover:text-[#9B1B54]"
             }`}
           >
             Our Story
@@ -141,7 +141,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
           <Link
             href="/contact"
             className={`thread-underline transition-colors ${
-              path === "/contact" ? "text-[#967F4F] font-semibold" : "hover:text-[#967F4F]"
+              path === "/contact" ? "text-[#9B1B54] font-semibold" : "hover:text-[#9B1B54]"
             }`}
           >
             Contact
@@ -152,7 +152,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
         <div className="flex items-center gap-3">
           <Link
             href="/custom-orders"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 border border-[#1C281F] text-[#1C281F] hover:bg-[#1C281F] hover:text-[#FAF7F2] text-[10.5px] font-sans font-semibold uppercase tracking-[0.16em] rounded-[2px] transition-all duration-200"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 border border-[#9B1B54] text-[#9B1B54] hover:bg-[#9B1B54] hover:text-[#FFFFFF] text-[10.5px] font-sans font-semibold uppercase tracking-[0.16em] rounded-[2px] transition-all duration-200"
           >
             <span>Custom Orders</span>
             <span aria-hidden="true">↗</span>
@@ -162,7 +162,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
           <button
             type="button"
             onClick={openBag}
-            className="relative p-2.5 text-[#1C281F] hover:text-[#967F4F] transition-colors rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] hover:border-[#967F4F]/60 flex items-center gap-2"
+            className="relative p-2.5 text-[#200E19] hover:text-[#9B1B54] transition-colors rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] hover:border-[#9B1B54]/60 flex items-center gap-2"
             aria-label={`Your bag, ${ready ? count : 0} pieces`}
             aria-haspopup="dialog"
             aria-expanded={isOpen}
@@ -172,7 +172,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
               Bag
             </span>
             {ready && count > 0 && (
-              <span className="w-4 h-4 rounded-full bg-[#1C281F] text-[#FAF7F2] text-[9.5px] font-sans font-bold flex items-center justify-center">
+              <span className="w-4 h-4 rounded-full bg-[#9B1B54] text-[#FFFFFF] text-[9.5px] font-sans font-bold flex items-center justify-center">
                 {count}
               </span>
             )}
@@ -182,7 +182,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-[#1C281F] hover:text-[#967F4F]"
+            className="md:hidden p-2 text-[#200E19] hover:text-[#9B1B54]"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -199,9 +199,9 @@ export function Navbar({ categories }: { categories: Category[] }) {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden bg-[#FAF7F2] border-b border-[#E8E2D8] px-6 py-6 overflow-hidden space-y-4"
+            className="md:hidden bg-[#FCF8FA] border-b border-[#F0E5EC] px-6 py-6 overflow-hidden space-y-4"
           >
-            <nav className="flex flex-col space-y-3 text-sm font-sans font-medium uppercase tracking-[0.14em] text-[#1C281F]">
+            <nav className="flex flex-col space-y-3 text-sm font-sans font-medium uppercase tracking-[0.14em] text-[#200E19]">
               <Link href="/" onClick={() => setMobileOpen(false)} className="py-1">
                 Home
               </Link>
@@ -217,7 +217,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
               <Link
                 href="/custom-orders"
                 onClick={() => setMobileOpen(false)}
-                className="inline-block mt-2 py-2.5 px-4 bg-[#1C281F] text-[#FAF7F2] text-center text-xs font-semibold rounded-[2px]"
+                className="inline-block mt-2 py-2.5 px-4 bg-[#9B1B54] text-[#FFFFFF] text-center text-xs font-semibold rounded-[2px] hover:bg-[#7D1342] transition-colors"
               >
                 Create a Custom Gift ↗
               </Link>

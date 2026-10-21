@@ -93,19 +93,19 @@ export function QuickViewModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-2xl bg-[#FCFBF9] rounded-[4px] shadow-2xl border border-[#E8E2D8] overflow-hidden max-h-[92vh] flex flex-col md:flex-row"
+          className="relative w-full max-w-2xl bg-[#FFFFFF] rounded-[4px] shadow-2xl border border-[#F0E5EC] overflow-hidden max-h-[92vh] flex flex-col md:flex-row"
         >
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-[#FAF7F2] text-[#1C281F] hover:bg-[#E8E2D8] flex items-center justify-center transition-colors shadow-xs"
+            className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-[#FCF8FA] text-[#200E19] hover:bg-[#F0E5EC] flex items-center justify-center transition-colors shadow-xs"
             aria-label="Close dialog"
           >
             <X size={16} />
           </button>
 
           {/* Product Imagery */}
-          <div className="md:w-1/2 p-5 bg-[#FAF7F2] flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#E8E2D8]">
-            <div className="relative aspect-[4/5] min-h-[240px] w-full rounded-[2px] overflow-hidden bg-[#F2EDE4] shadow-xs">
+          <div className="md:w-1/2 p-5 bg-[#FCF8FA] flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#F0E5EC]">
+            <div className="relative aspect-[4/5] min-h-[240px] w-full rounded-[2px] overflow-hidden bg-[#FFFFFF] shadow-xs border border-[#F0E5EC]">
               <Image
                 src={selectedImage || product.image_url}
                 alt={product.name}
@@ -114,7 +114,7 @@ export function QuickViewModal({
                 className="object-cover"
               />
               {product.bestseller && (
-                <span className="absolute top-3 left-3 px-2 py-0.5 text-[9.5px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#1C281F] text-[#FAF7F2] rounded-[2px]">
+                <span className="absolute top-3 left-3 px-2 py-0.5 text-[9.5px] font-sans font-semibold uppercase tracking-[0.16em] bg-[#200E19] text-[#FCF8FA] rounded-[2px]">
                   Bestseller
                 </span>
               )}
@@ -129,8 +129,8 @@ export function QuickViewModal({
                     onClick={() => setSelectedImage(img)}
                     className={`relative w-12 h-14 rounded-[2px] overflow-hidden border flex-shrink-0 transition-all ${
                       selectedImage === img
-                        ? "border-[#967F4F] ring-1 ring-[#967F4F]"
-                        : "border-[#E8E2D8] opacity-70 hover:opacity-100"
+                        ? "border-[#9B1B54] ring-1 ring-[#9B1B54]"
+                        : "border-[#F0E5EC] opacity-70 hover:opacity-100"
                     }`}
                   >
                     <Image src={img} alt="" fill className="object-cover" />
@@ -143,17 +143,17 @@ export function QuickViewModal({
           {/* Option Selection Form */}
           <div className="md:w-1/2 p-6 overflow-y-auto flex flex-col justify-between">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-[#667264] font-sans font-semibold">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-[#7E6875] font-sans font-semibold">
                 {product.category}
               </p>
               <h2
                 id="quick-view-title"
-                className="font-serif text-[22px] text-[#1C281F] mt-1 mb-2 font-normal leading-tight"
+                className="font-serif text-[22px] text-[#200E19] mt-1 mb-2 font-normal leading-tight"
               >
                 {product.name}
               </h2>
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-base font-sans font-semibold text-[#1C281F]">
+                <span className="text-base font-sans font-semibold text-[#200E19]">
                   {priceLabel(product)}
                 </span>
                 <span
@@ -161,7 +161,7 @@ export function QuickViewModal({
                     status === "Available"
                       ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                       : status === "Made to Order"
-                        ? "bg-amber-50 text-amber-800 border border-amber-200"
+                        ? "bg-[#FDF2F7] text-[#9B1B54] border border-[#F0E5EC]"
                         : "bg-stone-100 text-stone-600 border border-stone-200"
                   }`}
                 >
@@ -173,7 +173,7 @@ export function QuickViewModal({
                 {/* Variants */}
                 {product.variants?.map((v) => (
                   <div key={v.name} className="space-y-1.5">
-                    <label className="text-[11.5px] font-sans font-medium text-[#1C281F] block">
+                    <label className="text-[11.5px] font-sans font-medium text-[#200E19] block">
                       {v.name} *
                     </label>
                     <select
@@ -182,7 +182,7 @@ export function QuickViewModal({
                       onChange={(e) =>
                         setVariants({ ...variants, [v.name]: e.target.value })
                       }
-                      className="w-full px-3 py-2 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F]"
+                      className="w-full px-3 py-2 text-xs font-sans rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] focus:outline-none focus:ring-1 focus:ring-[#9B1B54]"
                     >
                       <option value="">Select option</option>
                       {v.options.map((opt) => (
@@ -197,8 +197,8 @@ export function QuickViewModal({
                 {/* Color Swatches */}
                 {product.colors && product.colors.length > 0 && (
                   <div className="space-y-1.5">
-                    <span className="text-[11.5px] font-sans font-medium text-[#1C281F] block">
-                      Colour: <span className="font-normal text-[#667264]">{color}</span>
+                    <span className="text-[11.5px] font-sans font-medium text-[#200E19] block">
+                      Colour: <span className="font-normal text-[#7E6875]">{color}</span>
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {product.colors.map((c) => (
@@ -208,8 +208,8 @@ export function QuickViewModal({
                           onClick={() => setColor(c.name)}
                           className={`group relative flex items-center gap-1.5 px-2.5 py-1 text-[11px] rounded-[2px] border transition-all ${
                             color === c.name
-                              ? "border-[#967F4F] bg-[#967F4F]/10 text-[#1C281F] font-medium"
-                              : "border-[#E8E2D8] text-[#667264] hover:border-[#967F4F]"
+                              ? "border-[#9B1B54] bg-[#9B1B54]/10 text-[#200E19] font-medium"
+                              : "border-[#F0E5EC] text-[#7E6875] hover:border-[#9B1B54]"
                           }`}
                           title={c.name}
                         >
@@ -226,9 +226,9 @@ export function QuickViewModal({
 
                 {/* Personalization */}
                 <div className="space-y-1.5">
-                  <label className="text-[11.5px] font-sans font-medium text-[#1C281F] flex justify-between">
+                  <label className="text-[11.5px] font-sans font-medium text-[#200E19] flex justify-between">
                     <span>Personalised Text / Design</span>
-                    <span className="text-[#667264] font-normal">
+                    <span className="text-[#7E6875] font-normal">
                       {product.personalizationRequired ? "Required" : "Optional"}
                     </span>
                   </label>
@@ -239,30 +239,30 @@ export function QuickViewModal({
                     required={product.personalizationRequired}
                     onChange={(e) => setPersonalization(e.target.value)}
                     placeholder="e.g. Name, date, jersey number…"
-                    className="w-full px-3 py-2 text-xs font-sans rounded-[2px] border border-[#E8E2D8] bg-[#FFFFFF] text-[#1C281F] focus:outline-none focus:ring-1 focus:ring-[#967F4F]"
+                    className="w-full px-3 py-2 text-xs font-sans rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] focus:outline-none focus:ring-1 focus:ring-[#9B1B54]"
                   />
                 </div>
 
                 {/* Quantity */}
                 <div className="flex items-center gap-3">
-                  <label className="text-[11.5px] font-sans font-medium text-[#1C281F]">
+                  <label className="text-[11.5px] font-sans font-medium text-[#200E19]">
                     Quantity:
                   </label>
-                  <div className="flex items-center border border-[#E8E2D8] rounded-[2px] overflow-hidden bg-white">
+                  <div className="flex items-center border border-[#F0E5EC] rounded-[2px] overflow-hidden bg-white">
                     <button
                       type="button"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-2.5 py-1 text-sm text-[#1C281F] hover:bg-[#FAF7F2]"
+                      className="px-2.5 py-1 text-sm text-[#200E19] hover:bg-[#FCF8FA]"
                     >
                       -
                     </button>
-                    <span className="px-3 py-1 text-xs font-sans text-center min-w-[28px]">
+                    <span className="px-3 py-1 text-xs font-sans text-center min-w-[28px] text-[#200E19]">
                       {quantity}
                     </span>
                     <button
                       type="button"
                       onClick={() => setQuantity(Math.min(99, quantity + 1))}
-                      className="px-2.5 py-1 text-sm text-[#1C281F] hover:bg-[#FAF7F2]"
+                      className="px-2.5 py-1 text-sm text-[#200E19] hover:bg-[#FCF8FA]"
                     >
                       +
                     </button>
@@ -281,10 +281,10 @@ export function QuickViewModal({
                   disabled={isSoldOut}
                   className={`w-full py-2.5 px-4 rounded-[2px] text-[11px] font-sans font-semibold tracking-[0.16em] uppercase transition-all duration-200 flex items-center justify-center gap-2 ${
                     isSoldOut
-                      ? "bg-[#E8E2D8] text-[#667264] cursor-not-allowed"
+                      ? "bg-[#F0E5EC] text-[#7E6875] cursor-not-allowed"
                       : added
-                        ? "bg-[#1C281F] text-[#FAF7F2]"
-                        : "bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] shadow-xs"
+                        ? "bg-[#3D6B52] text-[#FFFFFF]"
+                        : "bg-[#9B1B54] hover:bg-[#7D1342] text-[#FFFFFF] shadow-xs"
                   }`}
                 >
                   {added ? (
@@ -300,15 +300,15 @@ export function QuickViewModal({
               </form>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-[#E8E2D8] flex justify-between items-center text-xs">
+            <div className="mt-4 pt-3 border-t border-[#F0E5EC] flex justify-between items-center text-xs">
               <Link
                 href={`/product/${product.slug}`}
                 onClick={onClose}
-                className="text-[#1C281F] hover:text-[#967F4F] font-sans font-medium inline-flex items-center gap-1 transition-colors"
+                className="text-[#200E19] hover:text-[#9B1B54] font-sans font-medium inline-flex items-center gap-1 transition-colors"
               >
                 View full details ↗
               </Link>
-              <span className="text-[#667264] text-[10.5px]">
+              <span className="text-[#7E6875] text-[10.5px]">
                 Nationwide Dispatch
               </span>
             </div>

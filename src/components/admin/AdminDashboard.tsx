@@ -70,15 +70,15 @@ function ImageUpload({
   const [error, setError] = useState("");
   return (
     <div>
-      <label className="border-2 border-dashed border-[#E8E2D8] hover:border-[#967F4F] bg-[#FAF7F2]/60 hover:bg-[#FAF7F2] rounded-[4px] p-6 text-center cursor-pointer transition-colors block group">
+      <label className="border-2 border-dashed border-[#F0E5EC] hover:border-[#9B1B54] bg-[#FCF8FA]/60 hover:bg-[#FCF8FA] rounded-[4px] p-6 text-center cursor-pointer transition-colors block group">
         <div className="flex flex-col items-center justify-center gap-2">
-          <div className="w-10 h-10 rounded-full bg-[#FCFBF9] border border-[#E8E2D8] flex items-center justify-center text-[#967F4F] group-hover:scale-105 transition-transform">
+          <div className="w-10 h-10 rounded-full bg-white border border-[#F0E5EC] flex items-center justify-center text-[#9B1B54] group-hover:scale-105 transition-transform">
             <Upload size={18} />
           </div>
-          <span className="text-xs font-sans font-medium text-[#1C281F]">
+          <span className="text-xs font-sans font-medium text-[#200E19]">
             Upload {multiple ? "Product Photos" : "Cover Image"}
           </span>
-          <span className="text-[11px] font-sans text-[#667264]">
+          <span className="text-[11px] font-sans text-[#7D6674]">
             JPG, PNG, or WebP · Max 350 KB each {multiple ? "(Up to 8 photos)" : ""}
           </span>
         </div>
@@ -248,7 +248,7 @@ export function AdminDashboard({
     placeholder = "",
   ) => (
     <div>
-      <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+      <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
         {label}
         {required && <span className="text-rose-600 ml-0.5">*</span>}
       </label>
@@ -257,20 +257,20 @@ export function AdminDashboard({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+        className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
       />
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#1C281F] pb-24">
+    <div className="min-h-screen bg-[#FCF8FA] text-[#200E19] pb-24">
       {/* 1. Atelier Top Header & Toolbar */}
-      <header className="sticky top-0 z-30 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8E2D8] shadow-xs">
+      <header className="sticky top-0 z-30 bg-[#FCF8FA]/95 backdrop-blur-md border-b border-[#F0E5EC] shadow-xs">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             {/* Brand Lockup */}
             <div className="flex items-center gap-3">
-              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#967F4F]/40 bg-[#F2EDE4] flex-shrink-0">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#9B1B54]/40 bg-[#FDF2F7] flex-shrink-0">
                 <Image
                   src="/images/instagram/logo.jpg"
                   alt="The Pookie Craft Co."
@@ -279,16 +279,16 @@ export function AdminDashboard({
                 />
               </div>
               <div>
-                <span className="block font-serif text-[17px] text-[#1C281F] font-medium leading-none">
+                <span className="block font-serif text-[17px] text-[#200E19] font-medium leading-none">
                   The Pookie Craft Co.
                 </span>
-                <span className="text-[9px] font-sans uppercase tracking-[0.2em] text-[#967F4F] font-semibold">
+                <span className="text-[9px] font-sans uppercase tracking-[0.2em] text-[#9B1B54] font-semibold">
                   Owner Studio Atelier
                 </span>
               </div>
 
               {/* Save Status Badge */}
-              <div className="ml-3 pl-3 border-l border-[#E8E2D8] hidden sm:flex items-center gap-2">
+              <div className="ml-3 pl-3 border-l border-[#F0E5EC] hidden sm:flex items-center gap-2">
                 {dirty || editorDirty ? (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-sans font-medium bg-amber-50 text-amber-800 border border-amber-200">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
@@ -309,7 +309,7 @@ export function AdminDashboard({
                 type="button"
                 onClick={reload}
                 title="Discard draft and fetch published content"
-                className="px-3 py-2 bg-[#FCFBF9] hover:bg-[#F2EDE4] border border-[#E8E2D8] text-[#1C281F] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
+                className="px-3 py-2 bg-white hover:bg-[#FDF2F7] border border-[#F0E5EC] text-[#200E19] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
               >
                 <RotateCcw size={13} />
                 <span className="hidden sm:inline">Reload</span>
@@ -319,7 +319,7 @@ export function AdminDashboard({
                 href="/"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-2 bg-[#FCFBF9] hover:bg-[#F2EDE4] border border-[#E8E2D8] text-[#1C281F] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
+                className="px-3 py-2 bg-white hover:bg-[#FDF2F7] border border-[#F0E5EC] text-[#200E19] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
               >
                 <span>Storefront</span>
                 <ExternalLink size={12} />
@@ -329,7 +329,7 @@ export function AdminDashboard({
                 type="button"
                 onClick={exportBackup}
                 title="Download entire catalog as JSON backup"
-                className="px-3 py-2 bg-[#FCFBF9] hover:bg-[#F2EDE4] border border-[#E8E2D8] text-[#1C281F] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
+                className="px-3 py-2 bg-white hover:bg-[#FDF2F7] border border-[#F0E5EC] text-[#200E19] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
               >
                 <Download size={13} />
                 <span className="hidden sm:inline">Backup</span>
@@ -337,7 +337,7 @@ export function AdminDashboard({
 
               <label
                 title="Restore content from a JSON backup file"
-                className="px-3 py-2 bg-[#FCFBF9] hover:bg-[#F2EDE4] border border-[#E8E2D8] text-[#1C281F] rounded-[3px] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                className="px-3 py-2 bg-white hover:bg-[#FDF2F7] border border-[#F0E5EC] text-[#200E19] rounded-[3px] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
               >
                 <Upload size={13} />
                 <span className="hidden sm:inline">Restore</span>
@@ -385,7 +385,7 @@ export function AdminDashboard({
                 type="button"
                 disabled={!dirty || busy || editorDirty}
                 onClick={publish}
-                className="px-4 py-2 bg-[#1C281F] hover:bg-[#967F4F] disabled:bg-[#1C281F]/40 text-[#FAF7F2] font-semibold uppercase tracking-[0.12em] text-[11px] rounded-[3px] shadow-sm transition-all inline-flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-[#9B1B54] hover:bg-[#7D1342] disabled:bg-[#9B1B54]/40 text-white font-semibold uppercase tracking-[0.12em] text-[11px] rounded-[3px] shadow-sm transition-all inline-flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
               >
                 <Sparkles size={13} />
                 <span>{busy ? "Publishing…" : "Publish Changes"}</span>
@@ -403,7 +403,7 @@ export function AdminDashboard({
                   if (r.ok) router.refresh();
                   else setNotice("Sign out failed. Please try again.");
                 }}
-                className="p-2 text-[#667264] hover:text-rose-700 transition-colors"
+                className="p-2 text-[#7D6674] hover:text-rose-700 transition-colors"
                 title="Sign out of Owner Studio"
               >
                 <LogOut size={16} />
@@ -420,15 +420,15 @@ export function AdminDashboard({
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             role="status"
-            className="p-3 bg-[#FCFBF9] border border-[#967F4F]/40 text-[#1C281F] rounded-[4px] shadow-xs flex items-center justify-between text-xs font-sans"
+            className="p-3 bg-white border border-[#9B1B54]/40 text-[#200E19] rounded-[4px] shadow-xs flex items-center justify-between text-xs font-sans"
           >
             <div className="flex items-center gap-2">
-              <AlertCircle size={15} className="text-[#967F4F]" />
+              <AlertCircle size={15} className="text-[#9B1B54]" />
               <span>{notice}</span>
             </div>
             <button
               onClick={() => setNotice("")}
-              className="text-[#667264] hover:text-[#1C281F]"
+              className="text-[#7D6674] hover:text-[#200E19]"
             >
               <X size={14} />
             </button>
@@ -439,7 +439,7 @@ export function AdminDashboard({
       {/* 3. Main Dashboard Body */}
       <main className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 border-b border-[#E8E2D8] overflow-x-auto pb-px mb-8">
+        <div className="flex items-center gap-2 border-b border-[#F0E5EC] overflow-x-auto pb-px mb-8">
           {[
             { id: "Products", label: "Catalog Products", icon: Package, count: catalog.products.length },
             { id: "Categories", label: "Categories", icon: Layers, count: catalog.categories.length },
@@ -458,18 +458,18 @@ export function AdminDashboard({
                 }}
                 className={`flex items-center gap-2 px-4 py-3 text-xs font-sans uppercase tracking-[0.14em] font-medium border-b-2 whitespace-nowrap transition-all ${
                   active
-                    ? "border-[#967F4F] text-[#1C281F] font-semibold bg-[#FCFBF9]/60"
-                    : "border-transparent text-[#667264] hover:text-[#1C281F] hover:border-[#E8E2D8]"
+                    ? "border-[#9B1B54] text-[#9B1B54] font-semibold bg-white"
+                    : "border-transparent text-[#7D6674] hover:text-[#200E19] hover:border-[#F0E5EC]"
                 }`}
               >
-                <Icon size={14} className={active ? "text-[#967F4F]" : "text-[#8C988A]"} />
+                <Icon size={14} className={active ? "text-[#9B1B54]" : "text-[#7D6674]"} />
                 <span>{item.label}</span>
                 {item.count !== undefined && (
                   <span
                     className={`px-1.5 py-0.2 rounded-full text-[10px] ${
                       active
-                        ? "bg-[#1C281F] text-[#FAF7F2]"
-                        : "bg-[#E8E2D8] text-[#5D685B]"
+                        ? "bg-[#9B1B54] text-white"
+                        : "bg-[#F0E5EC] text-[#7D6674]"
                     }`}
                   >
                     {item.count}
@@ -490,10 +490,10 @@ export function AdminDashboard({
                 <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4">
                   <div>
                     <span className="eyebrow">Studio Inventory</span>
-                    <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal">
+                    <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal">
                       Handcrafted Catalog ({catalog.products.length})
                     </h2>
-                    <p className="text-xs font-sans text-[#667264] mt-1">
+                    <p className="text-xs font-sans text-[#7D6674] mt-1">
                       Drag or move up/down to curate featured placement and best-seller rank.
                     </p>
                   </div>
@@ -505,7 +505,7 @@ export function AdminDashboard({
                         setPreview(false);
                       }
                     }}
-                    className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] font-sans text-xs font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all"
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#9B1B54] hover:bg-[#7D1342] text-white font-sans text-xs font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all"
                   >
                     <Plus size={14} />
                     <span>Add New Product</span>
@@ -519,10 +519,10 @@ export function AdminDashboard({
                     return (
                       <div
                         key={p.id}
-                        className="bg-[#FCFBF9] border border-[#E8E2D8] hover:border-[#967F4F]/40 rounded-[4px] p-4 flex gap-4 transition-all shadow-xs group"
+                        className="bg-white border border-[#F0E5EC] hover:border-[#9B1B54]/40 rounded-[4px] p-4 flex gap-4 transition-all shadow-xs group"
                       >
                         {/* Thumbnail */}
-                        <div className="relative w-20 h-24 rounded-[2px] overflow-hidden bg-[#F2EDE4] border border-[#E8E2D8] flex-shrink-0">
+                        <div className="relative w-20 h-24 rounded-[2px] overflow-hidden bg-[#FDF2F7] border border-[#F0E5EC] flex-shrink-0">
                           {p.image_url ? (
                             <Image
                               src={p.image_url}
@@ -532,7 +532,7 @@ export function AdminDashboard({
                               className="object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-[#967F4F]">
+                            <div className="w-full h-full flex items-center justify-center text-[#9B1B54]">
                               <ImageIcon size={20} />
                             </div>
                           )}
@@ -541,7 +541,7 @@ export function AdminDashboard({
                               status === "Available"
                                 ? "bg-emerald-700/90"
                                 : status === "Made to Order"
-                                  ? "bg-[#542034]/90"
+                                  ? "bg-[#9B1B54]/90"
                                   : "bg-stone-600/90"
                             }`}
                           >
@@ -553,22 +553,22 @@ export function AdminDashboard({
                         <div className="flex-1 min-w-0 flex flex-col justify-between">
                           <div>
                             <div className="flex items-start justify-between gap-1">
-                              <h3 className="font-serif text-base text-[#1C281F] font-normal leading-tight line-clamp-1">
+                              <h3 className="font-serif text-base text-[#200E19] font-normal leading-tight line-clamp-1">
                                 {p.name}
                               </h3>
                             </div>
-                            <p className="text-xs font-sans text-[#667264] mt-0.5">
-                              {p.category} · <span className="font-semibold text-[#1C281F]">₹{p.price}</span>
-                              {p.startingPrice && <span className="text-[10px] text-[#967F4F] ml-1">(From)</span>}
+                            <p className="text-xs font-sans text-[#7D6674] mt-0.5">
+                              {p.category} · <span className="font-semibold text-[#200E19]">₹{p.price}</span>
+                              {p.startingPrice && <span className="text-[10px] text-[#9B1B54] ml-1">(From)</span>}
                             </p>
                             <div className="flex items-center gap-1.5 mt-2">
                               {p.featured && (
-                                <span className="text-[9.5px] font-sans font-semibold uppercase tracking-[0.1em] px-1.5 py-0.2 bg-[#FAF7F2] border border-[#967F4F]/40 text-[#967F4F] rounded-[2px]">
+                                <span className="text-[9.5px] font-sans font-semibold uppercase tracking-[0.1em] px-1.5 py-0.2 bg-[#FDF2F7] border border-[#9B1B54]/30 text-[#9B1B54] rounded-[2px]">
                                   Featured
                                 </span>
                               )}
                               {p.bestseller && (
-                                <span className="text-[9.5px] font-sans font-semibold uppercase tracking-[0.1em] px-1.5 py-0.2 bg-[#1C281F] text-[#FAF7F2] rounded-[2px]">
+                                <span className="text-[9.5px] font-sans font-semibold uppercase tracking-[0.1em] px-1.5 py-0.2 bg-[#200E19] text-[#FCF8FA] rounded-[2px]">
                                   Bestseller
                                 </span>
                               )}
@@ -576,7 +576,7 @@ export function AdminDashboard({
                           </div>
 
                           {/* Control Strip */}
-                          <div className="flex items-center justify-between pt-3 border-t border-[#E8E2D8] mt-2">
+                          <div className="flex items-center justify-between pt-3 border-t border-[#F0E5EC] mt-2">
                             <div className="flex items-center gap-1">
                               <button
                                 type="button"
@@ -588,7 +588,7 @@ export function AdminDashboard({
                                     products: move(catalog.products, i, -1),
                                   })
                                 }
-                                className="p-1.5 text-[#667264] hover:text-[#1C281F] disabled:opacity-30 disabled:hover:text-[#667264] transition-colors"
+                                className="p-1.5 text-[#7D6674] hover:text-[#200E19] disabled:opacity-30 disabled:hover:text-[#7D6674] transition-colors"
                               >
                                 <ArrowUp size={14} />
                               </button>
@@ -602,7 +602,7 @@ export function AdminDashboard({
                                     products: move(catalog.products, i, 1),
                                   })
                                 }
-                                className="p-1.5 text-[#667264] hover:text-[#1C281F] disabled:opacity-30 disabled:hover:text-[#667264] transition-colors"
+                                className="p-1.5 text-[#7D6674] hover:text-[#200E19] disabled:opacity-30 disabled:hover:text-[#7D6674] transition-colors"
                               >
                                 <ArrowDown size={14} />
                               </button>
@@ -615,7 +615,7 @@ export function AdminDashboard({
                                   setProduct(structuredClone(p));
                                   setPreview(false);
                                 }}
-                                className="px-2.5 py-1 text-xs font-sans font-semibold text-[#1C281F] hover:text-[#967F4F] border border-[#E8E2D8] hover:border-[#967F4F] rounded-[2px] transition-colors inline-flex items-center gap-1"
+                                className="px-2.5 py-1 text-xs font-sans font-semibold text-[#200E19] hover:text-[#9B1B54] border border-[#F0E5EC] hover:border-[#9B1B54] rounded-[2px] transition-colors inline-flex items-center gap-1"
                               >
                                 <Edit3 size={11} />
                                 <span>Edit</span>
@@ -635,7 +635,7 @@ export function AdminDashboard({
                                       ),
                                     });
                                 }}
-                                className="p-1.5 text-[#667264] hover:text-rose-700 transition-colors"
+                                className="p-1.5 text-[#7D6674] hover:text-rose-700 transition-colors"
                                 title="Delete creation"
                               >
                                 <Trash2 size={13} />
@@ -679,10 +679,10 @@ export function AdminDashboard({
                 }}
               >
                 {/* Editor Header */}
-                <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4 pb-4 border-b border-[#E8E2D8]">
+                <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4 pb-4 border-b border-[#F0E5EC]">
                   <div>
                     <span className="eyebrow">Studio Atelier Editor</span>
-                    <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal">
+                    <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal">
                       {catalog.products.some((p) => p.id === product.id)
                         ? `Editing “${product.name}”`
                         : "Craft a New Product"}
@@ -692,7 +692,7 @@ export function AdminDashboard({
                     <button
                       type="button"
                       onClick={() => setPreview(!preview)}
-                      className="px-3.5 py-2 bg-[#FCFBF9] hover:bg-[#F2EDE4] border border-[#E8E2D8] text-xs font-sans text-[#1C281F] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
+                      className="px-3.5 py-2 bg-white hover:bg-[#FDF2F7] border border-[#F0E5EC] text-xs font-sans text-[#200E19] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
                     >
                       {preview ? <EyeOff size={13} /> : <Eye size={13} />}
                       <span>{preview ? "Hide Preview" : "Live Card Preview"}</span>
@@ -700,13 +700,13 @@ export function AdminDashboard({
                     <button
                       type="button"
                       onClick={leaveEditor}
-                      className="px-3.5 py-2 border border-[#E8E2D8] hover:bg-rose-50 text-xs font-sans text-[#667264] hover:text-rose-700 rounded-[3px] transition-colors"
+                      className="px-3.5 py-2 border border-[#F0E5EC] hover:bg-rose-50 text-xs font-sans text-[#7D6674] hover:text-rose-700 rounded-[3px] transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="px-5 py-2 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] font-sans text-xs font-semibold tracking-[0.12em] uppercase rounded-[3px] shadow-sm transition-all"
+                      className="px-5 py-2 bg-[#9B1B54] hover:bg-[#7D1342] text-white font-sans text-xs font-semibold tracking-[0.12em] uppercase rounded-[3px] shadow-sm transition-all"
                     >
                       Save to Draft
                     </button>
@@ -717,8 +717,8 @@ export function AdminDashboard({
                   {/* Left Column: Form Cards */}
                   <div className="lg:col-span-8 space-y-6">
                     {/* Card 1: Core Product Attributes */}
-                    <div className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-6 space-y-5">
-                      <h3 className="font-serif text-lg text-[#1C281F] border-b border-[#E8E2D8] pb-2">
+                    <div className="bg-white border border-[#F0E5EC] rounded-[6px] p-6 space-y-5">
+                      <h3 className="font-serif text-lg text-[#200E19] border-b border-[#F0E5EC] pb-2">
                         Basic Information
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -730,7 +730,7 @@ export function AdminDashboard({
                           "e.g. Forever Yellow Sunflower Bouquet",
                         )}
                         <div>
-                          <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                          <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                             Product URL Slug <span className="text-rose-600">*</span>
                           </label>
                           <input
@@ -740,9 +740,9 @@ export function AdminDashboard({
                             value={product.slug}
                             placeholder="forever-yellow-sunflower-bouquet"
                             onChange={(e) => patchProduct({ slug: e.target.value })}
-                            className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                            className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                           />
-                          <p className="text-[10.5px] text-[#8C988A] mt-1">
+                          <p className="text-[10.5px] text-[#7D6674] mt-1">
                             URL on storefront: /product/{product.slug || "example-slug"}
                           </p>
                         </div>
@@ -750,7 +750,7 @@ export function AdminDashboard({
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                          <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                          <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                             Price (₹) <span className="text-rose-600">*</span>
                           </label>
                           <input
@@ -763,18 +763,18 @@ export function AdminDashboard({
                             onChange={(e) =>
                               patchProduct({ price: e.target.valueAsNumber || 0 })
                             }
-                            className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                            className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                          <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                             Main Category
                           </label>
                           <select
                             value={product.category}
                             onChange={(e) => patchProduct({ category: e.target.value })}
-                            className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                            className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                           >
                             {catalog.categories.map((c) => (
                               <option key={c.id} value={c.name}>
@@ -785,7 +785,7 @@ export function AdminDashboard({
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                          <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                             Availability
                           </label>
                           <select
@@ -796,7 +796,7 @@ export function AdminDashboard({
                                 in_stock: e.target.value !== "Sold Out",
                               })
                             }
-                            className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                            className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                           >
                             {["Available", "Sold Out", "Made to Order"].map((s) => (
                               <option key={s} value={s}>
@@ -809,7 +809,7 @@ export function AdminDashboard({
 
                       {/* Additional Categories */}
                       <div>
-                        <span className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-2">
+                        <span className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-2">
                           Additional Display Categories
                         </span>
                         <div className="flex flex-wrap gap-2.5">
@@ -822,8 +822,8 @@ export function AdminDashboard({
                                   key={c.id}
                                   className={`px-3 py-1.5 rounded-[3px] text-xs font-sans cursor-pointer border transition-colors inline-flex items-center gap-1.5 ${
                                     checked
-                                      ? "bg-[#1C281F] text-white border-[#1C281F]"
-                                      : "bg-white text-[#5D685B] border-[#E8E2D8] hover:border-[#967F4F]"
+                                      ? "bg-[#9B1B54] text-white border-[#9B1B54]"
+                                      : "bg-white text-[#7D6674] border-[#F0E5EC] hover:border-[#9B1B54]"
                                   }`}
                                 >
                                   <input
@@ -849,7 +849,7 @@ export function AdminDashboard({
 
                       {/* Description */}
                       <div>
-                        <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                        <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                           Product Story &amp; Description <span className="text-rose-600">*</span>
                         </label>
                         <textarea
@@ -861,7 +861,7 @@ export function AdminDashboard({
                           onChange={(e) =>
                             patchProduct({ description: e.target.value })
                           }
-                          className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] focus:ring-1 focus:ring-[#967F4F] rounded-[3px] text-sm text-[#1C281F] transition-all outline-none"
+                          className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] focus:ring-1 focus:ring-[#9B1B54] rounded-[3px] text-sm text-[#200E19] transition-all outline-none"
                         />
                       </div>
 
@@ -884,7 +884,7 @@ export function AdminDashboard({
                       </div>
 
                       {/* Storefront Switches */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#E8E2D8]">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#F0E5EC]">
                         {[
                           ["startingPrice", "Starting price (final quote varies)"],
                           ["featured", "Featured on Studio Homepage"],
@@ -895,7 +895,7 @@ export function AdminDashboard({
                           return (
                             <label
                               key={k}
-                              className="flex items-center gap-2.5 text-xs font-sans text-[#1C281F] cursor-pointer"
+                              className="flex items-center gap-2.5 text-xs font-sans text-[#200E19] cursor-pointer"
                             >
                               <input
                                 type="checkbox"
@@ -903,7 +903,7 @@ export function AdminDashboard({
                                 onChange={(e) =>
                                   patchProduct({ [k]: e.target.checked })
                                 }
-                                className="w-4 h-4 rounded-[2px] text-[#967F4F] focus:ring-[#967F4F] border-[#E8E2D8]"
+                                className="w-4 h-4 rounded-[2px] text-[#9B1B54] focus:ring-[#9B1B54] border-[#F0E5EC]"
                               />
                               <span>{label}</span>
                             </label>
@@ -913,12 +913,12 @@ export function AdminDashboard({
                     </div>
 
                     {/* Card 2: Imagery & Gallery */}
-                    <div className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-6 space-y-4">
-                      <div className="flex justify-between items-baseline border-b border-[#E8E2D8] pb-2">
-                        <h3 className="font-serif text-lg text-[#1C281F]">
+                    <div className="bg-white border border-[#F0E5EC] rounded-[6px] p-6 space-y-4">
+                      <div className="flex justify-between items-baseline border-b border-[#F0E5EC] pb-2">
+                        <h3 className="font-serif text-lg text-[#200E19]">
                           Product Photography ({product.images.length}/8)
                         </h3>
-                        <span className="text-[11px] font-sans text-[#667264]">
+                        <span className="text-[11px] font-sans text-[#7D6674]">
                           First image is default catalog cover
                         </span>
                       </div>
@@ -928,7 +928,7 @@ export function AdminDashboard({
                           {product.images.map((src, i) => (
                             <div
                               key={i}
-                              className="relative aspect-[4/5] rounded-[3px] overflow-hidden bg-[#F2EDE4] border border-[#E8E2D8] group"
+                              className="relative aspect-[4/5] rounded-[3px] overflow-hidden bg-[#FDF2F7] border border-[#F0E5EC] group"
                             >
                               <Image
                                 src={src}
@@ -938,7 +938,7 @@ export function AdminDashboard({
                                 className="object-cover"
                               />
                               {i === 0 && (
-                                <span className="absolute top-1.5 left-1.5 px-1.5 py-0.5 bg-[#1C281F] text-white text-[9px] font-sans font-semibold uppercase tracking-wider rounded-[2px]">
+                                <span className="absolute top-1.5 left-1.5 px-1.5 py-0.5 bg-[#9B1B54] text-white text-[9px] font-sans font-semibold uppercase tracking-wider rounded-[2px]">
                                   Cover
                                 </span>
                               )}
@@ -971,15 +971,15 @@ export function AdminDashboard({
                     </div>
 
                     {/* Card 3: Color Swatches & Variants */}
-                    <div className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-6 space-y-6">
-                      <h3 className="font-serif text-lg text-[#1C281F] border-b border-[#E8E2D8] pb-2">
+                    <div className="bg-white border border-[#F0E5EC] rounded-[6px] p-6 space-y-6">
+                      <h3 className="font-serif text-lg text-[#200E19] border-b border-[#F0E5EC] pb-2">
                         Options &amp; Customization
                       </h3>
 
                       {/* Colors */}
                       <div>
                         <div className="flex justify-between items-center mb-2">
-                          <label className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F]">
+                          <label className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19]">
                             Available Color Swatches
                           </label>
                           <button
@@ -992,7 +992,7 @@ export function AdminDashboard({
                                 ],
                               })
                             }
-                            className="text-xs font-sans text-[#967F4F] hover:text-[#1C281F] font-semibold inline-flex items-center gap-1"
+                            className="text-xs font-sans text-[#9B1B54] hover:text-[#7D1342] font-semibold inline-flex items-center gap-1"
                           >
                             <Plus size={13} />
                             <span>Add Color</span>
@@ -1014,7 +1014,7 @@ export function AdminDashboard({
                                     ),
                                   })
                                 }
-                                className="flex-1 px-3 py-2 bg-white border border-[#E8E2D8] rounded-[2px] text-xs text-[#1C281F] outline-none"
+                                className="flex-1 px-3 py-2 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] rounded-[2px] text-xs text-[#200E19] outline-none"
                               />
                               <input
                                 aria-label={`Colour ${i + 1} swatch`}
@@ -1027,7 +1027,7 @@ export function AdminDashboard({
                                     ),
                                   })
                                 }
-                                className="w-9 h-9 p-0.5 bg-white border border-[#E8E2D8] rounded-[2px] cursor-pointer"
+                                className="w-9 h-9 p-0.5 bg-white border border-[#F0E5EC] rounded-[2px] cursor-pointer"
                               />
                               <button
                                 type="button"
@@ -1036,7 +1036,7 @@ export function AdminDashboard({
                                     colors: product.colors?.filter((_, j) => j !== i),
                                   })
                                 }
-                                className="p-2 text-[#667264] hover:text-rose-700"
+                                className="p-2 text-[#7D6674] hover:text-rose-700"
                               >
                                 <Trash2 size={14} />
                               </button>
@@ -1048,7 +1048,7 @@ export function AdminDashboard({
                       {/* Variants / Arrangements */}
                       <div>
                         <div className="flex justify-between items-center mb-2">
-                          <label className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F]">
+                          <label className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19]">
                             Product Option Groups (e.g. Size, Arrangement)
                           </label>
                           <button
@@ -1061,7 +1061,7 @@ export function AdminDashboard({
                                 ],
                               })
                             }
-                            className="text-xs font-sans text-[#967F4F] hover:text-[#1C281F] font-semibold inline-flex items-center gap-1"
+                            className="text-xs font-sans text-[#9B1B54] hover:text-[#7D1342] font-semibold inline-flex items-center gap-1"
                           >
                             <Plus size={13} />
                             <span>Add Option Group</span>
@@ -1083,7 +1083,7 @@ export function AdminDashboard({
                                     ),
                                   })
                                 }
-                                className="w-full sm:w-1/3 px-3 py-2 bg-white border border-[#E8E2D8] rounded-[2px] text-xs text-[#1C281F] outline-none"
+                                className="w-full sm:w-1/3 px-3 py-2 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] rounded-[2px] text-xs text-[#200E19] outline-none"
                               />
                               <input
                                 required
@@ -1105,7 +1105,7 @@ export function AdminDashboard({
                                     ),
                                   })
                                 }
-                                className="w-full sm:flex-1 px-3 py-2 bg-white border border-[#E8E2D8] rounded-[2px] text-xs text-[#1C281F] outline-none"
+                                className="w-full sm:flex-1 px-3 py-2 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] rounded-[2px] text-xs text-[#200E19] outline-none"
                               />
                               <button
                                 type="button"
@@ -1114,7 +1114,7 @@ export function AdminDashboard({
                                     variants: product.variants?.filter((_, j) => j !== i),
                                   })
                                 }
-                                className="p-2 text-[#667264] hover:text-rose-700"
+                                className="p-2 text-[#7D6674] hover:text-rose-700"
                               >
                                 <Trash2 size={14} />
                               </button>
@@ -1127,25 +1127,25 @@ export function AdminDashboard({
 
                   {/* Right Column: Live Preview & Docked Actions */}
                   <div className="lg:col-span-4 sticky top-24 space-y-4">
-                    <div className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-5 shadow-sm">
+                    <div className="bg-white border border-[#F0E5EC] rounded-[6px] p-5 shadow-sm">
                       <span className="eyebrow !mb-2">Storefront Preview</span>
-                      <h4 className="font-serif text-lg text-[#1C281F] mb-3">
+                      <h4 className="font-serif text-lg text-[#200E19] mb-3">
                         Patron View
                       </h4>
-                      <div className="border border-[#E8E2D8] rounded-[4px] p-3 bg-[#FAF7F2]">
+                      <div className="border border-[#F0E5EC] rounded-[4px] p-3 bg-[#FCF8FA]">
                         <ProductCard product={product} />
                       </div>
-                      <div className="mt-4 pt-3 border-t border-[#E8E2D8] flex gap-2">
+                      <div className="mt-4 pt-3 border-t border-[#F0E5EC] flex gap-2">
                         <button
                           type="submit"
-                          className="flex-1 py-2.5 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] font-sans text-xs font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all"
+                          className="flex-1 py-2.5 bg-[#9B1B54] hover:bg-[#7D1342] text-white font-sans text-xs font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all"
                         >
                           Save Draft
                         </button>
                         <button
                           type="button"
                           onClick={leaveEditor}
-                          className="px-4 py-2.5 border border-[#E8E2D8] hover:bg-rose-50 text-xs font-sans text-[#667264] hover:text-rose-700 rounded-[3px] transition-colors"
+                          className="px-4 py-2.5 border border-[#F0E5EC] hover:bg-rose-50 text-xs font-sans text-[#7D6674] hover:text-rose-700 rounded-[3px] transition-colors"
                         >
                           Cancel
                         </button>
@@ -1166,10 +1166,10 @@ export function AdminDashboard({
             <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4">
               <div>
                 <span className="eyebrow">Taxonomy &amp; Collections</span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal">
+                <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal">
                   Studio Categories ({catalog.categories.length})
                 </h2>
-                <p className="text-xs font-sans text-[#667264] mt-1">
+                <p className="text-xs font-sans text-[#7D6674] mt-1">
                   Organize your creations. Categories in use cannot be deleted without reassigning products.
                 </p>
               </div>
@@ -1189,7 +1189,7 @@ export function AdminDashboard({
                     ],
                   })
                 }
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] font-sans text-xs font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#9B1B54] hover:bg-[#7D1342] text-white font-sans text-xs font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all"
               >
                 <Plus size={14} />
                 <span>Add Category</span>
@@ -1221,10 +1221,10 @@ export function AdminDashboard({
                 return (
                   <div
                     key={c.id}
-                    className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-5 space-y-4 shadow-xs"
+                    className="bg-white border border-[#F0E5EC] rounded-[6px] p-5 space-y-4 shadow-xs"
                   >
                     <div className="flex gap-4">
-                      <div className="relative w-16 h-16 rounded-[3px] overflow-hidden bg-[#F2EDE4] border border-[#E8E2D8] flex-shrink-0">
+                      <div className="relative w-16 h-16 rounded-[3px] overflow-hidden bg-[#FDF2F7] border border-[#F0E5EC] flex-shrink-0">
                         {c.image && (
                           <Image
                             src={c.image}
@@ -1236,20 +1236,20 @@ export function AdminDashboard({
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-[10px] font-sans uppercase tracking-[0.12em] text-[#967F4F] font-semibold">
+                        <span className="text-[10px] font-sans uppercase tracking-[0.12em] text-[#9B1B54] font-semibold">
                           {productCount} {productCount === 1 ? "Product" : "Products"}
                         </span>
                         <input
                           required
                           value={c.name}
                           onChange={(e) => patch({ name: e.target.value })}
-                          className="font-serif text-lg text-[#1C281F] bg-transparent border-b border-transparent hover:border-[#E8E2D8] focus:border-[#967F4F] outline-none w-full"
+                          className="font-serif text-lg text-[#200E19] bg-transparent border-b border-transparent hover:border-[#F0E5EC] focus:border-[#9B1B54] outline-none w-full"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-[10.5px] font-sans font-semibold uppercase tracking-[0.1em] text-[#667264] mb-1">
+                      <label className="block text-[10.5px] font-sans font-semibold uppercase tracking-[0.1em] text-[#7D6674] mb-1">
                         Category Description
                       </label>
                       <textarea
@@ -1257,7 +1257,7 @@ export function AdminDashboard({
                         value={c.description}
                         placeholder="Brief editorial description for search and filtering..."
                         onChange={(e) => patch({ description: e.target.value })}
-                        className="w-full px-3 py-2 bg-white border border-[#E8E2D8] focus:border-[#967F4F] rounded-[2px] text-xs text-[#1C281F] outline-none"
+                        className="w-full px-3 py-2 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] rounded-[2px] text-xs text-[#200E19] outline-none"
                       />
                     </div>
 
@@ -1267,7 +1267,7 @@ export function AdminDashboard({
                       }}
                     />
 
-                    <div className="flex items-center justify-between pt-3 border-t border-[#E8E2D8]">
+                    <div className="flex items-center justify-between pt-3 border-t border-[#F0E5EC]">
                       <div className="flex items-center gap-1">
                         <button
                           type="button"
@@ -1278,7 +1278,7 @@ export function AdminDashboard({
                               categories: move(catalog.categories, i, -1),
                             })
                           }
-                          className="p-1.5 text-[#667264] hover:text-[#1C281F] disabled:opacity-30"
+                          className="p-1.5 text-[#7D6674] hover:text-[#200E19] disabled:opacity-30"
                           title="Move up"
                         >
                           <ArrowUp size={14} />
@@ -1292,7 +1292,7 @@ export function AdminDashboard({
                               categories: move(catalog.categories, i, 1),
                             })
                           }
-                          className="p-1.5 text-[#667264] hover:text-[#1C281F] disabled:opacity-30"
+                          className="p-1.5 text-[#7D6674] hover:text-[#200E19] disabled:opacity-30"
                           title="Move down"
                         >
                           <ArrowDown size={14} />
@@ -1336,17 +1336,17 @@ export function AdminDashboard({
           <div className="max-w-4xl space-y-6">
             <div>
               <span className="eyebrow">Studio Editorial Story</span>
-              <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal">
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal">
                 Homepage Hero &amp; Brand Narrative
               </h2>
-              <p className="text-xs font-sans text-[#667264] mt-1">
+              <p className="text-xs font-sans text-[#7D6674] mt-1">
                 Customize your headline, studio welcome narrative, and signature photography.
               </p>
             </div>
 
-            <div className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-7 space-y-6">
+            <div className="bg-white border border-[#F0E5EC] rounded-[6px] p-7 space-y-6">
               <div>
-                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                   Hero Headline
                 </label>
                 <textarea
@@ -1358,12 +1358,12 @@ export function AdminDashboard({
                       home: { ...catalog.home, title: e.target.value },
                     })
                   }
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] rounded-[3px] text-base font-serif text-[#1C281F] outline-none"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] rounded-[3px] text-base font-serif text-[#200E19] outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                   Hero Introduction &amp; Tagline
                 </label>
                 <textarea
@@ -1375,16 +1375,16 @@ export function AdminDashboard({
                       home: { ...catalog.home, subtitle: e.target.value },
                     })
                   }
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] rounded-[3px] text-sm text-[#1C281F] outline-none"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] rounded-[3px] text-sm text-[#200E19] outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                   Hero Signature Image
                 </label>
                 <div className="flex gap-4 items-center mb-3">
-                  <div className="relative w-24 h-28 rounded-[3px] overflow-hidden bg-[#F2EDE4] border border-[#E8E2D8]">
+                  <div className="relative w-24 h-28 rounded-[3px] overflow-hidden bg-[#FDF2F7] border border-[#F0E5EC]">
                     <Image
                       src={catalog.home.image}
                       alt="Current hero banner"
@@ -1407,7 +1407,7 @@ export function AdminDashboard({
               </div>
 
               <div>
-                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                   Artisan Brand Story
                 </label>
                 <textarea
@@ -1419,17 +1419,17 @@ export function AdminDashboard({
                       home: { ...catalog.home, story: e.target.value },
                     })
                   }
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#E8E2D8] focus:border-[#967F4F] rounded-[3px] text-sm text-[#1C281F] leading-relaxed outline-none"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] rounded-[3px] text-sm text-[#200E19] leading-relaxed outline-none"
                 />
               </div>
 
               {/* Draft Preview Block */}
-              <div className="p-5 bg-[#FAF7F2] border border-[#E8E2D8] rounded-[4px] space-y-3">
+              <div className="p-5 bg-[#FCF8FA] border border-[#F0E5EC] rounded-[4px] space-y-3">
                 <span className="eyebrow !mb-0">Headline Live Preview</span>
-                <h3 className="font-serif text-2xl text-[#1C281F] font-normal">
+                <h3 className="font-serif text-2xl text-[#200E19] font-normal">
                   {catalog.home.title}
                 </h3>
-                <p className="text-xs text-[#667264] max-w-xl">
+                <p className="text-xs text-[#7D6674] max-w-xl">
                   {catalog.home.subtitle}
                 </p>
               </div>
@@ -1445,10 +1445,10 @@ export function AdminDashboard({
             <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4">
               <div>
                 <span className="eyebrow">Patron Feedback</span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal">
+                <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal">
                   Kind Words &amp; Testimonials ({catalog.reviews.length})
                 </h2>
-                <p className="text-xs font-sans text-[#667264] mt-1">
+                <p className="text-xs font-sans text-[#7D6674] mt-1">
                   Only add genuine feedback with recorded customer permission. Reviews require both permission and publish toggles to appear on the homepage.
                 </p>
               </div>
@@ -1469,7 +1469,7 @@ export function AdminDashboard({
                     ],
                   })
                 }
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] font-sans text-xs font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#9B1B54] hover:bg-[#7D1342] text-white font-sans text-xs font-semibold tracking-[0.14em] uppercase rounded-[3px] shadow-sm transition-all"
               >
                 <Plus size={14} />
                 <span>Add Review</span>
@@ -1488,10 +1488,10 @@ export function AdminDashboard({
                 return (
                   <div
                     key={r.id}
-                    className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-5 space-y-4 shadow-xs"
+                    className="bg-white border border-[#F0E5EC] rounded-[6px] p-5 space-y-4 shadow-xs"
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex gap-1 text-[#967F4F]">
+                      <div className="flex gap-1 text-[#D8A657]">
                         {Array.from({ length: 5 }).map((_, i) => (
                           <span key={i} className="text-xs">★</span>
                         ))}
@@ -1521,7 +1521,7 @@ export function AdminDashboard({
                     )}
 
                     <div>
-                      <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#1C281F] mb-1.5">
+                      <label className="block text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#200E19] mb-1.5">
                         Feedback Quote
                       </label>
                       <textarea
@@ -1529,12 +1529,12 @@ export function AdminDashboard({
                         value={r.quote}
                         placeholder="The custom bouquet arrived in perfect shape! The velvety texture of the pipe cleaners is so luxurious..."
                         onChange={(e) => patch({ quote: e.target.value })}
-                        className="w-full px-3 py-2 bg-white border border-[#E8E2D8] focus:border-[#967F4F] rounded-[2px] text-xs text-[#1C281F] outline-none leading-relaxed"
+                        className="w-full px-3 py-2 bg-white border border-[#F0E5EC] focus:border-[#9B1B54] rounded-[2px] text-xs text-[#200E19] outline-none leading-relaxed"
                       />
                     </div>
 
-                    <div className="space-y-2 pt-2 border-t border-[#E8E2D8]">
-                      <label className="flex items-start gap-2.5 text-xs font-sans text-[#1C281F] cursor-pointer">
+                    <div className="space-y-2 pt-2 border-t border-[#F0E5EC]">
+                      <label className="flex items-start gap-2.5 text-xs font-sans text-[#200E19] cursor-pointer">
                         <input
                           type="checkbox"
                           checked={r.permission}
@@ -1544,20 +1544,20 @@ export function AdminDashboard({
                               published: e.target.checked ? r.published : false,
                             })
                           }
-                          className="w-4 h-4 rounded-[2px] text-[#967F4F] mt-0.5"
+                          className="w-4 h-4 rounded-[2px] text-[#9B1B54] mt-0.5"
                         />
                         <span className="leading-tight">
                           Customer granted explicit permission to publish this feedback.
                         </span>
                       </label>
 
-                      <label className="flex items-start gap-2.5 text-xs font-sans text-[#1C281F] cursor-pointer">
+                      <label className="flex items-start gap-2.5 text-xs font-sans text-[#200E19] cursor-pointer">
                         <input
                           type="checkbox"
                           checked={r.published}
                           disabled={!r.permission}
                           onChange={(e) => patch({ published: e.target.checked })}
-                          className="w-4 h-4 rounded-[2px] text-[#967F4F] mt-0.5 disabled:opacity-40"
+                          className="w-4 h-4 rounded-[2px] text-[#9B1B54] mt-0.5 disabled:opacity-40"
                         />
                         <span className="leading-tight">
                           Publish visibly on homepage.
@@ -1579,10 +1579,10 @@ export function AdminDashboard({
             <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4">
               <div>
                 <span className="eyebrow">Studio Concierge Inbox</span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-[#1C281F] font-normal">
+                <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal">
                   Custom Inquiries &amp; Commissions ({requests.length})
                 </h2>
-                <p className="text-xs font-sans text-[#667264] mt-1">
+                <p className="text-xs font-sans text-[#7D6674] mt-1">
                   Patron requests submitted through the custom-order form. Reach out via WhatsApp or email to confirm design and advance payment.
                 </p>
               </div>
@@ -1601,7 +1601,7 @@ export function AdminDashboard({
                     );
                   }
                 }}
-                className="px-4 py-2.5 bg-[#FCFBF9] hover:bg-[#F2EDE4] border border-[#E8E2D8] text-xs font-sans text-[#1C281F] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
+                className="px-4 py-2.5 bg-white hover:bg-[#FDF2F7] border border-[#F0E5EC] text-xs font-sans text-[#200E19] rounded-[3px] transition-colors inline-flex items-center gap-1.5"
               >
                 <RotateCcw size={13} />
                 <span>Refresh Inbox</span>
@@ -1609,14 +1609,14 @@ export function AdminDashboard({
             </div>
 
             {!requests.length ? (
-              <div className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-12 text-center max-w-lg mx-auto space-y-3">
-                <div className="w-12 h-12 rounded-full bg-[#FAF7F2] border border-[#E8E2D8] flex items-center justify-center mx-auto text-[#967F4F]">
+              <div className="bg-white border border-[#F0E5EC] rounded-[6px] p-12 text-center max-w-lg mx-auto space-y-3">
+                <div className="w-12 h-12 rounded-full bg-[#FDF2F7] border border-[#F0E5EC] flex items-center justify-center mx-auto text-[#9B1B54]">
                   <Inbox size={22} />
                 </div>
-                <h3 className="font-serif text-xl text-[#1C281F]">
+                <h3 className="font-serif text-xl text-[#200E19]">
                   Your inbox is clear
                 </h3>
-                <p className="text-xs font-sans text-[#667264] leading-relaxed">
+                <p className="text-xs font-sans text-[#7D6674] leading-relaxed">
                   When customers submit a custom order request on the storefront, their idea, colours, and contact info will appear here.
                 </p>
               </div>
@@ -1632,19 +1632,19 @@ export function AdminDashboard({
                   return (
                     <div
                       key={r.id}
-                      className="bg-[#FCFBF9] border border-[#E8E2D8] rounded-[6px] p-6 space-y-4 shadow-xs"
+                      className="bg-white border border-[#F0E5EC] rounded-[6px] p-6 space-y-4 shadow-xs"
                     >
                       <div className="flex justify-between items-start">
                         <div>
                           <div className="flex items-center gap-2">
-                            <h3 className="font-serif text-xl text-[#1C281F]">
+                            <h3 className="font-serif text-xl text-[#200E19]">
                               {r.name}
                             </h3>
-                            <span className="text-[10px] font-sans font-semibold uppercase tracking-wider px-2 py-0.5 bg-[#FAF7F2] border border-[#E8E2D8] rounded-[2px] text-[#667264]">
+                            <span className="text-[10px] font-sans font-semibold uppercase tracking-wider px-2 py-0.5 bg-[#FCF8FA] border border-[#F0E5EC] rounded-[2px] text-[#7D6674]">
                               Ref: {r.id.slice(0, 8)}
                             </span>
                           </div>
-                          <span className="text-[11px] font-sans text-[#8C988A] flex items-center gap-1 mt-0.5">
+                          <span className="text-[11px] font-sans text-[#7D6674] flex items-center gap-1 mt-0.5">
                             <Clock size={11} />
                             {new Date(r.createdAt).toLocaleString("en-IN", {
                               timeZone: "Asia/Kolkata",
@@ -1677,7 +1677,7 @@ export function AdminDashboard({
                               setNotice("Request could not be deleted.");
                             }
                           }}
-                          className="p-1.5 text-[#8C988A] hover:text-rose-700 transition-colors"
+                          className="p-1.5 text-[#7D6674] hover:text-rose-700 transition-colors"
                           title="Delete inquiry"
                         >
                           <Trash2 size={14} />
@@ -1686,8 +1686,8 @@ export function AdminDashboard({
 
                       {/* Contact Channels */}
                       <div className="flex flex-wrap items-center gap-2 pt-1">
-                        <span className="px-2.5 py-1 bg-white border border-[#E8E2D8] rounded-[2px] text-xs font-sans text-[#1C281F] inline-flex items-center gap-1.5">
-                          {r.contact.includes("@") ? <Mail size={12} className="text-[#967F4F]" /> : <Phone size={12} className="text-[#967F4F]" />}
+                        <span className="px-2.5 py-1 bg-white border border-[#F0E5EC] rounded-[2px] text-xs font-sans text-[#200E19] inline-flex items-center gap-1.5">
+                          {r.contact.includes("@") ? <Mail size={12} className="text-[#9B1B54]" /> : <Phone size={12} className="text-[#9B1B54]" />}
                           <span>{r.contact}</span>
                         </span>
 
@@ -1696,7 +1696,7 @@ export function AdminDashboard({
                             href={whatsappHref}
                             target="_blank"
                             rel="noreferrer"
-                            className="px-2.5 py-1 bg-[#1C281F] hover:bg-[#967F4F] text-white rounded-[2px] text-[11px] font-sans font-semibold tracking-wider uppercase inline-flex items-center gap-1 transition-colors"
+                            className="px-2.5 py-1 bg-[#3D6B52] hover:bg-[#2C4F3B] text-white rounded-[2px] text-[11px] font-sans font-semibold tracking-wider uppercase inline-flex items-center gap-1 transition-colors"
                           >
                             <MessageCircle size={12} />
                             <span>Chat on WhatsApp</span>
@@ -1705,7 +1705,7 @@ export function AdminDashboard({
                         {r.contact.includes("@") && (
                           <a
                             href={`mailto:${r.contact}`}
-                            className="px-2.5 py-1 bg-[#FCFBF9] hover:bg-[#F2EDE4] border border-[#E8E2D8] text-[11px] font-sans font-semibold text-[#1C281F] rounded-[2px] inline-flex items-center gap-1 transition-colors"
+                            className="px-2.5 py-1 bg-white hover:bg-[#FDF2F7] border border-[#F0E5EC] text-[11px] font-sans font-semibold text-[#200E19] rounded-[2px] inline-flex items-center gap-1 transition-colors"
                           >
                             <Mail size={12} />
                             <span>Send Email</span>
@@ -1714,36 +1714,36 @@ export function AdminDashboard({
                       </div>
 
                       {/* Request Specs */}
-                      <div className="grid grid-cols-2 gap-3 text-xs font-sans bg-[#FAF7F2] p-3.5 rounded-[3px] border border-[#E8E2D8]">
+                      <div className="grid grid-cols-2 gap-3 text-xs font-sans bg-[#FCF8FA] p-3.5 rounded-[3px] border border-[#F0E5EC]">
                         <div>
-                          <span className="text-[10px] uppercase tracking-wider text-[#8C988A] font-semibold block">
+                          <span className="text-[10px] uppercase tracking-wider text-[#7D6674] font-semibold block">
                             Requested Idea
                           </span>
-                          <span className="text-[#1C281F] font-medium block mt-0.5">
+                          <span className="text-[#200E19] font-medium block mt-0.5">
                             {r.idea}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] uppercase tracking-wider text-[#8C988A] font-semibold block">
+                          <span className="text-[10px] uppercase tracking-wider text-[#7D6674] font-semibold block">
                             Target Budget
                           </span>
-                          <span className="text-[#967F4F] font-semibold block mt-0.5">
+                          <span className="text-[#9B1B54] font-semibold block mt-0.5">
                             {r.budget}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] uppercase tracking-wider text-[#8C988A] font-semibold block">
+                          <span className="text-[10px] uppercase tracking-wider text-[#7D6674] font-semibold block">
                             Color Palette
                           </span>
-                          <span className="text-[#1C281F] block mt-0.5">
+                          <span className="text-[#200E19] block mt-0.5">
                             {r.colors || "Artist's Choice"}
                           </span>
                         </div>
                         <div>
-                          <span className="text-[10px] uppercase tracking-wider text-[#8C988A] font-semibold block">
+                          <span className="text-[10px] uppercase tracking-wider text-[#7D6674] font-semibold block">
                             Personalization / Notes
                           </span>
-                          <span className="text-[#1C281F] block mt-0.5">
+                          <span className="text-[#200E19] block mt-0.5">
                             {r.personalization || "None specified"}
                           </span>
                         </div>
