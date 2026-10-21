@@ -1,12 +1,16 @@
 "use client";
+
 import type { Product } from "@/types";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Minus, Trash2, Copy, Check, MessageCircle, Sparkles, ArrowRight } from "lucide-react";
 import { useBag } from "@/context/BagContext";
 import { bagEnquiry, bagTotals, money } from "@/lib/bag";
 import { availability } from "@/lib/catalog-types";
 import { siteConfig, whatsappLink } from "@/config/site";
+
 export function BagContents({
   products,
   presentation = "page",
@@ -18,26 +22,18 @@ export function BagContents({
 }) {
   const bag = useBag();
   const [notice, setNotice] = useState("");
+  const [copied, setCopied] = useState(false);
   const [summaryVisible, setSummaryVisible] = useState(false);
-  const previewBack = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if (presentation !== "drawer" || !summaryVisible) return;
-    const previous =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-    previewBack.current?.focus({ preventScroll: true });
-    return () => {
-      if (previous?.isConnected) previous.focus({ preventScroll: true });
-    };
-  }, [summaryVisible, presentation]);
+
   const totals = bagTotals(bag.items, products);
   const canEnquire = totals.canEnquire && catalogReady;
   const baseUrl =
     typeof window === "undefined" ? siteConfig.siteUrl : window.location.origin;
+
   const summary = totals.canEnquire
     ? bagEnquiry(bag.items, products, baseUrl)
     : "";
+
   function message() {
     if (!catalogReady)
       throw new Error(
@@ -45,11 +41,12 @@ export function BagContents({
       );
     return bagEnquiry(bag.items, products, baseUrl);
   }
+
   function whatsapp() {
     try {
       window.open(whatsappLink(message()), "_blank", "noopener,noreferrer");
       setNotice(
-        "Your enquiry is ready in WhatsApp. Review it and send it there. Your bag stays here until you clear it.",
+        "Your order enquiry is ready in WhatsApp. Review and send it to our studio.",
       );
     } catch (e) {
       setNotice(
@@ -57,346 +54,460 @@ export function BagContents({
       );
     }
   }
-  async function copy() {
+
+  async function handleCopy() {
     try {
       const text = message();
-      try {
-        await navigator.clipboard.writeText(text);
-        setNotice(
-          "Summary copied. Open Instagram and paste it into your conversation with the studio.",
-        );
-      } catch {
-        setSummaryVisible(true);
-        setNotice(
-          "Automatic copying is unavailable. Select and copy the summary below, then paste it into Instagram.",
-        );
-      }
-    } catch (e) {
-      setNotice(
-        e instanceof Error ? e.message : "Check your bag before copying.",
-      );
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setNotice("Order details copied to clipboard!");
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      setSummaryVisible(true);
+      setNotice("Select and copy the order summary below.");
     }
   }
+
+  const isEmpty = !bag.items.length;
+
+  // Drawer layout: flex-1 scrollable items + sticky bottom footer
   return (
     <div
-      className={`section-wrap bag-page ${presentation === "drawer" ? "is-drawer" : ""}`}
-      onClickCapture={(event) => {
-        if (
-          presentation === "drawer" &&
-          event.target instanceof Element &&
-          event.target.closest("a")
-        )
-          bag.closeBag();
-      }}
+      className={`bag-container ${
+        presentation === "drawer"
+          ? "flex flex-col h-full justify-between"
+          : "section-wrap"
+      }`}
     >
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">YOUR HANDCRAFTED SELECTION</p>
-          <h1>Your Bag</h1>
-        </div>
-        <Link href="/shop" className="text-link">
-          Continue Shopping ↗
-        </Link>
-      </div>
-      <p className="intro-copy">
-        Review your handcrafted keepsakes and flowers below. When ready, order
-        directly with our studio on WhatsApp.
-      </p>
+      {/* Page Header (only shown if not in drawer) */}
+      {presentation !== "drawer" && (
+        <>
+          <div className="flex justify-between items-baseline mb-6">
+            <div>
+              <span className="eyebrow">Studio Atelier</span>
+              <h1 className="font-serif text-3xl sm:text-4xl text-[#1C281F]">
+                Your Bag
+              </h1>
+            </div>
+            <Link
+              href="/shop"
+              className="text-xs font-sans font-semibold uppercase tracking-[0.14em] text-[#1C281F] hover:text-[#967F4F]"
+            >
+              Continue Shopping ↗
+            </Link>
+          </div>
+          <p className="intro-copy mb-8">
+            Review your handcrafted keepsakes and flowers below. When ready, order
+            directly with our studio on WhatsApp.
+          </p>
+        </>
+      )}
+
+      {/* Storage notice if any */}
       {bag.storageNotice && (
-        <p className="admin-notice" role="status">
+        <p className="text-xs text-[#667264] bg-[#FAF7F2] p-2.5 rounded-[2px] border border-[#E8E2D8] mb-3">
           {bag.storageNotice}
         </p>
       )}
+
+      {/* Loading State */}
       {!bag.ready ? (
-        <p role="status">Opening your bag…</p>
-      ) : !bag.items.length ? (
-        <div className="empty-state">
-          <span aria-hidden="true">✿</span>
-          <h2>Your bag is currently empty.</h2>
-          <p>
-            Explore our handcrafted flowers, custom keychains, and ambient lamps
-            to add items to your bag.
-          </p>
-          <Link href="/shop" className="pill-button">
-            Shop Gifts ↗
-          </Link>
+        <div className="py-12 text-center text-xs font-sans text-[#667264]">
+          Opening your bag…
+        </div>
+      ) : isEmpty ? (
+        /* Quiet Luxury Empty State with 1-Tap Category Discovery */
+        <div className="py-12 px-2 text-center space-y-4 my-auto">
+          <div className="w-14 h-14 rounded-full bg-[#FAF7F2] border border-[#E8E2D8] flex items-center justify-center mx-auto text-[#967F4F] shadow-xs">
+            <Sparkles size={20} />
+          </div>
+          <div className="space-y-1">
+            <h3 className="font-serif text-xl sm:text-2xl text-[#1C281F] font-normal">
+              Your bag is empty
+            </h3>
+            <p className="text-xs font-sans text-[#667264] max-w-xs mx-auto leading-relaxed font-light">
+              Everlasting florals, custom keychains, and ambient lamps are waiting for you.
+            </p>
+          </div>
+
+          {/* Quick Discovery Category Chips */}
+          <div className="pt-2 flex flex-col gap-2 max-w-xs mx-auto text-left">
+            <Link
+              href="/shop?category=Flowers%20%26%20Bouquets"
+              onClick={() => presentation === "drawer" && bag.closeBag()}
+              className="px-3.5 py-2.5 bg-[#FCFBF9] hover:bg-[#FAF7F2] border border-[#E8E2D8] hover:border-[#967F4F]/50 text-xs font-sans text-[#1C281F] rounded-[2px] transition-all flex items-center justify-between group"
+            >
+              <span>✿ Flowers & Bouquets</span>
+              <span className="text-[#967F4F] group-hover:translate-x-0.5 transition-transform">
+                →
+              </span>
+            </Link>
+            <Link
+              href="/shop?category=Keychains"
+              onClick={() => presentation === "drawer" && bag.closeBag()}
+              className="px-3.5 py-2.5 bg-[#FCFBF9] hover:bg-[#FAF7F2] border border-[#E8E2D8] hover:border-[#967F4F]/50 text-xs font-sans text-[#1C281F] rounded-[2px] transition-all flex items-center justify-between group"
+            >
+              <span>★ Custom Jersey Keychains</span>
+              <span className="text-[#967F4F] group-hover:translate-x-0.5 transition-transform">
+                →
+              </span>
+            </Link>
+            <Link
+              href="/shop?category=Lamps%20%26%20Decor"
+              onClick={() => presentation === "drawer" && bag.closeBag()}
+              className="px-3.5 py-2.5 bg-[#FCFBF9] hover:bg-[#FAF7F2] border border-[#E8E2D8] hover:border-[#967F4F]/50 text-xs font-sans text-[#1C281F] rounded-[2px] transition-all flex items-center justify-between group"
+            >
+              <span>✦ Lumiflower Lamps</span>
+              <span className="text-[#967F4F] group-hover:translate-x-0.5 transition-transform">
+                →
+              </span>
+            </Link>
+          </div>
+
+          <div className="pt-2">
+            <Link
+              href="/shop"
+              onClick={() => presentation === "drawer" && bag.closeBag()}
+              className="inline-flex px-6 py-2.5 bg-[#1C281F] hover:bg-[#967F4F] text-[#FAF7F2] text-xs font-sans font-semibold tracking-[0.14em] uppercase rounded-[2px] transition-all"
+            >
+              Explore Collection ↗
+            </Link>
+          </div>
         </div>
       ) : (
-        <div
-          className="bag-layout"
-          inert={presentation === "drawer" && summaryVisible ? true : undefined}
-        >
-          <div className="bag-items">
-            {totals.lines.map(
-              ({ item, product: p, error, estimated, amount }) => (
-                <article className="bag-item" key={item.key}>
-                  {p ? (
-                    <Link
-                      href={`/product/${p.slug}`}
-                      className="bag-item-photo"
-                    >
-                      <Image
-                        src={p.image_url}
-                        alt={p.name}
-                        fill
-                        sizes="110px"
-                        className="object-cover"
-                      />
-                    </Link>
-                  ) : (
-                    <div
-                      className="bag-item-photo missing-photo"
-                      aria-hidden="true"
-                    >
-                      ✿
-                    </div>
-                  )}
-                  <div className="bag-item-info">
-                    <h2>
+        /* Non-empty Bag Layout */
+        <>
+          {/* Scrollable Items Container */}
+          <div
+            className={`bag-items-wrapper ${
+              presentation === "drawer"
+                ? "flex-1 overflow-y-auto pr-1 space-y-3"
+                : "space-y-4"
+            }`}
+          >
+            <AnimatePresence initial={false}>
+              {totals.lines.map(
+                ({ item, product: p, error, estimated, amount }) => (
+                  <motion.article
+                    key={item.key}
+                    layout
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{
+                      opacity: 0,
+                      x: -24,
+                      height: 0,
+                      marginBottom: 0,
+                      paddingTop: 0,
+                      paddingBottom: 0,
+                      overflow: "hidden",
+                      transition: { duration: 0.28, ease: [0.16, 1, 0.3, 1] },
+                    }}
+                    className="p-3.5 bg-[#FFFFFF] border border-[#E8E2D8] rounded-[2px] flex gap-3.5 items-start shadow-2xs hover:border-[#967F4F]/40 transition-colors"
+                  >
+                    {/* 4:5 Aspect Image */}
+                    <div className="relative aspect-[4/5] w-16 min-w-[64px] rounded-[2px] overflow-hidden bg-[#F2EDE4] border border-[#E8E2D8] flex-shrink-0">
                       {p ? (
-                        <Link href={`/product/${p.slug}`}>{p.name}</Link>
+                        <Link
+                          href={`/product/${p.slug}`}
+                          onClick={() => presentation === "drawer" && bag.closeBag()}
+                          className="block w-full h-full relative"
+                        >
+                          <Image
+                            src={p.image_url}
+                            alt={p.name}
+                            fill
+                            sizes="80px"
+                            className="object-cover"
+                          />
+                        </Link>
                       ) : (
-                        "Product no longer listed"
-                      )}
-                    </h2>
-                    {p && (
-                      <p className="bag-availability">
-                        {availability(p)}
-                        {availability(p) === "Sold Out"
-                          ? " · Restock enquiry only"
-                          : ""}
-                      </p>
-                    )}
-                    <dl>
-                      <div>
-                        <dt>Colour</dt>
-                        <dd>{item.choices.color || "Not applicable"}</dd>
-                      </div>
-                      {Object.entries(item.choices.variants).map(([k, v]) => (
-                        <div key={k}>
-                          <dt>{k}</dt>
-                          <dd>{v}</dd>
-                        </div>
-                      ))}
-                      <div>
-                        <dt>Personalized text/design</dt>
-                        <dd>
-                          {item.choices.personalization || "None requested"}
-                        </dd>
-                      </div>
-                    </dl>
-                    {error && (
-                      <p role="alert" className="form-error">
-                        {error}{" "}
-                        {p && (
-                          <Link href={`/product/${p.slug}`}>
-                            Choose Options ↗
-                          </Link>
-                        )}
-                      </p>
-                    )}
-                    <div className="bag-line-footer">
-                      <label className="bag-quantity">
-                        Quantity
-                        <span className="sr-only">
-                          {" "}
-                          for {p?.name || "unlisted product"}
-                        </span>
-                        <input
-                          type="number"
-                          min={1}
-                          max={99}
-                          step={1}
-                          value={item.choices.quantity}
-                          onChange={(e) => {
-                            const value = e.target.valueAsNumber;
-                            if (
-                              Number.isSafeInteger(value) &&
-                              value >= 1 &&
-                              value <= 99
-                            ) {
-                              bag.setQuantity(item.key, value);
-                              setNotice("");
-                            }
-                          }}
-                        />
-                      </label>
-                      {p && (
-                        <div className="bag-line-price">
-                          <strong>
-                            {estimated ? "From " : ""}
-                            {money(amount)}
-                          </strong>
-                          <small>
-                            {item.choices.quantity} ×{" "}
-                            {p.startingPrice ? "from " : ""}
-                            {money(p.price)}
-                            {estimated ? " · quote pending" : ""}
-                          </small>
+                        <div className="w-full h-full flex items-center justify-center text-xl text-[#967F4F]">
+                          ✿
                         </div>
                       )}
-                      <button
-                        className="text-link"
-                        onClick={() => {
-                          bag.remove(item.key);
-                          setNotice("Selection removed from your bag.");
-                        }}
-                        aria-label={`Remove ${p?.name || "unlisted product"} from bag`}
-                      >
-                        Remove
-                      </button>
                     </div>
-                  </div>
-                </article>
-              ),
-            )}
-            <button
-              className="text-link"
-              onClick={() => {
-                if (confirm("Remove every item from your bag?")) {
-                  bag.clear();
-                  setNotice("");
-                }
-              }}
-            >
-              Clear bag
-            </button>
-          </div>
-          <aside className="bag-summary" aria-label="Order summary">
-            <p className="eyebrow">ORDER SUMMARY</p>
-            <h2>Your bag at a glance.</h2>
-            <details
-              className="bag-price-breakdown"
-              open={presentation !== "drawer"}
-            >
-              <summary>
-                Price breakdown · {bag.count}{" "}
-                {bag.count === 1 ? "piece" : "pieces"}
-              </summary>
-              <div className="bag-summary-row">
-                <span>Pieces</span>
-                <strong>{bag.count}</strong>
-              </div>
-              <div className="bag-summary-row">
-                <span>Fixed-price items</span>
-                <strong>{money(totals.fixed)}</strong>
-              </div>
-              {totals.needsQuote && (
-                <div className="bag-summary-row">
-                  <span>Starting/customized items</span>
-                  <strong>From {money(totals.estimated)}</strong>
-                </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0 flex flex-col justify-between self-stretch">
+                      <div>
+                        <div className="flex justify-between items-start gap-1">
+                          <h4 className="font-serif text-[15px] text-[#1C281F] font-normal leading-snug line-clamp-1">
+                            {p ? (
+                              <Link
+                                href={`/product/${p.slug}`}
+                                onClick={() =>
+                                  presentation === "drawer" && bag.closeBag()
+                                }
+                                className="hover:text-[#967F4F] transition-colors"
+                              >
+                                {p.name}
+                              </Link>
+                            ) : (
+                              "Product no longer listed"
+                            )}
+                          </h4>
+                          {/* Trash / Delete button */}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              bag.remove(item.key);
+                              setNotice("Piece removed from your bag.");
+                            }}
+                            className="text-[#859383] hover:text-rose-700 p-0.5 transition-colors"
+                            aria-label={`Remove ${p?.name || "unlisted product"} from bag`}
+                            title="Remove piece"
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        </div>
+
+                        {p && (
+                          <span className="text-[9.5px] font-sans uppercase tracking-[0.1em] text-[#667264] block mt-0.5">
+                            {availability(p)}{" "}
+                            {availability(p) === "Sold Out"
+                              ? "· Restock enquiry only"
+                              : ""}
+                          </span>
+                        )}
+
+                        {/* Selected Options Badges */}
+                        <div className="flex flex-wrap gap-1 mt-1.5">
+                          {item.choices.color && (
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[10px] font-sans text-[#1C281F]">
+                              <span
+                                className="w-2 h-2 rounded-full inline-block border border-black/15"
+                                style={{
+                                  backgroundColor:
+                                    p?.colors?.find(
+                                      (c) => c.name === item.choices.color,
+                                    )?.hex || "#967F4F",
+                                }}
+                              />
+                              <span>{item.choices.color}</span>
+                            </span>
+                          )}
+                          {Object.entries(item.choices.variants).map(
+                            ([k, v]) => (
+                              <span
+                                key={k}
+                                className="px-1.5 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[10px] font-sans text-[#5D685B]"
+                              >
+                                {v}
+                              </span>
+                            ),
+                          )}
+                          {item.choices.personalization && (
+                            <span className="px-1.5 py-0.5 rounded-[2px] bg-[#FAF7F2] border border-[#E8E2D8] text-[10px] font-sans text-[#5D685B] italic truncate max-w-[190px] block">
+                              "{item.choices.personalization}"
+                            </span>
+                          )}
+                        </div>
+
+                        {error && (
+                          <p role="alert" className="text-[10.5px] text-rose-700 bg-rose-50 p-1.5 rounded-[2px] mt-1.5">
+                            {error}{" "}
+                            {p && (
+                              <Link
+                                href={`/product/${p.slug}`}
+                                onClick={() =>
+                                  presentation === "drawer" && bag.closeBag()
+                                }
+                                className="underline font-semibold"
+                              >
+                                Choose Options ↗
+                              </Link>
+                            )}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Line Footer: Stepper & Price */}
+                      <div className="flex items-center justify-between gap-2 mt-2 pt-2 border-t border-[#E8E2D8]/50">
+                        {/* Tactile - / + Stepper */}
+                        <div className="inline-flex items-center border border-[#E8E2D8] rounded-[2px] bg-[#FFFFFF]">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              bag.setQuantity(
+                                item.key,
+                                Math.max(1, item.choices.quantity - 1),
+                              )
+                            }
+                            disabled={item.choices.quantity <= 1}
+                            className="w-5 h-5 flex items-center justify-center text-[#1C281F] hover:bg-[#FAF7F2] disabled:opacity-25 transition-colors"
+                            aria-label="Decrease quantity"
+                          >
+                            <Minus size={10} />
+                          </button>
+                          <span className="w-6 text-center text-xs font-sans font-semibold text-[#1C281F]">
+                            {item.choices.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              bag.setQuantity(
+                                item.key,
+                                Math.min(99, item.choices.quantity + 1),
+                              )
+                            }
+                            disabled={item.choices.quantity >= 99}
+                            className="w-5 h-5 flex items-center justify-center text-[#1C281F] hover:bg-[#FAF7F2] disabled:opacity-25 transition-colors"
+                            aria-label="Increase quantity"
+                          >
+                            <Plus size={10} />
+                          </button>
+                        </div>
+
+                        {/* Price */}
+                        {p && (
+                          <div className="text-right">
+                            <span className="font-sans text-[13px] font-semibold text-[#1C281F] block leading-tight">
+                              {estimated ? "From " : ""}
+                              {money(amount)}
+                            </span>
+                            <span className="text-[10px] font-sans text-[#667264] block leading-tight">
+                              {item.choices.quantity} × {money(p.price)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </motion.article>
+                ),
               )}
-            </details>
-            <div className="bag-summary-total">
-              <span>Product Total</span>
-              <strong>
-                {totals.needsQuote ? "From " : ""}
-                {money(totals.subtotal)}
-              </strong>
+            </AnimatePresence>
+          </div>
+
+          {/* Sticky Pinned Drawer Summary & CTA Section */}
+          <div
+            className={`bag-summary-dock ${
+              presentation === "drawer"
+                ? "border-t border-[#E8E2D8] bg-[#FAF7F2] p-5 space-y-3 mt-auto shadow-atelier"
+                : "bag-summary mt-8"
+            }`}
+          >
+            {/* Atelier Dispatch Promise */}
+            <div className="flex items-center justify-between text-[10px] font-sans text-[#667264] pb-2 border-b border-[#E8E2D8]/60">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                <span>Handmade in Studio · India</span>
+              </span>
+              <span>Nationwide Dispatch</span>
             </div>
-            <p className="small-note">
-              {totals.needsQuote
-                ? "Customisation and delivery charges confirmed on WhatsApp."
-                : "Delivery charges confirmed on WhatsApp."}
-            </p>
+
+            {/* Product Total Row */}
+            <div className="flex justify-between items-baseline pt-1">
+              <div>
+                <span className="text-[11.5px] font-sans font-semibold uppercase tracking-[0.14em] text-[#1C281F] block">
+                  Product Total
+                </span>
+                <span className="text-[10.5px] font-sans text-[#667264]">
+                  Shipping confirmed on WhatsApp
+                </span>
+              </div>
+              <div className="text-right">
+                <span className="font-serif text-2xl font-normal text-[#1C281F]">
+                  {totals.needsQuote ? "From " : ""}
+                  {money(totals.subtotal)}
+                </span>
+              </div>
+            </div>
+
+            {/* Warnings */}
             {totals.lines.some(
               (l) => l.product && availability(l.product) === "Sold Out",
             ) && (
-              <p className="bag-warning">
-                Your bag includes sold-out pieces. Your order message will ask about
-                restocking or made-to-order options.
+              <p className="text-[10.5px] text-amber-900 bg-amber-50 p-2 rounded-[2px] border border-amber-200">
+                Includes sold-out pieces; message will ask about restock.
               </p>
             )}
-            {!totals.canEnquire && (
-              <p className="bag-warning">
-                Some selections need attention. Remove them and add the updated
-                choices before ordering.
-              </p>
-            )}
-            <button
-              className="pill-button"
-              disabled={!canEnquire || !siteConfig.whatsappClean}
-              onClick={whatsapp}
-            >
-              Order on WhatsApp ↗
-            </button>
-            {!siteConfig.whatsappClean && (
-              <p className="small-note">
-                WhatsApp details are being confirmed. Copy your order details and
-                contact us on Instagram, or{" "}
-                <Link href="/contact">see contact options</Link>.
-              </p>
-            )}
-            <button
-              className="bag-secondary-button"
-              disabled={!canEnquire}
-              onClick={copy}
-            >
-              Copy Order Details
-            </button>
-            <details
-              className="bag-more-options"
-              open={presentation !== "drawer"}
-            >
-              <summary>Order details & Instagram option</summary>
-              <div className="bag-more-content">
-                <a
-                  className="text-link"
-                  href={siteConfig.instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Open Instagram ↗
-                </a>
-                <button
-                  className="text-link"
-                  disabled={!canEnquire}
-                  onClick={() => {
-                    try {
-                      message();
-                      setSummaryVisible(!summaryVisible);
-                    } catch {
-                      setNotice("Review your bag first.");
-                    }
-                  }}
-                >
-                  {summaryVisible ? "Hide" : "View"} Order Details
-                </button>
-                <p className="small-note">
-                  Order details are securely prepared on your browser and hand-confirmed with our studio on WhatsApp.
-                </p>
-              </div>
-            </details>
-          </aside>
-        </div>
-      )}
-      {notice && (
-        <p className="admin-notice" role="status">
-          {notice}
-        </p>
-      )}
-      {summaryVisible && bag.items.length > 0 && (
-        <section className="bag-message-preview">
-          {presentation === "drawer" && (
+
+            {/* Primary Action Button: Order on WhatsApp */}
             <button
               type="button"
-              ref={previewBack}
-              className="text-link"
-              onClick={() => setSummaryVisible(false)}
+              onClick={whatsapp}
+              disabled={!canEnquire || !siteConfig.whatsappClean}
+              className="w-full py-3 px-4 rounded-[2px] bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-sans font-semibold tracking-[0.14em] uppercase transition-all duration-200 shadow-sm flex items-center justify-center gap-2"
             >
-              ← Back to your bag
+              <MessageCircle size={17} />
+              <span>Order on WhatsApp ↗</span>
             </button>
-          )}
-          <label>
-            Enquiry message — select to copy
-            <textarea
-              readOnly
-              rows={16}
-              value={summary}
-              onFocus={(e) => e.currentTarget.select()}
-            />
+
+            {/* Secondary Action Button: Copy Order Details with Animated Feedback */}
+            <button
+              type="button"
+              onClick={handleCopy}
+              disabled={!canEnquire}
+              className={`w-full py-2.5 px-3 rounded-[2px] border border-[#E8E2D8] bg-[#FCFBF9] text-xs font-sans font-medium tracking-[0.08em] uppercase transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                copied
+                  ? "border-emerald-600 bg-emerald-50 text-emerald-800 font-semibold"
+                  : "text-[#1C281F] hover:bg-[#FAF7F2]"
+              }`}
+            >
+              {copied ? (
+                <>
+                  <Check size={14} className="text-emerald-700" />
+                  <span>✓ Copied to clipboard!</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={13} className="text-[#667264]" />
+                  <span>Copy Order Details</span>
+                </>
+              )}
+            </button>
+
+            {/* Footer Bottom Utility Row */}
+            <div className="flex justify-between items-center text-[10.5px] font-sans text-[#667264] pt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  if (confirm("Remove every piece from your bag?")) {
+                    bag.clear();
+                    setNotice("");
+                  }
+                }}
+                className="hover:text-rose-700 underline transition-colors"
+              >
+                Clear bag
+              </button>
+              <a
+                href={siteConfig.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[#1C281F] transition-colors"
+              >
+                Prefer Instagram? DM studio ↗
+              </a>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Floating Notice / Toast */}
+      {notice && (
+        <div
+          role="status"
+          className="text-xs text-[#1C281F] bg-[#FAF7F2] p-2 rounded-[2px] border border-[#E8E2D8] mt-2 text-center"
+        >
+          {notice}
+        </div>
+      )}
+
+      {/* Fallback Textarea Message Preview if automatic clipboard fails */}
+      {summaryVisible && bag.items.length > 0 && (
+        <section className="p-4 bg-[#FFFFFF] border border-[#E8E2D8] rounded-[2px] mt-3">
+          <label className="text-xs font-sans text-[#1C281F] font-semibold block mb-2">
+            Order message — tap to select & copy:
           </label>
+          <textarea
+            readOnly
+            rows={8}
+            value={summary}
+            onFocus={(e) => e.currentTarget.select()}
+            className="w-full text-xs font-mono p-2 border border-[#E8E2D8] bg-[#FAF7F2] rounded-[2px]"
+          />
         </section>
       )}
     </div>
