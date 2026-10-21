@@ -25,10 +25,13 @@ interface BagContextValue {
   remove: (key: string) => void;
   clear: () => void;
   count: number;
+  giftNote: string;
+  setGiftNote: (note: string) => void;
   isOpen: boolean;
   openBag: () => void;
   closeBag: () => void;
 }
+const GIFT_NOTE_STORAGE_KEY = "pookie_gift_note_v1";
 const BagContext = createContext<BagContextValue | null>(null);
 export function BagProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<BagItem[]>([]);
@@ -36,8 +39,28 @@ export function BagProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
   const [storageNotice, setStorageNotice] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [giftNote, setGiftNoteState] = useState("");
   const openBag = useCallback(() => setIsOpen(true), []);
   const closeBag = useCallback(() => setIsOpen(false), []);
+
+  const setGiftNote = useCallback((note: string) => {
+    setGiftNoteState(note);
+    try {
+      localStorage.setItem(GIFT_NOTE_STORAGE_KEY, note);
+    } catch {
+      // ignore storage failure
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const savedNote = localStorage.getItem(GIFT_NOTE_STORAGE_KEY);
+      if (savedNote) setGiftNoteState(savedNote);
+    } catch {
+      // ignore
+    }
+  }, []);
+
   useEffect(() => {
     try {
       const value = localStorage.getItem(BAG_STORAGE_KEY);
@@ -51,6 +74,9 @@ export function BagProvider({ children }: { children: React.ReactNode }) {
     }
     setReady(true);
     const sync = (event: StorageEvent) => {
+      if (event.key === GIFT_NOTE_STORAGE_KEY && event.newValue !== null) {
+        setGiftNoteState(event.newValue);
+      }
       if (event.key !== BAG_STORAGE_KEY) return;
       try {
         const next = event.newValue ? readBag(JSON.parse(event.newValue)) : [];
@@ -100,8 +126,13 @@ export function BagProvider({ children }: { children: React.ReactNode }) {
         add,
         setQuantity,
         remove: (key) => commit(ref.current.filter((i) => i.key !== key)),
-        clear: () => commit([]),
+        clear: () => {
+          commit([]);
+          setGiftNote("");
+        },
         count: items.reduce((sum, i) => sum + i.choices.quantity, 0),
+        giftNote,
+        setGiftNote,
         isOpen,
         openBag,
         closeBag,

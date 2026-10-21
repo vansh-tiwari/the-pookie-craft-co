@@ -98,30 +98,39 @@ export function BagDrawer({ initialProducts }: { initialProducts: Product[] }) {
                 }}
                 className="w-screen max-w-md bg-[#FCF8FA] border-l border-[#F0E5EC] shadow-2xl flex flex-col justify-between h-full overflow-hidden"
               >
+                {/* Top Luxury Atelier Accent Ribbon */}
+                <div className="h-[2.5px] bg-gradient-to-r from-[#9B1B54] via-[#C8256E] to-[#D8A657] w-full flex-shrink-0" />
+
                 {/* Header (Fixed Top) */}
                 <div className="p-4 sm:p-5 border-b border-[#F0E5EC] flex items-center justify-between bg-[#FFFFFF] flex-shrink-0">
                   <div>
-                    <span className="eyebrow !mb-0 text-[9.5px]">Studio Atelier</span>
+                    <div className="flex items-center gap-2">
+                      <span className="eyebrow !mb-0 text-[9.5px]">Your Selections</span>
+                      {ready && count > 0 && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#FAF2F7] border border-[#9B1B54]/20 text-[#9B1B54] text-[10px] font-sans font-semibold">
+                          {count} {count === 1 ? "piece" : "pieces"}
+                        </span>
+                      )}
+                    </div>
                     <h2
                       id="bag-drawer-title"
-                      className="font-serif text-2xl font-normal text-[#200E19]"
+                      className="font-serif text-2xl font-normal text-[#200E19] mt-0.5"
                     >
-                      Your Bag
+                      Your Keepsake Bag
                     </h2>
                     <p className="text-[11px] text-[#7E6875] font-sans">
-                      {ready && count
-                        ? `${count} ${count === 1 ? "piece" : "pieces"} selected`
-                        : "Handcrafted pieces ready to order"}
+                      Handcrafted forever botanicals &amp; custom gifts
                     </p>
                   </div>
-                  <button
+                  <motion.button
                     type="button"
+                    whileTap={{ scale: 0.9 }}
                     onClick={closeBag}
-                    className="w-8 h-8 rounded-full bg-[#FCF8FA] border border-[#F0E5EC] text-[#200E19] hover:bg-[#F0E5EC] flex items-center justify-center transition-colors shadow-xs"
+                    className="w-8 h-8 rounded-full bg-[#FCF8FA] border border-[#F0E5EC] hover:bg-[#FAF2F7] hover:border-[#9B1B54]/40 text-[#200E19] flex items-center justify-center transition-all shadow-xs"
                     aria-label="Close bag"
                   >
-                    <X size={16} />
-                  </button>
+                    <X size={15} />
+                  </motion.button>
                 </div>
 
                 {/* Status Message */}

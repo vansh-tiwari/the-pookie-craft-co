@@ -158,6 +158,7 @@ export function bagEnquiry(
   items: BagItem[],
   products: Product[],
   baseUrl = siteConfig.siteUrl,
+  giftNote?: string,
 ) {
   const totals = bagTotals(items, products);
   if (!items.length)
@@ -179,11 +180,21 @@ export function bagEnquiry(
       `Product link: ${baseUrl}/product/${p!.slug}`,
     ].join("\n"),
   );
-  return [
+
+  const lines = [
     "Hi, I’d like to place an order with The Pookie Craft Co.",
     ...parts,
     `Product Total: ${totals.needsQuote ? "From " : ""}${money(totals.productTotal)}`,
+  ];
+
+  if (giftNote && giftNote.trim()) {
+    lines.push(`💌 Complimentary Handwritten Gift Note:\n"${giftNote.trim()}"`);
+  }
+
+  lines.push(
     "Delivery charges to be confirmed after sharing delivery location.",
     "Please confirm delivery charges and the final amount.",
-  ].join("\n\n");
+  );
+
+  return lines.join("\n\n");
 }

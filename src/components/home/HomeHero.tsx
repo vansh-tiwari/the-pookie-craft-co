@@ -103,20 +103,26 @@ export function HomeHero({ heroImage }: HomeHeroProps) {
                 className="object-cover"
               />
 
-              {/* 1. Artisan Spotlight Luxury Glass Pill Badge at Top-Left */}
-              <div className="absolute top-4 left-4 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#180812]/92 backdrop-blur-md border border-[#D8A657] shadow-md pointer-events-none">
-                <span className="w-2 h-2 rounded-full bg-[#D8A657] animate-pulse" />
-                <span className="text-[10.5px] font-sans uppercase tracking-[0.2em] text-[#FFFFFF] font-bold">
+              {/* 1. Artisan Spotlight Luxury Solid Atelier Pill Badge at Top-Left */}
+              <div
+                className="absolute top-4 left-4 z-20 flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-[#D8A657] shadow-lg shadow-black/40 pointer-events-none"
+                style={{ backgroundColor: "rgba(24, 8, 18, 0.96)" }}
+              >
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D8A657] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D8A657]" />
+                </span>
+                <span className="text-[11px] font-sans uppercase tracking-[0.22em] text-white font-bold leading-none">
                   Artisan Spotlight
                 </span>
               </div>
 
-              {/* 2. Deep Nocturne Contrast Gradient at Bottom */}
+              {/* 2. Deep Nocturne Contrast Gradient at Bottom & Soft Top Vignette */}
               <div
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(24, 8, 18, 0.94) 0%, rgba(24, 8, 18, 0.62) 36%, rgba(24, 8, 18, 0.12) 65%, transparent 100%)",
+                    "linear-gradient(to bottom, rgba(24, 8, 18, 0.4) 0%, transparent 30%), linear-gradient(to top, rgba(24, 8, 18, 0.94) 0%, rgba(24, 8, 18, 0.62) 36%, rgba(24, 8, 18, 0.12) 65%, transparent 100%)",
                 }}
               />
 
