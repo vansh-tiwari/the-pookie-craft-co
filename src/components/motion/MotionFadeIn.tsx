@@ -23,7 +23,7 @@ export function MotionFadeIn({
     <motion.div
       initial={{ opacity: 0, y: yOffset }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true }}
       transition={{
         duration,
         delay,

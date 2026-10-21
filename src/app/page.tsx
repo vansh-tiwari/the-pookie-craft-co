@@ -22,16 +22,7 @@ export default async function HomePage() {
 
   return (
     <div className="bg-[#FAF7F2] text-[#1C281F]">
-      {/* 1. Announcement Ribbon (Subtle Luxury Atelier) */}
-      <div className="bg-[#141D16] text-[#FAF7F2] text-[11px] font-sans tracking-[0.16em] uppercase py-2.5 px-4 text-center font-medium border-b border-[#967F4F]/20">
-        <span>Handcrafted in India</span>
-        <span className="mx-2.5 text-[#C29F58]">·</span>
-        <span>Velvety blooms that stay forever</span>
-        <span className="mx-2.5 text-[#C29F58]">·</span>
-        <span>Nationwide Dispatch</span>
-      </div>
-
-      {/* 2. Product-Led Luxury Hero */}
+      {/* 1. Product-Led Luxury Hero */}
       <HomeHero heroImage={catalog.home.image || "/images/products/sunflower_bouquet.jpg"} />
 
       {/* 3. Categories Navigation */}

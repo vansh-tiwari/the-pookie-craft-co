@@ -35,8 +35,18 @@ export function Navbar({ categories }: { categories: Category[] }) {
   }, [shopDropdownOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-[#FAF7F2]/92 backdrop-blur-md border-b border-[#E8E2D8] transition-all duration-300">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+      {/* Studio Announcement Ribbon */}
+      <div className="bg-[#141D16] text-[#FAF7F2] text-[10.5px] font-sans tracking-[0.16em] uppercase py-2 px-4 text-center font-medium border-b border-[#967F4F]/20 flex items-center justify-center gap-2">
+        <span>Handcrafted in India</span>
+        <span className="text-[#C29F58]">·</span>
+        <span>Velvety blooms that stay forever</span>
+        <span className="text-[#C29F58]">·</span>
+        <span>Nationwide Dispatch</span>
+      </div>
+
+      <div className="bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8E2D8]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         {/* Brand Lockup */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#E8E2D8] bg-[#F2EDE4] flex-shrink-0 group-hover:border-[#967F4F] transition-colors">
@@ -179,6 +189,7 @@ export function Navbar({ categories }: { categories: Category[] }) {
           </button>
         </div>
       </div>
+    </div>
 
       {/* Mobile Slide-Over Navigation */}
       <AnimatePresence>

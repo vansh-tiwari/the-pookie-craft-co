@@ -24,10 +24,9 @@ export function ProductCard({
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -3 }}
       className="group relative bg-[#FCFBF9] rounded-[4px] border border-[#E8E2D8] hover:border-[#967F4F]/40 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-atelier"
     >
