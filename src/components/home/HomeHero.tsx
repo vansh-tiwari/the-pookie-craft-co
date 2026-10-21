@@ -14,23 +14,21 @@ interface HomeHeroProps {
 export function HomeHero({ heroImage }: HomeHeroProps) {
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   return (
-    <section className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-16 sm:pb-24 overflow-hidden">
+    <section className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 pb-16 sm:pb-24 overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-        {/* Left: Typography & CTAs with Staggered Entrance */}
+        {/* Left: Typography & CTAs */}
         <div className="lg:col-span-6 space-y-6">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-[#FFFFFF] border border-[#F0E5EC] text-[11px] font-sans font-semibold uppercase tracking-[0.2em] text-[#9B1B54] shadow-xs"
           >
             <span>Contemporary Indian Craft Studio</span>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-4"
           >
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#200E19] font-normal leading-[1.06] tracking-tight">
@@ -43,9 +41,8 @@ export function HomeHero({ heroImage }: HomeHeroProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-wrap items-center gap-4 pt-2"
           >
             <Link
@@ -63,21 +60,19 @@ export function HomeHero({ heroImage }: HomeHeroProps) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
             className="pt-3"
           >
             <ChenilleWireMotif variant="horizontal" strokeColor="#200E19" petalColor="#C8256E" />
           </motion.div>
         </div>
 
-        {/* Right: Asymmetric Product Composition with Inset */}
+        {/* Right: Asymmetric Product Composition with Clean Inset Below */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-6 relative"
+          className="lg:col-span-6 relative flex flex-col"
         >
           <div
             className="relative overflow-visible"
@@ -109,31 +104,37 @@ export function HomeHero({ heroImage }: HomeHeroProps) {
               />
 
               {/* 1. Artisan Spotlight Luxury Glass Pill Badge at Top-Left */}
-              <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#180812]/85 backdrop-blur-md border border-[#D8A657]/40 shadow-sm pointer-events-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D8A657] animate-pulse" />
-                <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#D8A657] font-semibold">
+              <div className="absolute top-4 left-4 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#180812]/92 backdrop-blur-md border border-[#D8A657] shadow-md pointer-events-none">
+                <span className="w-2 h-2 rounded-full bg-[#D8A657] animate-pulse" />
+                <span className="text-[10.5px] font-sans uppercase tracking-[0.2em] text-[#FFFFFF] font-bold">
                   Artisan Spotlight
                 </span>
               </div>
 
               {/* 2. Deep Nocturne Contrast Gradient at Bottom */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#180812]/92 via-[#180812]/45 to-transparent pointer-events-none" />
+              <div
+                className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(24, 8, 18, 0.94) 0%, rgba(24, 8, 18, 0.62) 36%, rgba(24, 8, 18, 0.12) 65%, transparent 100%)",
+                }}
+              />
 
-              {/* 3. Title & Craft Info at Bottom-Left with Constrained Width (Zero Collision) */}
-              <div className="absolute bottom-5 left-5 right-5 z-10 max-w-sm sm:max-w-[62%] text-white pointer-events-none">
-                <p className="font-serif text-xl sm:text-2xl font-light text-white leading-tight">
+              {/* 3. Title & Craft Info at Bottom with Full Width - Zero Overlap */}
+              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 z-20 text-white pointer-events-none">
+                <p className="font-serif text-xl sm:text-2xl lg:text-[25px] font-light text-white leading-tight drop-shadow-sm">
                   Velvety Sunflower &amp; Lavender Forever Bouquet
                 </p>
-                <span className="text-[11px] font-sans text-[#E5D2DE] font-light mt-1 block">
+                <span className="text-[12px] font-sans text-[#E5D2DE] font-light mt-1.5 block">
                   Hand-sculpted in plush chenille wire · Never wilts
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Tactile Material Detail Inset Re-anchored to Bottom-Right */}
-          <div className="hidden sm:flex absolute -bottom-6 -right-4 sm:-right-6 z-20 bg-[#FFFFFF] p-3 rounded-[4px] shadow-atelier border border-[#F0E5EC] max-w-[270px] items-center gap-3">
-            <div className="relative w-14 h-14 rounded-[2px] overflow-hidden flex-shrink-0 bg-[#FCF8FA] border border-[#F0E5EC]">
+          {/* Tactile Material Detail Inset Cleanly Docked Below Showcase */}
+          <div className="mt-3.5 bg-[#FFFFFF] p-3.5 rounded-[4px] shadow-atelier border border-[#F0E5EC] flex items-center gap-3.5">
+            <div className="relative w-12 h-12 rounded-[2px] overflow-hidden flex-shrink-0 bg-[#FCF8FA] border border-[#F0E5EC]">
               <Image
                 src="/images/products/pipe_cleaner_roses.jpg"
                 alt="Velveteen chenille wire petal macro detail"
@@ -142,10 +143,10 @@ export function HomeHero({ heroImage }: HomeHeroProps) {
               />
             </div>
             <div className="text-xs font-sans">
-              <strong className="block text-[#200E19] font-semibold text-[11px] uppercase tracking-[0.1em]">
-                Chenille-to-Petal
+              <strong className="block text-[#200E19] font-semibold text-[11px] uppercase tracking-[0.12em]">
+                Chenille-to-Petal Craft
               </strong>
-              <span className="text-[#7E6875] text-[10.5px] leading-tight block">
+              <span className="text-[#7E6875] text-[11px] leading-relaxed block">
                 Tactile wire hand-sculpted into velvety petals that never wilt.
               </span>
             </div>
