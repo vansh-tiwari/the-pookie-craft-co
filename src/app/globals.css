@@ -232,16 +232,18 @@ label > textarea,
 label > select,
 input[type="text"],
 input[type="email"],
+input[type="password"],
+input[type="number"],
 input[type="tel"],
 textarea,
 select {
   display: block;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 6px;
   background: #FFFFFF;
   border: 1px solid #E8E2D8;
-  border-radius: 4px;
-  padding: 12px 14px;
+  border-radius: 3px;
+  padding: 10px 14px;
   font-size: 13.5px;
   color: #1C281F;
   font-weight: 400;
