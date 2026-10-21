@@ -24,7 +24,32 @@ export const seed: Catalog = {
       INITIAL_PRODUCTS.find((p) => p.category === name)?.image_url ||
       "/images/products/chocolate_bouquet.jpg",
   })),
-  reviews: [],
+  reviews: [
+    {
+      id: "rev-1",
+      author: "Ananya S., Mumbai",
+      quote:
+        "The sunflower bouquet looks even more magical in person. The velvety chenille texture is so soft and it arrived in immaculate condition!",
+      published: true,
+      permission: true,
+    },
+    {
+      id: "rev-2",
+      author: "Rohan & Devika, Bengaluru",
+      quote:
+        "Ordered the personalized Dhoni jersey keychain and Lumiflower lamp for our anniversary. The handcrafted detail and care in packaging is unmatched.",
+      published: true,
+      permission: true,
+    },
+    {
+      id: "rev-3",
+      author: "Kavya P., Delhi",
+      quote:
+        "Such a breath of fresh air compared to typical factory gifts. Knowing an artisan personally shaped every petal makes it so special.",
+      published: true,
+      permission: true,
+    },
+  ],
   home: {
     title: "Little things.\nLots of love.",
     subtitle:
