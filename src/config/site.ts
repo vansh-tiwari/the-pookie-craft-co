@@ -1,9 +1,8 @@
-const raw = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(
+const raw = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210").replace(
   /[^0-9]/g,
   "",
 );
-const configured = raw === "919876543210" ? "" : raw;
-const number = configured.length === 10 ? `91${configured}` : configured;
+const number = raw.length === 10 ? `91${raw}` : (raw || "919876543210");
 export const siteConfig = {
   name: "The Pookie Craft Co.",
   brandSlug: "thepookiecraft",

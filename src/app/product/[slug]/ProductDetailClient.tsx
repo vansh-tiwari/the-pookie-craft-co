@@ -1,17 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Check, MessageCircle, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ChevronDown, Sparkles } from "lucide-react";
 import type { Product } from "@/types";
 import { availability, priceLabel } from "@/lib/catalog-types";
-import { productEnquiryUrl } from "@/lib/enquiry";
+import { productEnquiry, productEnquiryUrl, type Choices } from "@/lib/enquiry";
 import { siteConfig } from "@/config/site";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { useBag } from "@/context/BagContext";
 import { CardPetalBloom } from "@/components/motion/CardPetalBloom";
+import { SplitOrderButton } from "@/components/common/SplitOrderButton";
 
 export function ProductDetailClient({
   product: p,
@@ -22,38 +23,75 @@ export function ProductDetailClient({
 }) {
   const [image, setImage] = useState(p.image_url);
   const [isImageHovered, setIsImageHovered] = useState(false);
-  const [color, setColor] = useState("");
-  const [variants, setVariants] = useState<Record<string, string>>({});
+  const [color, setColor] = useState(p.colors?.[0]?.name || "");
+  const [variants, setVariants] = useState<Record<string, string>>(() => {
+    const initial: Record<string, string> = {};
+    p.variants?.forEach((v) => {
+      if (v.options?.[0]) initial[v.name] = v.options[0];
+    });
+    return initial;
+  });
   const [personalization, setPersonalization] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState("");
   const [added, setAdded] = useState(false);
+  const [toast, setToast] = useState("");
+  const toastTimerRef = useRef<NodeJS.Timeout | null>(null);
   const bag = useBag();
   const status = availability(p);
 
-  function enquire(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const showToast = (msg: string) => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    setToast(msg);
+    toastTimerRef.current = setTimeout(() => setToast(""), 3200);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    };
+  }, []);
+
+  const getChoices = (): Choices => ({
+    color,
+    variants,
+    personalization: personalization.trim(),
+    quantity,
+  });
+
+  function handleAddToBag(e?: React.FormEvent) {
+    if (e) e.preventDefault();
     try {
-      const choices = {
-        color,
-        variants,
-        personalization,
-        quantity,
-      };
-      if (
-        (e.nativeEvent as SubmitEvent).submitter?.getAttribute("value") !==
-        "direct"
-      ) {
-        bag.add(p, choices);
-        setError("");
-        setAdded(true);
-        return;
-      }
+      const choices = getChoices();
+      bag.add(p, choices);
+      setError("");
+      setAdded(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Please check your choices.");
+    }
+  }
+
+  function handleWhatsAppOrder() {
+    try {
+      const choices = getChoices();
       const url = productEnquiryUrl(p, choices, window.location.origin);
       setError("");
       window.open(url, "_blank", "noopener,noreferrer");
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Please check your choices.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Please check your choices.");
+    }
+  }
+
+  function handleInstagramOrder() {
+    try {
+      const choices = getChoices();
+      const text = productEnquiry(p, choices, window.location.origin);
+      setError("");
+      navigator.clipboard.writeText(text).catch(() => {});
+      showToast("Order details copied! Paste in studio Instagram DM 💌");
+      window.open(siteConfig.instagramUrl, "_blank", "noopener,noreferrer");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Please check your choices.");
     }
   }
 
@@ -140,14 +178,17 @@ export function ProductDetailClient({
                 {priceLabel(p)}
               </span>
               <span
-                className={`text-[11px] px-2.5 py-0.5 rounded-[2px] font-sans uppercase tracking-[0.1em] ${
+                className={`inline-flex items-center gap-1.5 text-[10.5px] px-2.5 py-0.5 rounded-[2px] font-sans uppercase tracking-[0.12em] font-medium ${
                   status === "Available"
-                    ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                    ? "bg-[#F0FDF4] text-[#166534] border border-[#BBF7D0]"
                     : status === "Made to Order"
                       ? "bg-[#FDF2F7] text-[#9B1B54] border border-[#F0E5EC]"
                       : "bg-stone-100 text-stone-600 border border-stone-200"
                 }`}
               >
+                {status === "Available" && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse" />
+                )}
                 {status}
               </span>
             </div>
@@ -180,31 +221,74 @@ export function ProductDetailClient({
 
           {/* Form */}
           <form
-            onSubmit={enquire}
+            onSubmit={handleAddToBag}
             onChangeCapture={() => setAdded(false)}
             className="space-y-4 pt-2"
           >
             {/* Variants */}
             {p.variants?.map((v) => (
               <div key={v.name} className="space-y-1.5">
-                <label className="text-xs font-sans font-medium text-[#200E19] block">
-                  {v.name} *
+                <label className="text-xs font-sans font-medium text-[#200E19] flex items-center justify-between">
+                  <span>{v.name} *</span>
+                  {variants[v.name] && (
+                    <span className="text-[11px] font-normal text-[#9B1B54]">
+                      {variants[v.name]}
+                    </span>
+                  )}
                 </label>
-                <select
-                  required
-                  value={variants[v.name] || ""}
-                  onChange={(e) =>
-                    setVariants({ ...variants, [v.name]: e.target.value })
-                  }
-                  className="w-full px-3.5 py-2.5 text-xs font-sans rounded-[2px] border border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] focus:outline-none focus:ring-1 focus:ring-[#9B1B54]"
-                >
-                  <option value="">Select an option</option>
-                  {v.options.map((o) => (
-                    <option key={o} value={o}>
-                      {o}
-                    </option>
-                  ))}
-                </select>
+
+                {v.options.length <= 4 ? (
+                  /* Tactile 1-Tap Pill Selection Chips (Fixes distant chevron) */
+                  <div className="flex flex-wrap gap-2 pt-0.5">
+                    {v.options.map((o) => {
+                      const isSelected = variants[v.name] === o;
+                      return (
+                        <button
+                          key={o}
+                          type="button"
+                          onClick={() => {
+                            setVariants({ ...variants, [v.name]: o });
+                            setError("");
+                          }}
+                          className={`px-3.5 py-2 text-xs font-sans rounded-[3px] border transition-all flex items-center gap-1.5 ${
+                            isSelected
+                              ? "border-[#9B1B54] bg-[#FAF2F7] text-[#9B1B54] font-semibold ring-1 ring-[#9B1B54]/25 shadow-xs"
+                              : "border-[#F0E5EC] bg-[#FFFFFF] text-[#4A303F] hover:border-[#9B1B54]/40 hover:bg-[#FCF8FA]"
+                          }`}
+                        >
+                          {isSelected && (
+                            <Check size={12} className="text-[#9B1B54]" />
+                          )}
+                          <span>{o}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  /* Compact Ergonomic Select with Inline Chevron (max-w-xs) */
+                  <div className="relative inline-block w-full sm:max-w-xs">
+                    <select
+                      required
+                      value={variants[v.name] || ""}
+                      onChange={(e) => {
+                        setVariants({ ...variants, [v.name]: e.target.value });
+                        setError("");
+                      }}
+                      className="w-full appearance-none pr-9 pl-3.5 py-2.5 text-xs font-sans rounded-[3px] border border-[#F0E5EC] bg-[#FFFFFF] text-[#200E19] focus:outline-none focus:ring-1 focus:ring-[#9B1B54]"
+                    >
+                      <option value="">Select an option</option>
+                      {v.options.map((o) => (
+                        <option key={o} value={o}>
+                          {o}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      size={14}
+                      className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#7E6875]"
+                    />
+                  </div>
+                )}
               </div>
             ))}
 
@@ -219,7 +303,10 @@ export function ProductDetailClient({
                     <button
                       key={c.name}
                       type="button"
-                      onClick={() => setColor(c.name)}
+                      onClick={() => {
+                        setColor(c.name);
+                        setError("");
+                      }}
                       className={`flex items-center gap-2 px-3 py-1.5 rounded-[2px] border text-xs font-sans transition-all ${
                         color === c.name
                           ? "border-[#9B1B54] bg-[#9B1B54] text-[#FFFFFF]"
@@ -256,26 +343,28 @@ export function ProductDetailClient({
               />
             </div>
 
-            {/* Quantity */}
+            {/* Quantity: Capsule Stepper */}
             <div className="flex items-center gap-3">
               <label className="text-xs font-sans font-medium text-[#200E19]">
                 Quantity:
               </label>
-              <div className="flex items-center border border-[#F0E5EC] rounded-[2px] overflow-hidden bg-white">
+              <div className="flex items-center border border-[#F0E5EC] rounded-full overflow-hidden bg-[#FFFFFF] shadow-2xs">
                 <button
                   type="button"
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="px-3 py-1 text-sm text-[#200E19] hover:bg-[#FCF8FA]"
+                  className="w-8 h-8 flex items-center justify-center text-sm font-semibold text-[#7E6875] hover:text-[#9B1B54] hover:bg-[#FAF2F7] transition-colors"
+                  aria-label="Decrease quantity"
                 >
-                  -
+                  −
                 </button>
-                <span className="px-3 py-1 text-xs font-sans text-center min-w-[32px] text-[#200E19]">
+                <span className="px-2 text-xs font-sans font-medium text-center min-w-[32px] text-[#200E19]">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   onClick={() => setQuantity(Math.min(99, quantity + 1))}
-                  className="px-3 py-1 text-sm text-[#200E19] hover:bg-[#FCF8FA]"
+                  className="w-8 h-8 flex items-center justify-center text-sm font-semibold text-[#7E6875] hover:text-[#9B1B54] hover:bg-[#FAF2F7] transition-colors"
+                  aria-label="Increase quantity"
                 >
                   +
                 </button>
@@ -292,10 +381,8 @@ export function ProductDetailClient({
             <div className="space-y-2.5 pt-2">
               <button
                 type="submit"
-                name="action"
-                value="bag"
                 disabled={!bag.ready || status === "Sold Out"}
-                className={`w-full py-3.5 px-6 rounded-[2px] text-xs font-sans font-semibold tracking-[0.16em] uppercase transition-all duration-200 flex items-center justify-center gap-2 ${
+                className={`w-full py-3.5 px-6 rounded-[3px] text-xs font-sans font-semibold tracking-[0.16em] uppercase transition-all duration-200 flex items-center justify-center gap-2 ${
                   status === "Sold Out"
                     ? "bg-[#F0E5EC] text-[#7E6875] cursor-not-allowed"
                     : added
@@ -314,59 +401,88 @@ export function ProductDetailClient({
                 )}
               </button>
 
-              <button
-                type="submit"
-                name="action"
-                value="direct"
-                className="w-full py-3.5 px-6 rounded-[2px] bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-sans font-semibold tracking-[0.16em] uppercase shadow-sm transition-all duration-200 flex items-center justify-center gap-2"
-              >
-                <MessageCircle size={17} />
-                <span>
-                  {status === "Sold Out"
-                    ? "Ask About Restock on WhatsApp"
-                    : "Order on WhatsApp"}
-                </span>
-                <span>↗</span>
-              </button>
+              {/* Dynamic Interactive Dual CTA: [ Order on WhatsApp (70%) | Instagram (30%) ] */}
+              <SplitOrderButton
+                onWhatsApp={handleWhatsAppOrder}
+                onInstagram={handleInstagramOrder}
+                disabled={status === "Sold Out"}
+                whatsAppLabelExpanded="Order on WhatsApp"
+                whatsAppLabelCollapsed="WhatsApp"
+                instagramLabelExpanded="Order on Instagram"
+                instagramLabelCollapsed="Instagram"
+              />
             </div>
 
+            {/* Added to Bag Atelier Feedback Card */}
             {added && (
-              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-[2px] text-xs font-sans text-emerald-900 flex items-center justify-between">
-                <span>Added to your bag.</span>
-                <div className="flex gap-3">
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-3 bg-[#FAF2F7] border border-[#9B1B54]/20 rounded-[3px] text-xs font-sans text-[#200E19] flex items-center justify-between shadow-xs"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#9B1B54]" />
+                  <span className="font-medium">Added to your bag!</span>
+                </div>
+                <div className="flex items-center gap-3">
                   <button
                     type="button"
                     onClick={bag.openBag}
-                    className="font-semibold underline text-[#9B1B54]"
+                    className="font-semibold text-[#9B1B54] hover:underline flex items-center gap-1"
                   >
-                    View Bag ↗
+                    View Bag ({bag.count}) ↗
                   </button>
-                  <Link href="/shop" className="underline">
-                    Continue Shopping
+                  <Link href="/shop" className="text-[#7E6875] hover:text-[#200E19] underline">
+                    Shop More
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             )}
 
-            <div className="pt-2 text-center">
-              <a
-                href={siteConfig.instagramUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs font-sans text-[#7E6875] hover:text-[#9B1B54] inline-flex items-center gap-1 transition-colors"
-              >
-                <span>Prefer Instagram? Message studio (@thepookiecraft) ↗</span>
-              </a>
+            {/* Atelier Trust Guarantees */}
+            <div className="pt-3 grid grid-cols-3 gap-2 border-t border-[#F0E5EC]/80 text-center">
+              <div className="p-2.5 rounded-[3px] bg-[#FCF8FA] border border-[#F0E5EC]/60">
+                <span className="text-[13px] block mb-0.5">🌸</span>
+                <span className="text-[10px] font-sans font-semibold text-[#200E19] block uppercase tracking-[0.06em]">Never Wilts</span>
+                <span className="text-[9.5px] font-sans text-[#7E6875] block">Plush chenille wire</span>
+              </div>
+              <div className="p-2.5 rounded-[3px] bg-[#FCF8FA] border border-[#F0E5EC]/60">
+                <span className="text-[13px] block mb-0.5">🎁</span>
+                <span className="text-[10px] font-sans font-semibold text-[#200E19] block uppercase tracking-[0.06em]">Gift Ready</span>
+                <span className="text-[9.5px] font-sans text-[#7E6875] block">Keepsake wrap</span>
+              </div>
+              <div className="p-2.5 rounded-[3px] bg-[#FCF8FA] border border-[#F0E5EC]/60">
+                <span className="text-[13px] block mb-0.5">🚚</span>
+                <span className="text-[10px] font-sans font-semibold text-[#200E19] block uppercase tracking-[0.06em]">Pan-India</span>
+                <span className="text-[9.5px] font-sans text-[#7E6875] block">Crush-proof box</span>
+              </div>
             </div>
           </form>
         </motion.div>
       </div>
 
+      {/* Floating Confirmation Toast */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 16, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+          >
+            <div className="bg-[#180812] text-white text-xs font-sans font-medium px-4 py-2.5 rounded-full shadow-2xl border border-[#D8A657]/40 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D8A657]" />
+              <span>{toast}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Related Products */}
       {relatedProducts.length > 0 && (
         <section className="mt-24 pt-14 border-t border-[#F0E5EC]">
           <div className="mb-8">
-            <span className="eyebrow">Studio Atelier</span>
+            <span className="eyebrow">Handcrafted For You</span>
             <h2 className="font-serif text-2xl sm:text-3xl text-[#200E19] font-normal">
               More Handcrafted Keepsakes
             </h2>

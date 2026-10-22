@@ -14,6 +14,7 @@ import { BagGiftProgress } from "./BagGiftProgress";
 import { BagGiftNote } from "./BagGiftNote";
 import { BagQuickAddons } from "./BagQuickAddons";
 import { BagTrustBadges } from "./BagTrustBadges";
+import { SplitOrderButton } from "@/components/common/SplitOrderButton";
 
 export function BagContents({
   products,
@@ -68,6 +69,20 @@ export function BagContents({
         "Your order enquiry is ready in WhatsApp. Review and send it to our studio.",
         4000,
       );
+    } catch (e) {
+      showNotice(
+        e instanceof Error ? e.message : "Check your bag before enquiring.",
+        3500,
+      );
+    }
+  }
+
+  async function handleInstagramBag() {
+    try {
+      const text = message();
+      await navigator.clipboard.writeText(text);
+      showNotice("Bag details copied! Paste in studio Instagram DM 💌", 3500);
+      window.open(siteConfig.instagramUrl, "_blank", "noopener,noreferrer");
     } catch (e) {
       showNotice(
         e instanceof Error ? e.message : "Check your bag before enquiring.",
@@ -461,20 +476,16 @@ export function BagContents({
               </p>
             )}
 
-            {/* Primary Action Button: Order on WhatsApp with Royal Emerald Gradient */}
-            <motion.button
-              type="button"
-              whileTap={{ scale: 0.98 }}
-              onClick={whatsapp}
-              disabled={!canEnquire || !siteConfig.whatsappClean}
-              className="w-full py-3.5 px-4 rounded-[3px] bg-gradient-to-r from-[#128C7E] to-[#25D366] hover:brightness-105 text-white text-xs font-sans font-semibold tracking-[0.14em] uppercase transition-all duration-200 shadow-md flex items-center justify-center gap-2 group"
-            >
-              <MessageCircle size={17} className="text-white fill-white/20" />
-              <span>Order on WhatsApp</span>
-              <span className="group-hover:translate-x-0.5 transition-transform text-white/90">
-                ↗
-              </span>
-            </motion.button>
+            {/* Primary Interactive Dual Action: [ Order on WhatsApp (70%) | Instagram (30%) ] */}
+            <SplitOrderButton
+              onWhatsApp={whatsapp}
+              onInstagram={handleInstagramBag}
+              disabled={!canEnquire}
+              whatsAppLabelExpanded="Order on WhatsApp"
+              whatsAppLabelCollapsed="WhatsApp"
+              instagramLabelExpanded="Order on Instagram"
+              instagramLabelCollapsed="Instagram"
+            />
 
             {/* Footer Bottom Utility Row */}
             <div className="flex justify-between items-center text-[10.5px] font-sans text-[#7E6875] pt-1">

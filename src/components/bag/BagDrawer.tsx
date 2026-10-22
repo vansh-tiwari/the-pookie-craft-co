@@ -11,7 +11,7 @@ import { BagContents } from "./BagContents";
 export function BagDrawer({ initialProducts }: { initialProducts: Product[] }) {
   const { isOpen, closeBag, count, ready } = useBag();
   const [products, setProducts] = useState(initialProducts);
-  const [catalogReady, setCatalogReady] = useState(false);
+  const [catalogReady, setCatalogReady] = useState(initialProducts?.length > 0);
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
 
@@ -40,7 +40,7 @@ export function BagDrawer({ initialProducts }: { initialProducts: Product[] }) {
   useEffect(() => {
     if (!isOpen) return;
     const controller = new AbortController();
-    setCatalogReady(false);
+    if (!products.length) setCatalogReady(false);
     setError("");
     fetch("/api/catalog", { cache: "no-store", signal: controller.signal })
       .then(async (response) => {
