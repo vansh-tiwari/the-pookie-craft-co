@@ -286,7 +286,7 @@ export default function CustomOrdersPage() {
                     id="custom-contact"
                     type="text"
                     required
-                    placeholder="e.g. +91 98765 43210 or yourname@gmail.com"
+                    placeholder="e.g. +91 78791 23355 or yourname@gmail.com"
                     value={form.contact}
                     onChange={(e) =>
                       setForm((prev) => ({ ...prev, contact: e.target.value }))

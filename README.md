@@ -11,7 +11,7 @@ npm run dev
 
 Open [the local preview](http://127.0.0.1:3000). The `127.0.0.1` origin avoids service-worker caches from unrelated projects previously served at `localhost:3000`.
 
-Copy `.env.example` into a private environment file only if you do not already have `.env.local`. Preserve existing environment settings. Confirm the actual WhatsApp number and email; blank values do not invent contact details. The old sample number `+919876543210` is explicitly disabled. WhatsApp actions fall back to the contact page until a real number is configured.
+Copy `.env.example` into a private environment file only if you do not already have `.env.local`. Preserve existing environment settings. The studio WhatsApp line is configured to `+91 78791 23355`. WhatsApp enquiry and order actions open WhatsApp Web/app directly.
 
 ## Owner access
 

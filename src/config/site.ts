@@ -1,8 +1,8 @@
-const raw = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210").replace(
+const raw = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917879123355").replace(
   /[^0-9]/g,
   "",
 );
-const number = raw.length === 10 ? `91${raw}` : (raw || "919876543210");
+const number = raw.length === 10 ? `91${raw}` : (raw || "917879123355");
 export const siteConfig = {
   name: "The Pookie Craft Co.",
   brandSlug: "thepookiecraft",
@@ -19,8 +19,7 @@ export const siteConfig = {
   whatsappNumber: number ? `+${number}` : "",
   whatsappClean: /^\d{11,15}$/.test(number) ? number : "",
   whatsappDisplay:
-    process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY ||
-    (number ? `+${number}` : "To be confirmed"),
+    process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY || "+91 78791 23355",
   instagramHandle: process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || "thepookiecraft",
   instagramUrl:
     process.env.NEXT_PUBLIC_INSTAGRAM_URL ||
